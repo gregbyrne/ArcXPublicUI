@@ -1,2 +1,2 @@
-# ARX-X Public UI
+# ARC-X Public UI
 
