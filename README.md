@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # arc-x-public-ui
 
 ## Project setup
@@ -22,3 +23,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# ARC-X Public UI
+
+>>>>>>> 24bfbe51b79588d0e63507042619ed0d6071cd23
