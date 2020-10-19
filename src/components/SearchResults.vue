@@ -9,10 +9,7 @@
 
 <script>
 export default {
-  name: 'Home',
-  props: {
-    msg: String
-  }
+  name: 'SearchResults',
 }
 </script>
 
