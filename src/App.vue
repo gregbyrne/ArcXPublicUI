@@ -42,5 +42,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+@import './assets/styles/oneepa/style.css';
+@import './assets/styles/oneepa/accordions.css';
+@import './assets/styles/oneepa/boxes.css';
+@import './assets/styles/oneepa/forms.css';
+@import './assets/styles/oneepa/tables.css';
+@import './assets/styles/oneepa/tabs.css';
+
 
 </style>
