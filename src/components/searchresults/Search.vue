@@ -46,9 +46,9 @@
 </template>
 
 <script>
-    import aoe from './AreaOfInterest.vue'
-    import geo from './GeographicRegion.vue'
-    import contact from './layout/ContactUs.vue'
+    import aoe from '../home/AreaOfInterest.vue'
+    import geo from '../home/GeographicRegion.vue'
+    import contact from '../layout/ContactUs.vue'
 
 
     export default {
@@ -67,10 +67,10 @@
 
 
 
-    @import '../assets/styles/oneepa/style.css';
-    @import '../assets/styles/oneepa/accordions.css';
-    @import '../assets/styles/oneepa/boxes.css';
-    @import '../assets/styles/oneepa/forms.css';
-    @import '../assets/styles/oneepa/tables.css';
-    @import '../assets/styles/oneepa/tabs.css';
+    @import '../../assets/styles/oneepa/style.css';
+    @import '../../assets/styles/oneepa/accordions.css';
+    @import '../../assets/styles/oneepa/boxes.css';
+    @import '../../assets/styles/oneepa/forms.css';
+    @import '../../assets/styles/oneepa/tables.css';
+    @import '../../assets/styles/oneepa/tabs.css';
 </style>

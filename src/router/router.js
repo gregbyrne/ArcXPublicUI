@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "@/components/Home";
-import SearchResults from "@/components/SearchResults";
-import Search from "@/components/Search";
+import Home from "@/components/home/Home";
+import SearchResults from "@/components/searchresults/SearchResults";
+import Search from "@/components/searchresults/Search";
 
 Vue.use(Router);
 
