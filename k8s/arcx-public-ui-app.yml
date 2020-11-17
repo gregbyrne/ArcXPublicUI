@@ -25,7 +25,7 @@ spec:
         fsGroup: 555
       containers:
       - name: app
-        image: $CI_REGISTRY_IMAGE/public-api-app:$CI_COMMIT_REF_SLUG
+        image: $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
