@@ -30,6 +30,9 @@ spec:
         envFrom:
         - configMapRef:
             name: arcx-public-ui-configmap
+        env:
+          - name: REDEPLOY_META
+            value: $CI_JOB_ID-$CI_COMMIT_SHA
         livenessProbe:
          tcpSocket:
             port: 8080

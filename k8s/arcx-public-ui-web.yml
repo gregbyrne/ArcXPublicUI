@@ -29,6 +29,8 @@ spec:
         - configMapRef:
             name: arcx-public-ui-configmap
         env:
+        - name: REDEPLOY_META
+          value: $CI_JOB_ID-$CI_COMMIT_SHA
         - name: WEB_HTTPS
           value: "false"
         - name: WEB_HTTPS_ONLY
