@@ -1,14 +1,11 @@
 # base image
 FROM node:12-alpine
 
-# set working directory
-WORKDIR /app
-
-# add '/app/node_modules/.bin' to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+RUN apk install tree
+RUN tree .
 
 # install and cache app dependencies
-COPY ./package.json /app/package.json
+COPY ./package.json package.json
 RUN npm install --verbose
 
 EXPOSE 8080
