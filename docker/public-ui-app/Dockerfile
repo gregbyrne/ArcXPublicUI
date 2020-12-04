@@ -1,7 +1,7 @@
 # base image
 FROM node:12-alpine
 
-RUN apk install tree
+RUN apk add tree
 RUN tree .
 
 # install and cache app dependencies
