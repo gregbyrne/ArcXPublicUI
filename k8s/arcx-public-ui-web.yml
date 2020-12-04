@@ -1,4 +1,4 @@
-uiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: arcx-public-ui-web
@@ -38,7 +38,7 @@ spec:
 
 ---
 
-uiVersion: v1
+apiVersion: v1
 kind: Service
 metadata:
   name: arcx-public-ui-web-service
@@ -50,7 +50,7 @@ spec:
 
 ---
 
-uiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: arcx-public-ui-web-ingress
