@@ -21,13 +21,13 @@ spec:
     spec:
       containers:
       - name: web
-        image: $CI_REGISTRY_IMAGE/web:$CI_COMMIT_REF_SLUG
+        image: $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         ports:
         - containerPort: 80
         envFrom:
         - configMapRef:
-            name: arcx-config
+            name: arcx-public-ui-configmap
         env:
         - name: WEB_HTTPS
           value: "false"
@@ -46,7 +46,7 @@ spec:
   ports:
   - port: 80
   selector:
-    app: arcx-web
+    app: arcx-public-ui-web
 
 ---
 
@@ -58,7 +58,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: arcx-development.devsecops-eval.epa.gov
+  - host: arcx-development-public-ui.devsecops-eval.epa.gov
     http:
       paths:
       - backend:

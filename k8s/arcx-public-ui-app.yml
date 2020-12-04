@@ -29,7 +29,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-            name: arcx-config
+            name: arcx-public-ui-configmap
         livenessProbe:
          tcpSocket:
             port: 8080

@@ -1,11 +1,11 @@
 stages:
-  - build
+  - images
   - deploy
 
-public-api-app:image:build:
+public-ui-app:image:build:
   tags:
     - docker
-  stage: build
+  stage: images
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -17,7 +17,7 @@ public-api-app:image:build:
 public-ui-web:image:build:
   tags:
     - docker
-  stage: build
+  stage: images
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -44,7 +44,7 @@ deploy to dev:
     - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply -f -
   environment:
     name: development
-    url: https://arcx-development.devsecops-eval.epa.gov
+    url: https://arcx-development-public-ui.devsecops-eval.epa.gov
   only:
     - branches
   except:
