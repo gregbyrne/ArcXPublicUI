@@ -2,12 +2,21 @@
 FROM node:12-alpine
 
 RUN apk add tree
+
+
+WORKDIR /usr/src/app
+
+COPY builds/arc-x/arc-x-public-ui .
+
+RUN pwd
 RUN tree .
 
-# install and cache app dependencies
-COPY ./package.json package.json
-RUN npm install --verbose
+RUN npm install
 RUN npm install -g @vue/cli
+RUN npm run build
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
 
 EXPOSE 8080
 
