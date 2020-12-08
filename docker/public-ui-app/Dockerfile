@@ -5,8 +5,8 @@ RUN apk add tree
 
 
 WORKDIR /usr/src/app
-
-COPY builds/arc-x/arc-x-public-ui .
+# /builds/arc-x/arc-x-public-ui/builds/arc-x/arc-x-public-ui
+COPY . /usr/src/app
 
 RUN pwd
 RUN tree .
