@@ -8,19 +8,34 @@
              <em>Pick one or more interests:</em>
          </div>
 
-         {{aoiitems}}
-
          <div class="col">
 
 
              <ul>
-                 <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id" >
-                     <li v-if="index < 3"   :id="area.id">
-                         <strong>{{ area.name }} {{area.id}}</strong>
+                 <ul class="aoe-list"  v-for="(arealabel, index) in areaofinterest" v-bind:key="arealabel.text" >
+                     <li v-if="index < 2"   :id="arealabel.key">
+                         <strong>{{ arealabel.text }} </strong>
 
-                         <ul v-for="item in aoiitems"  v-bind:key="item.id" >
-                             preif
 
+                         <ul v-for="area in aoe2" v-bind:key="area.aoeKey"  class="aoe-list">
+                             <div v-if="arealabel.key === area.parentKey">
+                                 <li>
+                                    <input type="checkbox" :id="area.id" :value="area.text" v-model="checkedInterests">
+                                    <label class="option" :for="area.id">{{area.text}}</label>
+
+                                     <div v-for="children in aoe3" v-bind:key="children.id"  class="aoe-list">
+                                         <div v-if ="(area.childKey === children.parentKey) && (children.childKey === 'x')">
+                                             <ul class="aoe-list"><li>
+                                                <input type="checkbox" :id="children.id" :value="children.text" v-model="checkedInterests">
+                                                 <label class="option" :for="children.id">{{children.text}}</label></li></ul>
+                                         </div>
+
+                                     </div>
+
+
+
+                                 </li>
+                             </div>
                          </ul>
 
 
@@ -33,7 +48,7 @@
 
          <div class ="col">
              <ul>
-                 <ul class="aoe-list"  v-for="(arealabel, index) in aoi1" v-bind:key="arealabel.text" >
+                 <ul class="aoe-list"  v-for="(arealabel, index) in areaofinterest" v-bind:key="arealabel.text" >
                      <li v-if="index >= 2"   :id="arealabel.key">
                          <strong>{{ arealabel.text }} </strong>
 
@@ -82,23 +97,24 @@
 
 <script>
     import area_of_interest from "@/models/area_of_interest";
-    import area_of_interest_item from "@/models/area_of_interest_item";
-    import area_of_interest_sub_item from "@/models/area_of_interest_sub_item";
+    //import area_of_interest_item from "@/models/area_of_interest_item";
+    //import area_of_interest_sub_item from "@/models/area_of_interest_sub_item";
+    //import axios from "axios";
     import jQuery from "jquery";
 
     export default{
-        data: function() {
+        data() {
             return {
                 area_of_interest: new area_of_interest(''),
-                area_of_interest_items: new area_of_interest_item(''),
-                area_of_interest_sub_item: new area_of_interest_sub_item(''),
+                //area_of_interest_item: new area_of_interest_item(''),
+                //area_of_interest_sub_item: new area_of_interest_sub_item(''),
                 areaofint: null,
-                aoiitems: null,
-                subitems: null,
+                //aoiitems: null,
+                //subitems: null,
 
 
                 name: 'Area of Interest Test',
-                aoi1:[
+                areaofinterest:[
                     { text: 'Air Quality', key: '0' },
                     { text: 'Water Management', key: '1' },
                     { text: 'Waste Management & Emergency Response', key: '2' },
@@ -156,7 +172,8 @@
             {
                 jQuery.ajaxSetup({
                     headers : {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + this.$store.state.auth.user.accessToken
                     }
                 });
 
@@ -166,60 +183,16 @@
                     _this.areaofint = areaofint._embedded.area_of_interest;
 
                 });
-
-
             },
-            getAreaOfInterestItem(){
-
-                jQuery.ajaxSetup({
-                    headers : {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                var _this = this;
-
-                jQuery.getJSON('http://localhost:7100/api/area_of_interest_items', function (aoiitems) {
-                    _this.aoiitems = aoiitems._embedded.area_of_interest_items;
-                });
-
-            },
-            hitest(){
-                console.log('asdasd')
-              console.log(JSON.stringify(this.aoiitems))
-
-
-            },
-
-
-        getAreaOfInterestSubItem(){
-
-            jQuery.ajaxSetup({
-                headers : {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            var _this = this;
-
-            jQuery.getJSON('http://localhost:7100/api/area_of_interest_sub_items', function (subitems) {
-                _this.subitems = subitems._embedded.area_of_interest_sub_items;
-
-            console.log('subitems: ' + _this.subitems)
-
-            });
-
-        },
 
 
 
 
 
         },created() {
-            this.getAreaOfInterest();
-            this.getAreaOfInterestItem();
-            this.getAreaOfInterestSubItem();
-            this.hitest();
+            this.getAreaOfInterest()
+            //this.getAreaOfInterestItem()
+            //this.getAreaOfInterestSubItem()
 
         }
 
