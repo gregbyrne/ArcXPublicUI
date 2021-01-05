@@ -2,12 +2,13 @@
 
  <div>
 
-     <div class="row cols-2">
-         <h2>Area of Interest</h2>
-         <div>
-             <em>Pick one or more interests:</em>
+     <div class="row cols-2 aoe-menu">
+         <div class= "aoe-header">
+             <h2>Area of Interest</h2>
+             <div>
+                 <em>Pick one or more interests:</em>
+             </div>
          </div>
-
 
          <div class="col">
 
@@ -282,5 +283,17 @@
 
     .aoe-list{
         list-style: none;
+    }
+
+    .aoe-menu{
+        padding-left: 1em;
+    }
+
+    .aoe-menu .col{
+        padding-left: 0em;
+    }
+
+    .aoe-header{
+        padding-left: 6ch;
     }
 </style>
