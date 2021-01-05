@@ -8,18 +8,32 @@
              <em>Pick one or more interests:</em>
          </div>
 
-         {{aoiitems}}
 
          <div class="col">
 
 
              <ul>
-                 <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id" >
-                     <li v-if="index < 3"   :id="area.id">
-                         <strong>{{ area.name }} {{area.id}}</strong>
+                 <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id"  >
+                     <li v-if="index < midpoint"   :id="area.id">
+                         <strong>{{ area.name }}</strong>
 
-                         <ul v-for="item in aoiitems"  v-bind:key="item.id" >
-                             preif
+                         <ul v-for="item in aoiitems"  v-bind:key="item.id"  class="aoe-list">
+                             <li v-if="item.parentid === area.id">
+                                 <input type="checkbox" :id="'item_' + item.id" :value="item.id" v-model="checkedItems" @click="clickSubItems(item, subitems,checkedItems)">
+                                 <label class="option" :for="'item_' + item.id">{{item.name}}</label>
+
+                                 <div v-for="subitem in subitems" v-bind:key="subitem.id"  class="aoe-list">
+                                     <div v-if ="(item.id === subitem.parentid)">
+                                         <ul class="aoe-list"><li>
+                                             <input type="checkbox" :id="'subitem' + subitem.id" :value="subitem.id"  v-model="checkedSubItems">
+                                             <label class="option" :for="'subitem' + subitem.id">{{subitem.name}}</label></li></ul>
+                                     </div>
+
+                                 </div>
+
+
+
+                             </li>
 
                          </ul>
 
@@ -33,18 +47,28 @@
 
          <div class ="col">
              <ul>
-                 <ul class="aoe-list"  v-for="(arealabel, index) in aoi1" v-bind:key="arealabel.text" >
-                     <li v-if="index >= 2"   :id="arealabel.key">
-                         <strong>{{ arealabel.text }} </strong>
+                 <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id"  >
+                     <li v-if="(index >= midpoint) && (index < areaofint.length)"   :id="area.id">
+                         <strong>{{ area.name }}</strong>
+
+                         <ul v-for="item in aoiitems"  v-bind:key="item.id"  class="aoe-list">
+                             <li v-if="item.parentid === area.id">
+                                 <input type="checkbox" :id="'item_' + item.id" :value="item.id" v-model="checkedItems" @click="clickSubItems(item, subitems,checkedItems)">
+                                 <label class="option" :for="'item_' + item.id">{{item.name}}</label>
+
+                                 <div v-for="subitem in subitems" v-bind:key="subitem.id"  class="aoe-list">
+                                     <div v-if ="(item.id === subitem.parentid)">
+                                         <ul class="aoe-list"><li>
+                                             <input type="checkbox" :id="'subitem' + subitem.id" :value="subitem.id"  v-model="checkedSubItems" >
+                                             <label class="option" :for="'subitem' + subitem.id">{{subitem.name}}</label></li></ul>
+                                     </div>
+
+                                 </div>
 
 
-                         <ul v-for="area in aoe2" v-bind:key="area.aoeKey"  class="aoe-list">
-                             <div v-if="arealabel.key === area.parentKey">
-                                 <li>
-                                     <input type="checkbox" :id="area.id" :value="area.text" v-model="checkedInterests">
-                                     <label class="option" :for="area.id">{{area.text}}</label>
-                                 </li>
-                             </div>
+
+                             </li>
+
                          </ul>
 
 
@@ -54,16 +78,12 @@
                  </ul>
              </ul>
 
-
-
-
-
-
              <div class="epa-select-button">
                  <p>Select both a region and an area of interest to search.</p>
-                 <button v-on:click="submit">Submit Search</button>
-                 <button v-on:click="clearAll">Clear All</button>
+                 <button v-on:click="submit()">Submit Search</button>
+                 <button type="button" v-on:click="clearAll()">Clear All</button>
              </div>
+
 
 
          </div>
@@ -95,57 +115,14 @@
                 areaofint: null,
                 aoiitems: null,
                 subitems: null,
+                midpoint: 2,
 
 
                 name: 'Area of Interest Test',
-                aoi1:[
-                    { text: 'Air Quality', key: '0' },
-                    { text: 'Water Management', key: '1' },
-                    { text: 'Waste Management & Emergency Response', key: '2' },
-                    { text: 'Public Health', key: '3' },
-                    { text: 'Adaptation Planning', key: '4' },
-                ],
 
-                aoe2:[
-                    { id: '0', text : 'Indoor Air' , parentKey : '0', childKey : '0'},
-                    { id: '1', text : 'Outdoor Air' , parentKey : '0', childKey : '1'},
-                    { id: '2', text : 'Water Utility Facility Operations' , parentKey : '1', childKey : '2'},
-                    { id: '3', text : 'Water Quality' , parentKey : '1', childKey : '3'},
-                    { id: '4', text : 'Ecosystem Protection' , parentKey : '1', childKey : '4'},
-                    { id: '5', text : 'Contaminated Site Management' , parentKey : '2', childKey : ''},
-                    { id: '6', text : 'Disaster Debris Management' , parentKey : '2', childKey : ''},
-                    { id: '7', text : 'Air Quality' , parentKey : '3', childKey : '0'},
-                    { id: '8', text : 'Water Quality' , parentKey : '3', childKey : '0'},
-                    { id: '9', text : 'Extreme Heat' , parentKey : '3', childKey : '0'},
-                    { id: '10', text : 'Getting Started' , parentKey : '4', childKey : '0'},
-                    { id: '11', text : 'Comprehensive' , parentKey : '4', childKey : '0'},
-                    { id: '12', text : 'Sector Based' , parentKey : '4', childKey : '0'},
+                checkedItems:[],
+                checkedSubItems:[],
 
-
-
-
-
-                ],
-
-                aoe3:[
-                    { id: '13', text : 'Drought' , parentKey : '2', childKey : 'x'},
-                    { id: '14', text : 'Saltwater Intrusion' , parentKey : '2', childKey : 'x'},
-                    { id: '15', text : 'Sea-level Rise' , parentKey : '2', childKey : 'x'},
-                    { id: '16', text : 'Storms & Flooding' , parentKey : '2', childKey : 'x'},
-                    { id: '17', text : 'Source Water Impacts' , parentKey : '2', childKey : 'x'},
-                    { id: '18', text : 'Ground Level Ozone' , parentKey : '1', childKey : 'x'},
-                    { id: '19', text : 'Particulate Matter' , parentKey : '1', childKey : 'x'},
-
-                    { id: '20', text : 'Stormwater Runoff' , parentKey : '3', childKey : 'x'},
-                    { id: '21', text : 'Erosion & Sedimentatino' , parentKey : '3', childKey : 'x'},
-                    { id: '22', text : 'Algal Blooms' , parentKey : '3', childKey : 'x'},
-
-                    { id: '23', text : 'Wetland Protection' , parentKey : '4', childKey : 'x'},
-                    { id: '24', text : 'Estuaries' , parentKey : '4', childKey : 'x'},
-                    { id: '25', text : 'Change in Fish Species' , parentKey : '4', childKey : 'x'},
-
-                ],
-                checkedInterests:[],
 
 
 
@@ -205,11 +182,68 @@
             jQuery.getJSON('http://localhost:7100/api/area_of_interest_sub_items', function (subitems) {
                 _this.subitems = subitems._embedded.area_of_interest_sub_items;
 
-            console.log('subitems: ' + _this.subitems)
 
             });
 
         },
+            submit(){
+                alert('submit')
+
+
+            },
+            clearAll(){
+
+                this.checkedItems = [];
+                this.checkedSubItems = [];
+
+
+            },
+            clickSubItems(item, subitems,checkedItems){
+
+                let childItems = [];
+
+                for( var i = 0; i < subitems.length; i++){
+
+                    if( subitems[i].parentid == item.id){
+                        childItems.push(subitems[i].id)
+                    }
+
+                }
+
+                if(!(checkedItems.includes(item.id))){
+                    console.log('Not checked - add sub items')
+                    //add child items to sub items
+                    for( var j = 0; j < childItems.length; j++){
+                        console.log('infor')
+                        var subItemAdd = childItems[j];
+
+
+                        if(!(this.checkedSubItems.includes(subItemAdd))){
+                            this.checkedSubItems.push(subItemAdd)
+
+                        }
+                    }
+
+                }else{
+                    //checked
+                    //remove child items from sub items
+
+                        for( var l = 0; l < childItems.length; l++) {
+                            let ind = this.checkedSubItems.indexOf(childItems[l])
+                            if( ind > -1){
+                                this.checkedSubItems.splice(ind, 1)
+
+                        }
+                    }
+
+            }
+
+
+
+
+
+            }
+
 
 
 
@@ -221,6 +255,14 @@
             this.getAreaOfInterestSubItem();
             this.hitest();
 
+        },
+        watch: {
+            checkedItems: function(){
+
+            },
+            checkedSubItems: function(){
+
+            },
         }
 
 
