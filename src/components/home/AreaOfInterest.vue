@@ -192,8 +192,7 @@
 
         },
             submit(){
-                alert('submit')
-
+                this.$router.push('/searchresults?'+this.checkedItems)
 
             },
             clearAll(){
@@ -216,10 +215,8 @@
                 }
 
                 if(!(checkedItems.includes(item.id))){
-                    console.log('Not checked - add sub items')
                     //add child items to sub items
                     for( var j = 0; j < childItems.length; j++){
-                        console.log('infor')
                         var subItemAdd = childItems[j];
 
 
