@@ -2,15 +2,12 @@
 
     <div>
         <h3 class="highlighted">Additional Information about Climate Change in Your Region</h3>
-        <div class="indented" id="region_summary"><p>The Midwest is projected to experience extreme heat, heavy downpours, and flooding that will affect infrastructure, health, agriculture, forestry, transportation, air and water quality, and more. Climate change will also exacerbate a range of risks to the Great Lakes.</p>
 
-            <div>Use the links below for additional information about:</div>
+        <div v-for="(info) in addinfo" v-bind:key="info.id" v-html="info.description">
 
-            <ul><li><a href="https://www.globalchange.gov/explore/midwest" target="_blank">Climate Impacts on the Midwest</a></li>
-                <li><a href="https://19january2017snapshot.epa.gov/climate-impacts/climate-change-impacts-state_.html" target="_blank">What Climate Change Means for Your State</a></li>
-                <li><a href="/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the Midwest are Adapting</a></li>
-            </ul></div>
+          {{ info.description }}
 
+        </div>
 
 
     </div>
@@ -28,8 +25,40 @@
 
 <script>
 
+import jQuery from "jquery";
+const API_HOME = process.env.VUE_APP_API_URL
+
 export default {
-  props: ['region']
+  data: function() {
+    return {
+
+      addinfo: [],
+      region: this.$route.params.region
+
+    }
+  },
+  props: ['addinforegion'],
+  methods: {
+    getadditionalinfo()
+    {
+      jQuery.ajaxSetup({
+          headers : {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        var _this = this;
+
+        jQuery.getJSON(API_HOME + "additional_information/search/additionalinfo?regioncode=" + this.region, function (addinfo) {
+          _this.addinfo = addinfo._embedded.additional_information;
+
+        });
+    }
+  },
+  created()
+  {
+    this.getadditionalinfo()
+  }
 }
 
 </script>

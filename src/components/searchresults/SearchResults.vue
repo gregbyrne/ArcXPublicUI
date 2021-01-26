@@ -25,7 +25,7 @@
                   <app-steps :itemSelections="itemSelections" :subitemSelections="subitemSelections"></app-steps>
 
                   <!-- Additional Information    -->
-                  <app-addinfo></app-addinfo>
+                  <app-addinfo :addinforegion="region"></app-addinfo>
 
                 </div>
 
