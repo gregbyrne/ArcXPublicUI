@@ -122,15 +122,10 @@
                 subitems: null,
                 midpoint: 2,
 
-
                 name: 'Area of Interest Test',
 
                 checkedItems:[],
                 checkedSubItems:[],
-
-
-
-
 
             }
         },methods: {
@@ -192,7 +187,10 @@
 
         },
             submit(){
-                this.$router.push('/searchresults?'+this.checkedItems)
+                var selectedRegion = jQuery( "#regionselect option:selected" ).val();
+
+                this.$router.push({name: 'searchresults', params: {checkedItems: JSON.stringify(this.checkedItems),
+                    checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion}})
 
             },
             clearAll(){

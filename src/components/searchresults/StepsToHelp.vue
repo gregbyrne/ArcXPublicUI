@@ -4,17 +4,17 @@
         <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
 
         <ul class="accordion">
-            <li v-for="(step) in steps" v-bind:key="step.id"  >
+            <li v-for="(step) in sthp" v-bind:key="step.id"  >
                 <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
                     <strong>{{ step.name }} </strong>
-                    <span id="notbold1" style="font-weight:normal;"> - {{ step.subtext }}</span>
+                    <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }}</span>
                 </a>
 
                 <div class="accordion-pane is-closed" :id="'steppane-' + step.id"  >
 
                     <div class="indented" id-="region_concern">
 
-                        {{step.boxvalue}}
+                        {{ step.description }}
                         <div>
                             <strong>Water Utilities</strong>
                             " Drought, Saltwater Intrusion, Sea Level Rise, Storms and Source Water Impacts."
@@ -54,14 +54,18 @@
 <script>
 
     import $ from "jquery";
+    import jQuery from "jquery";
+
+    const API_HOME = process.env.VUE_APP_API_URL
 
     export default{
+        props: ['itemSelections', 'subitemSelections'],
         data() {
             return {
 
                 name: 'Area of Interest Test',
                 steps:[
-                    { name: 'Implications of Climate Change', subtext: 'Why does climate change matter for the things you care about?', boxvalue: 'Water Utilities: Sea Level Rise',  id: '0' },
+                    { name: 'Implications of Climate Change', subtext: 'Why does climate change matter for the things you care about?', description: 'Water Utilities: Sea Level Rise',  id: '0' },
                     { name: 'Adaptation Strategies', subtext: 'What can you do about it?', boxvalue: 'Adaptation strategies are provided below based upon your selected area(s) of interest and organized according to climate vulnerability and/or targeted climate threat. Select one of the categories below to open up a tab that contains a collection of adaptation strategies specific to that theme.',  id: '1' },
                     { name: 'Case Studies', subtext: 'How can you replicate the successes other communities have had implementing the strategies?', boxvalue: 'Sea Level Rise\n' +
                             'Here are two examples of how water utilities are adapting to potential climate vulnerabilities from sea level rise. This section also contains a third case study detailing how several communities in South Florida collaborated to better identify vulnerabilities from sea level rise.',  id: '2' },
@@ -91,8 +95,10 @@
 
 
                 ],
+                itemIds: this.$props.itemSelections,
+                subitemIds: this.$props.subitemSelections,
 
-
+                sthp: null,
 
 
 
@@ -123,7 +129,29 @@
                 }
 
             },
+        getStepsToHelpPrepare()
+        {
+          jQuery.ajaxSetup({
+            headers : {
+              'Content-Type': 'application/json'
+            }
+          });
 
+          var _this = this;
+
+          jQuery.getJSON(API_HOME + "steps_to_help_prepare", function (sthp) {
+            _this.sthp = sthp._embedded.steps_to_help_prepare;
+
+          });
+
+
+        }
+
+        },
+        created()
+        {
+          //alert(this.itemIds[0] + ':' + this.subitemIds[0])
+          this.getStepsToHelpPrepare()
         }
 
 

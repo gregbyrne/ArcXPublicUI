@@ -10,7 +10,7 @@
             <div class="pane-content">
                 <div id="region_map">
                                   <span class="figure image file file-image file-image-jpeg view-mode-media_original" style="wdith:370px;">
-                                    <img alt="Southeast Region" title="Southeast Region" height="280" width="370" class="media-element file-media-original" src="https://www.epa.gov/sites/production/files/2016-06/region-southeast.jpg">
+                                    <img :alt="fullregionname + ' Region'" :title="fullregionname + ' Region'" height="280" width="370" class="media-element file-media-original" :src="map">
 
                                   </span>
                 </div>
@@ -23,12 +23,12 @@
             <div class="pane-content">
                 <div id="region_factsheet">
                     <p>
-                        <a href="/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the Southeast are Adapting</a>
+                        <a href="/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the {{ fullregionname }} are Adapting</a>
                     </p>
                     <a href="/arc-x/regional-guides-adapting-climate-change" target="_blank">
                             <span class="figure image file file-image file-image-jpeg center view-mode-media_original" style="width:199px;">
-                              <img alt="Cover of Southeast Region Factsheet: Adapting to Climate Change" title="Cover of Southeast Region Factsheet: Adapting to Climate Change" height="250" width="199" class="center media-element file-media-original"
-                                   src="https://www.epa.gov/sites/production/files/2016-08/page-southeast.jpg">
+                              <img :alt="'Cover of ' + fullregionname + ' Region Factsheet: Adapting to Climate Change'" :title="'Cover of ' + fullregionname + ' Region Factsheet: Adapting to Climate Change'" height="250" width="199" class="center media-element file-media-original"
+                                   :src="page">
                             </span>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
     </div>
 
     <div id="requeryform">
-        <button v-on:click="searchAgain()">Submit Again</button>
+        <button v-on:click="this.searchAgain()">Submit Again</button>
     </div>
 
 
@@ -61,11 +61,100 @@
 
 <script>
 
+import alaskamap from "../../assets/regions/map/region-alaska.jpg"
+import greatplainsmap from "../../assets/regions/map/region-greatplains.jpg"
+import hawaiimap from "../../assets/regions/map/region-hawaii.jpg"
+import midwestmap from "../../assets/regions/map/region-midwest.jpg"
+import northeastmap from "../../assets/regions/map/region-northeast.jpg"
+import northwestmap from "../../assets/regions/map/region-northwest.jpg"
+import southeastmap from "../../assets/regions/map/region-southeast.jpg"
+import southwestmap from "../../assets/regions/map/region-southwest.jpg"
 
+import alaskapage from "../../assets/regions/page/page-alaska.jpg"
+import greatplainspage from "../../assets/regions/page/page-greatplains.jpg"
+import hawaiipage from "../../assets/regions/page/page-hawaii.jpg"
+import midwestpage from "../../assets/regions/page/page-midwest.jpg"
+import northeastpage from "../../assets/regions/page/page-northeast.jpg"
+import northwestpage from "../../assets/regions/page/page-northwest.jpg"
+import southeastpage from "../../assets/regions/page/page-southeast.jpg"
+import southwestpage from "../../assets/regions/page/page-southwest.jpg"
 
+export default {
+  props: ['region'],
+  data() {
+    return {
+      fullregionname: '',
+      map: '',
+      page: ''
+    }
+    },
+  methods: {
+    setRegionValue()
+    {
+      if (this.$props.region == 'AK')
+      {
+        this.map = alaskamap
+        this.page = alaskapage
+        this.fullregionname = 'Alaska'
 
+      }
+      if (this.$props.region == 'GP')
+      {
+        this.map = greatplainsmap
+        this.page = greatplainspage
+        this.fullregionname = 'Great Plains'
 
+      }
+      if (this.$props.region == 'HI')
+      {
+        this.map = hawaiimap
+        this.page = hawaiipage
+        this.fullregionname = 'Hawaii'
 
+      }
+      if (this.$props.region == 'MW')
+      {
+        this.map = midwestmap
+        this.page = midwestpage
+        this.fullregionname = 'Midwest'
+
+      }
+      if (this.$props.region == 'NE')
+      {
+        this.map = northeastmap
+        this.page = northeastpage
+        this.fullregionname = 'Northeast'
+
+      }
+      if (this.$props.region == 'NW')
+      {
+        this.map = northwestmap
+        this.page = northwestpage
+        this.fullregionname = 'Northwest'
+
+      }
+      if (this.$props.region == 'SE')
+      {
+        this.map = southeastmap
+        this.page = southeastpage
+        this.fullregionname = 'Southeast'
+
+      }
+      if (this.$props.region == 'SW')
+      {
+        this.map = southwestmap
+        this.page = southwestpage
+        this.fullregionname = 'Southwest'
+
+      }
+
+    }
+  },
+  created()
+  {
+    this.setRegionValue()
+  }
+}
 
 </script>
 

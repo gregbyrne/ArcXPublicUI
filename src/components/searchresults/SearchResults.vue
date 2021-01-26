@@ -22,7 +22,7 @@
                   <!-- LEFT SIDE -->
                   <h2>Integrated Package of Tailored Information</h2>
                   <div>&nbsp;</div>
-                  <app-steps></app-steps>
+                  <app-steps :itemSelections="itemSelections" :subitemSelections="subitemSelections"></app-steps>
 
                   <!-- Additional Information    -->
                   <app-addinfo></app-addinfo>
@@ -34,7 +34,7 @@
 
                 <div class="col size-1of4">
                   <!-- RIGHT SIDE BAR -->
-                  <app-sidebar></app-sidebar>
+                  <app-sidebar :region="region"></app-sidebar>
 
 
                 </div>
@@ -75,6 +75,9 @@
       data: function() {
           return {
 
+          itemSelections: JSON.parse(this.$route.params.checkedItems),
+          subitemSelections: JSON.parse(this.$route.params.checkedSubItems),
+          region: this.$route.params.region
 
           }
       },
@@ -88,11 +91,8 @@
 
     },methods: {
           searchAgain(){
-              alert('asdasd')
-
-
-
-          },
+            this.$router.push({name: 'search'})
+          }
 
 
       },

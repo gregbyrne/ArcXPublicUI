@@ -28,11 +28,9 @@
 
 <script>
 
-
-
-
-
-
+export default {
+  props: ['region']
+}
 
 </script>
 
