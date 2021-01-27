@@ -122,15 +122,10 @@
                 subitems: null,
                 midpoint: 2,
 
-
                 name: 'Area of Interest Test',
 
                 checkedItems:[],
                 checkedSubItems:[],
-
-
-
-
 
             }
         },methods: {
@@ -192,8 +187,10 @@
 
         },
             submit(){
-                alert('submit')
+                var selectedRegion = jQuery( "#regionselect option:selected" ).val();
 
+                this.$router.push({name: 'searchresults', params: {checkedItems: JSON.stringify(this.checkedItems),
+                    checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion}})
 
             },
             clearAll(){
@@ -216,10 +213,8 @@
                 }
 
                 if(!(checkedItems.includes(item.id))){
-                    console.log('Not checked - add sub items')
                     //add child items to sub items
                     for( var j = 0; j < childItems.length; j++){
-                        console.log('infor')
                         var subItemAdd = childItems[j];
 
 

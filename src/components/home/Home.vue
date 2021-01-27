@@ -25,7 +25,7 @@
 
                 </div>
                 <div class ="col size-3of5">
-                  <app-aoe></app-aoe>
+                  <app-aoi></app-aoi>
                 </div>
               </div>
 
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import aoe from './AreaOfInterest.vue'
+  import aoi from './AreaOfInterest.vue'
   import geo from './GeographicRegion.vue'
   import contact from '../layout/ContactUs.vue'
   import webfooter from '../layout/WebFooter.vue'
@@ -55,7 +55,7 @@
   export default {
     name: 'search',
     components: {
-      'app-aoe' : aoe,
+      'app-aoi' : aoi,
       'app-geo' : geo,
       'app-contact' : contact,
       'app-webfooter' : webfooter
