@@ -189,8 +189,18 @@
             submit(){
                 var selectedRegion = jQuery( "#regionselect option:selected" ).val();
 
-                this.$router.push({name: 'searchresults', params: {checkedItems: JSON.stringify(this.checkedItems),
-                    checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion}})
+                if (selectedRegion == null || selectedRegion == '' || (this.checkedItems.length == 0 && this.checkedSubItems.length == 0) )
+                {
+                  alert('Please select both a geographic region and area of interest before submitting.')
+                }
+                else {
+                  this.$router.push({
+                    name: 'searchresults', params: {
+                      checkedItems: JSON.stringify(this.checkedItems),
+                      checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion
+                    }
+                  })
+                }
 
             },
             clearAll(){
