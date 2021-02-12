@@ -25,7 +25,7 @@
 
                 </div>
                 <div class ="col size-3of5">
-                  <app-aoi></app-aoi>
+                  <app-aoi :itemSelections="itemSelectionsProp" :subitemSelections="subitemSelectionsProp" :region="regionProp"></app-aoi>
                 </div>
               </div>
 
@@ -54,6 +54,15 @@
 
   export default {
     name: 'search',
+    props: ['region', 'itemSelections', 'subitemSelections'],
+    data: function() {
+      return {
+        itemSelectionsProp: this.$route.params.checkedItems,
+        subitemSelectionsProp: this.$route.params.checkedSubItems,
+        regionProp: this.$route.params.region,
+
+      }
+    },
     components: {
       'app-aoi' : aoi,
       'app-geo' : geo,

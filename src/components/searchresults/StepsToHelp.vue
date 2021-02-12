@@ -56,7 +56,7 @@
     import $ from "jquery";
     import jQuery from "jquery";
 
-    const API_HOME = process.env.VUE_APP_API_URL
+    const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_AREA_OF_INTEREST_STEPS_TO_HELP_PREPARE
 
     export default{
         props: ['itemSelections', 'subitemSelections'],
@@ -131,6 +131,7 @@
             },
         getStepsToHelpPrepare()
         {
+
           jQuery.ajaxSetup({
             headers : {
               'Content-Type': 'application/json'
@@ -139,7 +140,7 @@
 
           var _this = this;
 
-          jQuery.getJSON(API_HOME + "steps_to_help_prepare", function (sthp) {
+          jQuery.getJSON(STEPS_TO_HELP_PREPARE, function (sthp) {
             _this.sthp = sthp._embedded.steps_to_help_prepare;
 
           });

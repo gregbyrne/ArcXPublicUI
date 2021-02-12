@@ -34,7 +34,7 @@
 
                 <div class="col size-1of4">
                   <!-- RIGHT SIDE BAR -->
-                  <app-sidebar :region="region"></app-sidebar>
+                  <app-sidebar :region="region" :itemSelections="itemSelections" :subitemSelections="subitemSelections"></app-sidebar>
 
 
                 </div>
@@ -89,13 +89,7 @@
       'app-addinfo' : addinfo,
       'app-steps' : steps,
 
-    },methods: {
-          searchAgain(){
-            this.$router.push({name: 'search'})
-          }
-
-
-      },
+    },
 
 
   }

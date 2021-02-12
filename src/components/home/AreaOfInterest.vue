@@ -106,166 +106,207 @@
     import area_of_interest_item from "@/models/area_of_interest_item";
     import area_of_interest_sub_item from "@/models/area_of_interest_sub_item";
     import jQuery from "jquery";
+    import debounce from 'lodash/debounce'
 
     const AOI_URL = process.env.VUE_APP_API_AREA_OF_INTEREST;
     const AOI_ITEMS_URL = process.env.VUE_APP_API_AREA_OF_INTEREST_ITEMS;
     const AOI_SUB_ITEMS_URL = process.env.VUE_APP_API_AREA_OF_INTEREST_SUB_ITEMS;
 
-    export default{
-        data: function() {
-            return {
-                area_of_interest: new area_of_interest(''),
-                area_of_interest_items: new area_of_interest_item(''),
-                area_of_interest_sub_item: new area_of_interest_sub_item(''),
-                areaofint: null,
-                aoiitems: null,
-                subitems: null,
-                midpoint: 2,
+    export default {
+      props: ['region', 'itemSelections', 'subitemSelections'],
+      data: function () {
+        return {
+          area_of_interest: new area_of_interest(''),
+          area_of_interest_items: new area_of_interest_item(''),
+          area_of_interest_sub_item: new area_of_interest_sub_item(''),
+          areaofint: null,
+          aoiitems: null,
+          subitems: null,
+          midpoint: 2,
 
-                name: 'Area of Interest Test',
+          name: 'Area of Interest',
 
-                checkedItems:[],
-                checkedSubItems:[],
+          itemSelectionsProp: this.$props.itemSelections,
+          subitemSelectionsProp: this.$props.subitemSelections,
+          regionProp: this.$props.region,
 
+          checkedItems: [],
+          checkedSubItems: [],
+
+          isloaded: 0,
+
+
+        }
+      }, methods: {
+
+        selectionCheck(elem)
+        {
+          alert(elem.id)
+        },
+        getAreaOfInterest() {
+          jQuery.ajaxSetup({
+            headers: {
+              'Content-Type': 'application/json'
             }
-        },methods: {
-            getAreaOfInterest()
-            {
-                jQuery.ajaxSetup({
-                    headers : {
-                        'Content-Type': 'application/json'
-                    }
-                });
+          });
 
-                var _this = this;
+          var _this = this;
 
-                jQuery.getJSON(AOI_URL, function (areaofint) {
-                    _this.areaofint = areaofint._embedded.area_of_interest;
+          jQuery.getJSON(AOI_URL, function (areaofint) {
+            _this.areaofint = areaofint._embedded.area_of_interest;
 
-                });
+          });
 
-
-            },
-            getAreaOfInterestItem(){
-
-                jQuery.ajaxSetup({
-                    headers : {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                var _this = this;
-
-                jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
-                    _this.aoiitems = aoiitems._embedded.area_of_interest_items;
-                });
-
-            },
-            hitest(){
-                console.log('asdasd')
-              console.log(JSON.stringify(this.aoiitems))
-
-
-            },
-
-
-        getAreaOfInterestSubItem(){
-
-            jQuery.ajaxSetup({
-                headers : {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            var _this = this;
-
-            jQuery.getJSON(AOI_SUB_ITEMS_URL, function (subitems) {
-                _this.subitems = subitems._embedded.area_of_interest_sub_items;
-
-
-            });
 
         },
-            submit(){
-                var selectedRegion = jQuery( "#regionselect option:selected" ).val();
+        getAreaOfInterestItem() {
 
-                if (selectedRegion == null || selectedRegion == '' || (this.checkedItems.length == 0 && this.checkedSubItems.length == 0) )
-                {
-                  alert('Please select both a geographic region and area of interest before submitting.')
-                }
-                else {
-                  this.$router.push({
-                    name: 'searchresults', params: {
-                      checkedItems: JSON.stringify(this.checkedItems),
-                      checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion
-                    }
-                  })
-                }
-
-            },
-            clearAll(){
-
-                this.checkedItems = [];
-                this.checkedSubItems = [];
-
-
-            },
-            clickSubItems(item, subitems,checkedItems){
-
-                let childItems = [];
-
-                for( var i = 0; i < subitems.length; i++){
-
-                    if( subitems[i].parentid == item.id){
-                        childItems.push(subitems[i].id)
-                    }
-
-                }
-
-                if(!(checkedItems.includes(item.id))){
-                    //add child items to sub items
-                    for( var j = 0; j < childItems.length; j++){
-                        var subItemAdd = childItems[j];
-
-
-                        if(!(this.checkedSubItems.includes(subItemAdd))){
-                            this.checkedSubItems.push(subItemAdd)
-
-                        }
-                    }
-
-                }else{
-                    //checked
-                    //remove child items from sub items
-
-                        for( var l = 0; l < childItems.length; l++) {
-                            let ind = this.checkedSubItems.indexOf(childItems[l])
-                            if( ind > -1){
-                                this.checkedSubItems.splice(ind, 1)
-
-                        }
-                    }
-
+          jQuery.ajaxSetup({
+            headers: {
+              'Content-Type': 'application/json'
             }
+          });
 
+          var _this = this;
 
-
-
-
-            }
-
-
-
-
-
-
-        },created() {
-            this.getAreaOfInterest();
-            this.getAreaOfInterestItem();
-            this.getAreaOfInterestSubItem();
-            this.hitest();
+          jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
+            _this.aoiitems = aoiitems._embedded.area_of_interest_items;
+          });
 
         },
+
+
+        getAreaOfInterestSubItem() {
+
+          jQuery.ajaxSetup({
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+          var _this = this;
+
+          jQuery.getJSON(AOI_SUB_ITEMS_URL, function (subitems) {
+            _this.subitems = subitems._embedded.area_of_interest_sub_items;
+
+
+          });
+
+        },
+        submit() {
+          var selectedRegion = jQuery("#regionselect option:selected").val();
+
+          if (selectedRegion == null || selectedRegion == '' || (this.checkedItems.length == 0 && this.checkedSubItems.length == 0)) {
+            alert('Please select both a geographic region and area of interest before submitting.')
+          } else {
+            this.$router.push({
+              name: 'searchresults', params: {
+                checkedItems: JSON.stringify(this.checkedItems),
+                checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion
+              }
+            })
+          }
+
+        },
+        clearAll() {
+
+          this.checkedItems = [];
+          this.checkedSubItems = [];
+
+        },
+        clickSubItems(item, subitems, checkedItems) {
+
+          let childItems = [];
+
+          for (var i = 0; i < subitems.length; i++) {
+
+            if (subitems[i].parentid == item.id) {
+              childItems.push(subitems[i].id)
+            }
+
+          }
+
+          if (!(checkedItems.includes(item.id))) {
+            //add child items to sub items
+            for (var j = 0; j < childItems.length; j++) {
+              var subItemAdd = childItems[j];
+
+
+              if (!(this.checkedSubItems.includes(subItemAdd))) {
+                this.checkedSubItems.push(subItemAdd)
+
+              }
+            }
+
+          } else {
+            //checked
+            //remove child items from sub items
+
+            for (var l = 0; l < childItems.length; l++) {
+              let ind = this.checkedSubItems.indexOf(childItems[l])
+              if (ind > -1) {
+                this.checkedSubItems.splice(ind, 1)
+
+              }
+            }
+
+          }
+
+
+        },
+      },
+      created() {
+        this.getAreaOfInterest();
+        this.getAreaOfInterestItem();
+        this.getAreaOfInterestSubItem();
+      },
+
+      updated: debounce(function () {
+
+          var _this = this
+
+          if (this.isloaded == 0) {
+            var itemSelectionsArry = this.itemSelectionsProp
+            if (itemSelectionsArry != undefined && itemSelectionsArry != null && itemSelectionsArry != '') {
+              for (var index = 0; index < itemSelectionsArry.length; index++) {
+                jQuery("input[id^='item']").each(function () {
+                  if (jQuery(this).val() == itemSelectionsArry[index]) {
+                    jQuery(this).prop('checked', true)
+                    _this.checkedItems.push(jQuery(this).attr('id').replaceAll("item_", ""))
+                    jQuery(this).parent().find("input[id^='subitem']").each(function () {
+                      jQuery(this).prop('checked', true)
+                      _this.checkedSubItems.push(jQuery(this).attr('id').replaceAll("subitem", ""))
+                    })
+                  }
+
+                })
+              }
+            }
+
+            var subitemSelectionsArry = this.subitemSelectionsProp
+
+            if (subitemSelectionsArry != undefined && subitemSelectionsArry != null && subitemSelectionsArry != '') {
+              for (var indexThree = 0; indexThree < subitemSelectionsArry.length; indexThree++) {
+                jQuery("input[id^='subitem']").each(function () {
+                  if (jQuery(this).val() == subitemSelectionsArry[indexThree]) {
+                    jQuery(this).prop('checked', true)
+                    _this.checkedSubItems.push(jQuery(this).attr('id').replaceAll("subitem", ""))
+                  }
+                })
+              }
+            }
+
+            var region = this.regionProp
+
+            console.log("REGION: " + region)
+
+            if (region != undefined && region != null && region != '') {
+              jQuery('#regionselect').val(region)
+            }
+
+            this.isloaded = 1
+          }
+      }, 0),
         watch: {
             checkedItems: function(){
 
