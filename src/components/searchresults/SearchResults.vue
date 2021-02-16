@@ -69,19 +69,20 @@
   import addinfo from '../searchresults/AdditionalInformation.vue'
   import steps from '../searchresults/StepsToHelp.vue'
 
-
   export default {
 
       data: function() {
           return {
 
-          itemSelections: JSON.parse(this.$route.params.checkedItems),
-          subitemSelections: JSON.parse(this.$route.params.checkedSubItems),
-          region: this.$route.params.region
+          itemSelections: null,
+          subitemSelections: null,
+          region: null,
+          freshLoadVar: this.$props.freshload
 
           }
       },
     name: 'search',
+    props: ['checkeditems', 'checkedsubitems', 'regionselection', 'freshload'],
     components: {
       'app-contact' : contact,
       'app-webfooter' : webfooter,
@@ -90,6 +91,26 @@
       'app-steps' : steps,
 
     },
+    created() {
+
+        if (this.freshLoadVar == undefined)
+        {
+          this.itemSelections = localStorage.getItem("checkedItems")
+          this.subitemSelections = localStorage.getItem("checkedSubItems")
+          this.region = localStorage.getItem("region")
+        }
+        else
+        {
+          localStorage.setItem("checkedItems", this.$props.checkeditems)
+          localStorage.setItem("checkedSubItems", this.$props.checkedsubitems)
+          localStorage.setItem("region", this.$props.regionselection)
+
+          this.itemSelections = this.$props.checkeditems
+          this.subitemSelections = this.$props.checkedsubitems
+          this.region = this.$props.regionselection
+        }
+
+    }
 
 
   }

@@ -33,7 +33,7 @@ export default {
     return {
 
       addinfo: [],
-      region: this.$route.params.region
+      region: this.$props.addinforegion
 
     }
   },

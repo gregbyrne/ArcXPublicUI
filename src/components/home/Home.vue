@@ -54,12 +54,12 @@
 
   export default {
     name: 'search',
-    props: ['region', 'itemSelections', 'subitemSelections'],
+    props: ['region', 'checkedItems', 'checkedSubItems'],
     data: function() {
       return {
-        itemSelectionsProp: this.$route.params.checkedItems,
-        subitemSelectionsProp: this.$route.params.checkedSubItems,
-        regionProp: this.$route.params.region,
+        itemSelectionsProp: null,
+        subitemSelectionsProp: null,
+        regionProp: null,
 
       }
     },
@@ -68,6 +68,29 @@
       'app-geo' : geo,
       'app-contact' : contact,
       'app-webfooter' : webfooter
+    },
+    methods : {
+      checkPropValues()
+      {
+        if (this.$props.checkedItems != undefined)
+        {
+          this.itemSelectionsProp = JSON.parse(this.$props.checkedItems)
+        }
+
+        if (this.$props.checkedSubItems != undefined)
+        {
+          this.subitemSelectionsProp = JSON.parse(this.$props.checkedSubItems)
+        }
+
+        if (this.$props.region != undefined)
+        {
+          this.regionProp = this.$props.region
+        }
+      }
+    },
+    created()
+    {
+      this.checkPropValues()
     }
 
   }

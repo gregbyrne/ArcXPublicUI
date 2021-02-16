@@ -194,15 +194,24 @@
 
         },
         submit() {
-          var selectedRegion = jQuery("#regionselect option:selected").val();
+
+          var selectedRegion = jQuery("#regionselect option:selected").val()
+
+          var checkedSubItems = []
+
+          jQuery("input[id^='subitem']").each(function () {
+              if (jQuery(this).prop('checked') == true) {
+                checkedSubItems.push(jQuery(this).attr('id').replaceAll("subitem", ""))
+              }
+          })
 
           if (selectedRegion == null || selectedRegion == '' || (this.checkedItems.length == 0 && this.checkedSubItems.length == 0)) {
             alert('Please select both a geographic region and area of interest before submitting.')
           } else {
             this.$router.push({
               name: 'searchresults', params: {
-                checkedItems: JSON.stringify(this.checkedItems),
-                checkedSubItems: JSON.stringify(this.checkedSubItems), region: selectedRegion
+                checkeditems: JSON.stringify(this.checkedItems),
+                checkedsubitems: JSON.stringify(checkedSubItems), regionselection: selectedRegion, freshload: 0
               }
             })
           }
@@ -256,9 +265,10 @@
         },
       },
       created() {
-        this.getAreaOfInterest();
-        this.getAreaOfInterestItem();
-        this.getAreaOfInterestSubItem();
+        this.clearAll()
+        this.getAreaOfInterest()
+        this.getAreaOfInterestItem()
+        this.getAreaOfInterestSubItem()
       },
 
       updated: debounce(function () {
@@ -298,8 +308,6 @@
 
             var region = this.regionProp
 
-            console.log("REGION: " + region)
-
             if (region != undefined && region != null && region != '') {
               jQuery('#regionselect').val(region)
             }
@@ -314,9 +322,7 @@
             checkedSubItems: function(){
 
             },
-        }
-
-
+        },
     }
 
 

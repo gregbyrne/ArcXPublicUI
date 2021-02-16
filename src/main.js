@@ -4,6 +4,8 @@ import App from './App.vue'
 
 Vue.config.productionTip = false
 
+Vue.config.silent = true
+
 new Vue({
   router,
   render: h => h(App),
