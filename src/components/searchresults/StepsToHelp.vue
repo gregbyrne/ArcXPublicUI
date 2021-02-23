@@ -21,8 +21,8 @@
 
                         <span v-html="step.description"></span>
 
-                        <div v-if="step.description != null">NOT NULL<br/></div>
-                        <div v-if="step.description == null">NULL DESC<br/></div>
+                        <!--<div v-if="step.description != null">NOT NULL<br/></div>
+                        <div v-if="step.description == null">NULL DESC<br/></div>-->
 
 
 
