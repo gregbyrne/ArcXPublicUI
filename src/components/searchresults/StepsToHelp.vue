@@ -3,10 +3,6 @@
     <div>
         <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
 
-        {{itemSelections}}
-        {{subitemSelections}}
-
-
 
         <ul class="accordion">
             <li v-for="(step) in sthp" v-bind:key="step.id"  >
