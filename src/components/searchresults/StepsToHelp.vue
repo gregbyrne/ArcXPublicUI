@@ -211,6 +211,7 @@
         },
         created()
         {
+            console.log("STHP Items URL: " + STEPS_TO_HELP_PREPARE_ITEMS)
             this.getStepsToHelpPrepare()
             this.getStepsToHelpPrepareItem()
         }
