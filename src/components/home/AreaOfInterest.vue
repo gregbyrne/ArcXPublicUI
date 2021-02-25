@@ -26,7 +26,7 @@
                                  <div v-for="subitem in subitems" v-bind:key="subitem.id"  class="aoe-list">
                                      <div v-if ="(item.id === subitem.parentid)">
                                          <ul class="aoe-list"><li>
-                                             <input type="checkbox" :id="'subitem' + subitem.id" :value="subitem.id"  v-model="checkedSubItems">
+                                             <input type="checkbox" :id="'subitem' + subitem.id" :value="subitem.id"  v-model="checkedSubItems" @click="subItemsSelected(item, subitem)">
                                              <label class="option" :for="'subitem' + subitem.id">{{subitem.name}}</label></li></ul>
                                      </div>
 
@@ -60,7 +60,7 @@
                                  <div v-for="subitem in subitems" v-bind:key="subitem.id"  class="aoe-list">
                                      <div v-if ="(item.id === subitem.parentid)">
                                          <ul class="aoe-list"><li>
-                                             <input type="checkbox" :id="'subitem' + subitem.id" :value="subitem.id"  v-model="checkedSubItems" >
+                                             <input type="checkbox" :id="'subitem' + subitem.id" :value="subitem.id"  v-model="checkedSubItems" @click="subItemsSelected(item, subitem)" >
                                              <label class="option" :for="'subitem' + subitem.id">{{subitem.name}}</label></li></ul>
                                      </div>
 
@@ -139,10 +139,63 @@
         }
       }, methods: {
 
-        selectionCheck(elem)
-        {
-          alert(elem.id)
-        },
+            subItemsSelected(parent, subitem){
+
+                let childItems = [];
+                let subitems = this.subitems;
+                let itemToBeChecked = null;
+                let parentChecked = null;
+                let siblingsChecked = false;
+
+                for (var i = 0; i < subitems.length; i++) {
+
+                    if (subitems[i].parentid == parent.id) {
+                        childItems.push(subitems[i].id)
+                    }
+
+                }
+
+                //this is if a subitem is about to be removed(unchecked) or added(checked)
+                if(this.checkedSubItems.indexOf(subitem.id) > -1){
+                    itemToBeChecked = false;
+
+                }else{
+                    itemToBeChecked = true;
+                }
+
+                //is parent already checked?
+                if(this.checkedItems.indexOf(parent.id) > -1){
+                    parentChecked = true;
+
+                }else{
+                    parentChecked = false;
+                }
+
+                //check if other children are checked.
+                for (var l = 0; l < childItems.length; l++) {
+                    let ind = this.checkedSubItems.indexOf(childItems[l])
+                    if (ind > -1 && childItems[l] != subitem.id) {
+                        siblingsChecked = true;
+
+                    }
+                }
+
+                if(!siblingsChecked && !itemToBeChecked){
+                    this.checkedItems.splice(this.checkedItems.indexOf(parent.id), 1)
+
+                }
+
+
+                //if itemtobechecked = true, and parent not checked, add parent to checked.
+                if(!parentChecked && itemToBeChecked) {
+                    this.checkedItems.push(parent.id)
+
+                }
+
+
+            },
+
+
         getAreaOfInterest() {
           jQuery.ajaxSetup({
             headers: {
@@ -320,6 +373,7 @@
 
             },
             checkedSubItems: function(){
+
 
             },
         },
