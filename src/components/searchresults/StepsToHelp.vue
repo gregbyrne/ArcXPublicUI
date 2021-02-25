@@ -82,8 +82,8 @@
     import $ from "jquery";
     import jQuery from "jquery";
 
-    const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE
-    const STEPS_TO_HELP_PREPARE_ITEMS = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS
+    const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE;
+    const STEPS_TO_HELP_PREPARE_ITEMS = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS;
 
     export default{
         props: ['itemSelections', 'subitemSelections'],
