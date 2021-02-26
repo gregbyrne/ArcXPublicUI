@@ -25,8 +25,8 @@
                         <!-- ONLY DO TOP LEVEL ITEM -->
                         <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
 
-                            <div v-if="isItem(item)">
-                                <strong>{{ item.name }} TOp</strong>
+                            <div v-if="isItem(item, step.id)">
+                                <strong>{{ item.name }}</strong>
                                 <span v-if="item.subtitle != null && item.sub_title != '' "> - {{ item.subTitle }} </span> <br/>
                                 <div v-html="item.content"></div>
                                 <br/>
@@ -36,7 +36,7 @@
 
                             <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
                                 <div v-if="isSubItem(item, subItem)">
-                                    <strong>{{ subItem.name }} sub</strong>
+                                    <strong>{{ subItem.name }}</strong>
                                     <span v-if="subItem.subtitle != null && subItem.sub_title != '' "> - {{ subItem.subTitle }} </span><br/>
                                     <span v-html="subItem.content"></span>
                                 </div>
@@ -100,8 +100,14 @@
 
             }
         },methods: {
-            isItem(item){
+            isItem(item, stepId){
+
+
+                //or subitem with no parent.
                 let result = false;
+                let stepParentId = item.aoiItemsId
+                let hasParentStep = false;
+
 
                 if(this.itemIds.indexOf(item.aoiItemsId) > -1){
                     if(item.aoiSubItemsId == null  ){
@@ -109,6 +115,38 @@
                     }
 
                 }
+                    //is selected sub item
+                    if(this.subitemIds.indexOf(item.aoiSubItemsId) > -1){
+
+                        //is the right step
+                        if(item.parentid == stepId){
+
+
+
+                            for(let i = 0; i< this.stepItems.length; i++){
+                                //look to see if this item has a parent
+                                //check for AOI item matching
+                                if(this.stepItems[i].aoiItemsId == stepParentId){
+                                    if(this.stepItems[i].aoiSubItemsId == null && this.stepItems[i].parentid == stepId){
+
+                                        hasParentStep = true;
+
+                                    }
+                                }
+
+                            }
+                            if(!hasParentStep){
+                                console.log(item.name)
+
+                                result = true;
+                            }
+
+                        }
+
+
+                    }
+
+
 
                 return result;
 
@@ -119,9 +157,7 @@
                 if(item.aoiSubItemsId == null  ) {
 
                     if (this.subitemIds.indexOf(subItem.aoiSubItemsId) > -1) {
-                        console.log(subItem.id)
                         if (subItem.aoiItemsId == item.aoiItemsId) {
-                            console.log(subItem.name)
 
                             result = true;
                         }
