@@ -3,6 +3,7 @@
     <div>
         <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
 
+
         <ul class="accordion">
             <li v-for="(step) in sthp" v-bind:key="step.id"  >
                 <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
@@ -14,19 +15,44 @@
 
                     <div class="indented" id-="region_concern">
 
-                        {{ step.description }}
-                        <div>
-                            <strong>Water Utilities</strong>
-                            " Drought, Saltwater Intrusion, Sea Level Rise, Storms and Source Water Impacts."
+                        <span v-html="step.description"></span>
+
+                        <!--<div v-if="step.description != null">NOT NULL<br/></div>
+                        <div v-if="step.description == null">NULL DESC<br/></div>-->
+
+
+
+                        <!-- ONLY DO TOP LEVEL ITEM -->
+                        <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
+
+                            <div v-if="isItem(item, step.id)">
+                                <strong>{{ item.name }}</strong>
+                                <span v-if="item.subtitle != null && item.sub_title != '' "> - {{ item.subTitle }} </span> <br/>
+                                <div v-html="item.content"></div>
+                                <br/>
+                            </div>
+
+
+
+                            <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
+                                <div v-if="isSubItem(item, subItem)">
+                                    <strong>{{ subItem.name }}</strong>
+                                    <span v-if="subItem.subtitle != null && subItem.sub_title != '' "> - {{ subItem.subTitle }} </span><br/>
+                                    <span v-html="subItem.content"></span>
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
                         </div>
-                        <ul>
-                            <li>
-                                <a href="/arc-x/climate-adaptation-and-drought" target="_blank" >Climate Adaption and Drought</a>
-                            </li>
-                            <li>
-                                <a href="/arc-x/climate-adaptation-and-drought" target="_blank" >Climate Adaption and Saltwater Intrusion</a>
-                            </li>
-                        </ul>
+
+
                     </div>
                 </div>
 
@@ -56,7 +82,8 @@
     import $ from "jquery";
     import jQuery from "jquery";
 
-    const API_HOME = process.env.VUE_APP_API_URL
+    const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE;
+    const STEPS_TO_HELP_PREPARE_ITEMS = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS;
 
     export default{
         props: ['itemSelections', 'subitemSelections'],
@@ -64,47 +91,98 @@
             return {
 
                 name: 'Area of Interest Test',
-                steps:[
-                    { name: 'Implications of Climate Change', subtext: 'Why does climate change matter for the things you care about?', description: 'Water Utilities: Sea Level Rise',  id: '0' },
-                    { name: 'Adaptation Strategies', subtext: 'What can you do about it?', boxvalue: 'Adaptation strategies are provided below based upon your selected area(s) of interest and organized according to climate vulnerability and/or targeted climate threat. Select one of the categories below to open up a tab that contains a collection of adaptation strategies specific to that theme.',  id: '1' },
-                    { name: 'Case Studies', subtext: 'How can you replicate the successes other communities have had implementing the strategies?', boxvalue: 'Sea Level Rise\n' +
-                            'Here are two examples of how water utilities are adapting to potential climate vulnerabilities from sea level rise. This section also contains a third case study detailing how several communities in South Florida collaborated to better identify vulnerabilities from sea level rise.',  id: '2' },
-                    { name: 'Tools', subtext: 'What tools are available to help you do it?', boxvalue: 'We identified several EPA tools below based on your interests. However, there are additional EPA tools that Water Utility representatives might find helpful depending on one\'s circumstances. We recommend checking out the EPA\'s more exhaustive list of these tools:',  id: '3' },
-                    { name: 'Training', subtext: 'What training is available to build expertise?', boxvalue: 'Local Government Climate Adaptation Training – This training illustrates how a changing climate may affect a variety of environmental and public health services, such as providing safe drinking water and managing the effects of drought, fires, and floods.',  id: '4' },
-                    { name: 'Funding Opportunities', subtext: 'What financial support and technical assistance are available?', boxvalue: 'Climate adaptation helps ensure that community investments (e.g., water infrastructure) made with scarce taxpayer dollars are effective even as the climate changes. EPA recognizes that many communities face significant funding challenges making climate resilient planning and projects a reality.',  id: '5' },
 
-                ],
-
-                aoe2:[
-                    { id: '0', text : 'Indoor Air' , parentKey : '0', childKey : '0'},
-                    { id: '1', text : 'Outdoor Air' , parentKey : '0', childKey : '1'},
-                    { id: '2', text : 'Water Utility Facility Operations' , parentKey : '1', childKey : '2'},
-                    { id: '3', text : 'Water Quality' , parentKey : '1', childKey : '3'},
-                    { id: '4', text : 'Ecosystem Protection' , parentKey : '1', childKey : '4'},
-                    { id: '5', text : 'Contaminated Site Management' , parentKey : '2', childKey : ''},
-                    { id: '6', text : 'Disaster Debris Management' , parentKey : '2', childKey : ''},
-                    { id: '7', text : 'Air Quality' , parentKey : '3', childKey : '0'},
-                    { id: '8', text : 'Water Quality' , parentKey : '3', childKey : '0'},
-                    { id: '9', text : 'Extreme Heat' , parentKey : '3', childKey : '0'},
-                    { id: '10', text : 'Getting Started' , parentKey : '4', childKey : '0'},
-                    { id: '11', text : 'Comprehensive' , parentKey : '4', childKey : '0'},
-                    { id: '12', text : 'Sector Based' , parentKey : '4', childKey : '0'},
-
-
-
-
-
-                ],
                 itemIds: this.$props.itemSelections,
                 subitemIds: this.$props.subitemSelections,
 
                 sthp: null,
-
-
-
+                stepItems: null,
 
             }
         },methods: {
+            isItem(item, stepId){
+
+
+                //or subitem with no parent.
+                let result = false;
+                let stepParentId = item.aoiItemsId
+                let hasParentStep = false;
+
+
+                if(this.itemIds.indexOf(item.aoiItemsId) > -1){
+                    if(item.aoiSubItemsId == null  ){
+                        result = true;
+                    }
+
+                }
+                    //is selected sub item
+                    if(this.subitemIds.indexOf(item.aoiSubItemsId) > -1){
+
+                        //is the right step
+                        if(item.parentid == stepId){
+
+
+
+                            for(let i = 0; i< this.stepItems.length; i++){
+                                //look to see if this item has a parent
+                                //check for AOI item matching
+                                if(this.stepItems[i].aoiItemsId == stepParentId){
+                                    if(this.stepItems[i].aoiSubItemsId == null && this.stepItems[i].parentid == stepId){
+
+                                        hasParentStep = true;
+
+                                    }
+                                }
+
+                            }
+                            if(!hasParentStep){
+                                console.log(item.name)
+
+                                result = true;
+                            }
+
+                        }
+
+
+                    }
+
+
+
+                return result;
+
+            },isSubItem(item, subItem){
+                let result = false;
+
+
+                if(item.aoiSubItemsId == null  ) {
+
+                    if (this.subitemIds.indexOf(subItem.aoiSubItemsId) > -1) {
+                        if (subItem.aoiItemsId == item.aoiItemsId) {
+
+                            result = true;
+                        }
+
+                    }
+                }
+
+                return result;
+            },
+            itemsContains(itemId){
+                return this.itemIds.indexOf(itemId) > -1
+            },
+            subItemsContains(itemId){
+                let result = false
+                if(itemId == null){
+                    result = true
+                }else{
+                    result = this.subitemIds.indexOf(itemId) > -1
+                }
+
+                return result
+            },
+
+
+
             expandtile(id){
                 let accordionId =  '#steppane-' + id;
                 let accordionLink =  '#accordion-link-' + id;
@@ -131,6 +209,7 @@
             },
         getStepsToHelpPrepare()
         {
+
           jQuery.ajaxSetup({
             headers : {
               'Content-Type': 'application/json'
@@ -139,19 +218,38 @@
 
           var _this = this;
 
-          jQuery.getJSON(API_HOME + "steps_to_help_prepare", function (sthp) {
+          jQuery.getJSON(STEPS_TO_HELP_PREPARE, function (sthp) {
             _this.sthp = sthp._embedded.steps_to_help_prepare;
 
           });
 
 
-        }
+        },
+            getStepsToHelpPrepareItem()
+            {
+
+                jQuery.ajaxSetup({
+                    headers : {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                var _this = this;
+
+                jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (stepItems) {
+                    _this.stepItems = stepItems._embedded.steps_to_help_prepare_items;
+
+                });
+
+
+            }
 
         },
         created()
         {
-          //alert(this.itemIds[0] + ':' + this.subitemIds[0])
-          this.getStepsToHelpPrepare()
+            console.log("STHP Items URL: " + STEPS_TO_HELP_PREPARE_ITEMS)
+            this.getStepsToHelpPrepare()
+            this.getStepsToHelpPrepareItem()
         }
 
 
@@ -191,6 +289,10 @@
 
     .epa-select-button{
         clear: both; padding-top: 1em; padding-bottom: 2em; border: 1px solid rgb(222, 222, 222); border-radius: 1em; margin: 1em auto auto; text-align: center; background-color: rgb(221, 221, 221); display: block;
+    }
+
+    p{
+        margin-bottom: 0px;
     }
 
     .aoe-list{

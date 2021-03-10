@@ -2,7 +2,7 @@
 
 <div>
     <div id="requeryform2">
-        <button v-on:click="searchAgain()">Submit Again</button>
+        <button v-on:click="searchAgain()">Search Again</button>
     </div>
 
     <div class="col">
@@ -40,7 +40,7 @@
     </div>
 
     <div id="requeryform">
-        <button v-on:click="this.searchAgain()">Submit Again</button>
+        <button v-on:click="searchAgain()">Search Again</button>
     </div>
 
 
@@ -80,15 +80,29 @@ import southeastpage from "../../assets/regions/page/page-southeast.jpg"
 import southwestpage from "../../assets/regions/page/page-southwest.jpg"
 
 export default {
-  props: ['region'],
+  props: ['region', 'itemSelections', 'subitemSelections'],
   data() {
     return {
       fullregionname: '',
       map: '',
-      page: ''
+      page: '',
+      itemIds: this.$props.itemSelections,
+      subitemIds: this.$props.subitemSelections,
+      regionProp: this.$props.region,
     }
     },
   methods: {
+
+    searchAgain(){
+
+      this.$router.push({
+        name: 'home', params: {
+          checkedItems: this.itemIds,
+          checkedSubItems: this.subitemIds, region: this.regionProp
+        }
+      })
+    },
+
     setRegionValue()
     {
       if (this.$props.region == 'AK')
