@@ -3,7 +3,6 @@
     <div>
         <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
 
-
         <ul class="accordion">
             <li v-for="(step) in sthp" v-bind:key="step.id"  >
                 <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
@@ -17,11 +16,6 @@
 
                         <span v-html="step.description"></span>
 
-                        <!--<div v-if="step.description != null">NOT NULL<br/></div>
-                        <div v-if="step.description == null">NULL DESC<br/></div>-->
-
-
-
                         <!-- ONLY DO TOP LEVEL ITEM -->
                         <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
 
@@ -32,8 +26,6 @@
                                 <br/>
                             </div>
 
-
-
                             <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
                                 <div v-if="isSubItem(item, subItem)">
                                     <strong>{{ subItem.name }}</strong>
@@ -41,17 +33,10 @@
                                     <span v-html="subItem.content"></span>
                                 </div>
 
-
                             </div>
 
 
-
-
-
-
-
                         </div>
-
 
                     </div>
                 </div>
@@ -69,11 +54,6 @@
 
 
 
-
-
-
-
-
 </template>
 
 
@@ -82,23 +62,41 @@
     import $ from "jquery";
     import jQuery from "jquery";
 
-    const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE;
-    const STEPS_TO_HELP_PREPARE_ITEMS = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS;
+    const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE
+    const STEPS_TO_HELP_PREPARE_ITEMS = process.env.VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS
+    const AOI_ITEMS_URL = process.env.VUE_APP_API_AREA_OF_INTEREST_ITEMS;
+
 
     export default{
         props: ['itemSelections', 'subitemSelections'],
         data() {
             return {
-
                 name: 'Area of Interest Test',
-
                 itemIds: this.$props.itemSelections,
                 subitemIds: this.$props.subitemSelections,
-
                 sthp: null,
                 stepItems: null,
+                aoiitems: null,
+
 
             }
+        },computed: {
+            ParentList:{
+
+                get: function(){
+                    let parentList = []
+                    if(this.aoiitems != null) {
+                        for (let i = 0; i < this.aoiitems.length; i++) {
+                            if (this.itemIds.indexOf(this.aoiitems[i].id) > -1) {
+                                parentList.push(this.aoiitems[i].parentid)
+                            }
+                        }
+                    }
+
+                    return (parentList)
+                }
+            }
+
         },methods: {
             isItem(item, stepId){
 
@@ -107,21 +105,28 @@
                 let result = false;
                 let stepParentId = item.aoiItemsId
                 let hasParentStep = false;
+                if(item.aoiItemsId == null && item.aoiId !=null  ){
+                    //check to see if aoiId's children have been selected at all.
+                    //go through the selected items. If any of them have an aoiId of == to item, then true.
+                    //console.log('here1')
+
+                    if(this.ParentList.indexOf(item.aoiId) > -1){
+                        result = true;
+                    }
+                }
 
 
                 if(this.itemIds.indexOf(item.aoiItemsId) > -1){
+
                     if(item.aoiSubItemsId == null  ){
                         result = true;
                     }
-
                 }
                     //is selected sub item
                     if(this.subitemIds.indexOf(item.aoiSubItemsId) > -1){
 
                         //is the right step
                         if(item.parentid == stepId){
-
-
 
                             for(let i = 0; i< this.stepItems.length; i++){
                                 //look to see if this item has a parent
@@ -133,16 +138,11 @@
 
                                     }
                                 }
-
                             }
                             if(!hasParentStep){
-                                console.log(item.name)
-
                                 result = true;
                             }
-
                         }
-
 
                     }
 
@@ -225,31 +225,46 @@
 
 
         },
-            getStepsToHelpPrepareItem()
-            {
+        getStepsToHelpPrepareItem() {
+
+            jQuery.ajaxSetup({
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            var _this = this;
+
+            jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (stepItems) {
+                _this.stepItems = stepItems._embedded.steps_to_help_prepare_items;
+
+            });
+
+
+        },
+            getAreaOfInterestItem(){
 
                 jQuery.ajaxSetup({
-                    headers : {
+                    headers: {
                         'Content-Type': 'application/json'
                     }
                 });
 
                 var _this = this;
 
-                jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (stepItems) {
-                    _this.stepItems = stepItems._embedded.steps_to_help_prepare_items;
-
+                jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
+                    _this.aoiitems = aoiitems._embedded.area_of_interest_items;
                 });
 
-
-            }
+            },
 
         },
+
         created()
         {
-            console.log("STHP Items URL: " + STEPS_TO_HELP_PREPARE_ITEMS)
             this.getStepsToHelpPrepare()
             this.getStepsToHelpPrepareItem()
+            this.getAreaOfInterestItem()
         }
 
 
