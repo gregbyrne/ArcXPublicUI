@@ -3,7 +3,6 @@
     <div>
         <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
 
-
         <ul class="accordion">
             <li v-for="(step) in sthp" v-bind:key="step.id"  >
                 <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
@@ -84,6 +83,8 @@
 
     const STEPS_TO_HELP_PREPARE = process.env.VUE_APP_API_AREA_OF_INTEREST_STEPS_TO_HELP_PREPARE
     const STEPS_TO_HELP_PREPARE_ITEMS = process.env.VUE_APP_API_AREA_OF_INTEREST_STEPS_TO_HELP_PREPARE_ITEMS
+    const AOI_ITEMS_URL = process.env.VUE_APP_API_AREA_OF_INTEREST_ITEMS;
+
 
     export default{
         props: ['itemSelections', 'subitemSelections'],
@@ -95,10 +96,34 @@
                 itemIds: this.$props.itemSelections,
                 subitemIds: this.$props.subitemSelections,
 
+
                 sthp: null,
                 stepItems: null,
+                aoiitems: null,
+
 
             }
+        },computed: {
+            ParentList:{
+
+                get: function(){
+                    let parentList = []
+
+                    if(this.aoiitems != null) {
+
+                        for (let i = 0; i < this.aoiitems.length; i++) {
+                            if (this.itemIds.indexOf(this.aoiitems[i].id) > -1) {
+                                parentList.push(this.aoiitems[i].parentid)
+                            }
+
+
+                        }
+                    }
+
+                    return (parentList)
+                }
+            }
+
         },methods: {
             isItem(item, stepId){
 
@@ -108,8 +133,20 @@
                 let stepParentId = item.aoiItemsId
                 let hasParentStep = false;
 
+                if(item.aoiItemsId == null && item.aoiId !=null  ){
+                    //check to see if aoiId's children have been selected at all.
+                    //go through the selected items. If any of them have an aoiId of == to item, then true.
+                    //console.log('here1')
+
+                    if(this.ParentList.indexOf(item.aoiId) > -1){
+                        result = true;
+                    }
+
+                }
+
 
                 if(this.itemIds.indexOf(item.aoiItemsId) > -1){
+
                     if(item.aoiSubItemsId == null  ){
                         result = true;
                     }
@@ -136,8 +173,6 @@
 
                             }
                             if(!hasParentStep){
-                                console.log(item.name)
-
                                 result = true;
                             }
 
@@ -225,30 +260,46 @@
 
 
         },
-            getStepsToHelpPrepareItem()
-            {
+        getStepsToHelpPrepareItem() {
+
+            jQuery.ajaxSetup({
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            var _this = this;
+
+            jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (stepItems) {
+                _this.stepItems = stepItems._embedded.steps_to_help_prepare_items;
+
+            });
+
+
+        },
+            getAreaOfInterestItem(){
 
                 jQuery.ajaxSetup({
-                    headers : {
+                    headers: {
                         'Content-Type': 'application/json'
                     }
                 });
 
                 var _this = this;
 
-                jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (stepItems) {
-                    _this.stepItems = stepItems._embedded.steps_to_help_prepare_items;
-
+                jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
+                    _this.aoiitems = aoiitems._embedded.area_of_interest_items;
                 });
 
-
-            }
+            },
 
         },
+
         created()
         {
             this.getStepsToHelpPrepare()
             this.getStepsToHelpPrepareItem()
+            this.getAreaOfInterestItem()
         }
 
 
