@@ -40,6 +40,10 @@ spec:
             value: "$VUE_APP_API_AREA_OF_INTEREST_ITEMS"
           - name: VUE_APP_API_AREA_OF_INTEREST_SUB_ITEMS
             value: "$VUE_APP_API_AREA_OF_INTEREST_SUB_ITEMS"
+          - name: VUE_APP_API_STEPS_TO_HELP_PREPARE
+            value: "$VUE_APP_API_STEPS_TO_HELP_PREPARE"
+          - name: VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS
+            value: "$VUE_APP_API_STEPS_TO_HELP_PREPARE_ITEMS"      
           - name: VUE_APP_API_URL
             value: "$VUE_APP_API_URL"
           - name: VUE_APP_TITLE

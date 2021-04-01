@@ -16,11 +16,6 @@
 
                         <span v-html="step.description"></span>
 
-                        <!--<div v-if="step.description != null">NOT NULL<br/></div>
-                        <div v-if="step.description == null">NULL DESC<br/></div>-->
-
-
-
                         <!-- ONLY DO TOP LEVEL ITEM -->
                         <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
 
@@ -31,8 +26,6 @@
                                 <br/>
                             </div>
 
-
-
                             <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
                                 <div v-if="isSubItem(item, subItem)">
                                     <strong>{{ subItem.name }}</strong>
@@ -40,17 +33,10 @@
                                     <span v-html="subItem.content"></span>
                                 </div>
 
-
                             </div>
 
 
-
-
-
-
-
                         </div>
-
 
                     </div>
                 </div>
@@ -64,11 +50,6 @@
 
 
     </div>
-
-
-
-
-
 
 
 
@@ -90,13 +71,9 @@
         props: ['itemSelections', 'subitemSelections'],
         data() {
             return {
-
                 name: 'Area of Interest Test',
-
                 itemIds: this.$props.itemSelections,
                 subitemIds: this.$props.subitemSelections,
-
-
                 sthp: null,
                 stepItems: null,
                 aoiitems: null,
@@ -108,15 +85,11 @@
 
                 get: function(){
                     let parentList = []
-
                     if(this.aoiitems != null) {
-
                         for (let i = 0; i < this.aoiitems.length; i++) {
                             if (this.itemIds.indexOf(this.aoiitems[i].id) > -1) {
                                 parentList.push(this.aoiitems[i].parentid)
                             }
-
-
                         }
                     }
 
@@ -132,7 +105,6 @@
                 let result = false;
                 let stepParentId = item.aoiItemsId
                 let hasParentStep = false;
-
                 if(item.aoiItemsId == null && item.aoiId !=null  ){
                     //check to see if aoiId's children have been selected at all.
                     //go through the selected items. If any of them have an aoiId of == to item, then true.
@@ -141,7 +113,6 @@
                     if(this.ParentList.indexOf(item.aoiId) > -1){
                         result = true;
                     }
-
                 }
 
 
@@ -150,15 +121,12 @@
                     if(item.aoiSubItemsId == null  ){
                         result = true;
                     }
-
                 }
                     //is selected sub item
                     if(this.subitemIds.indexOf(item.aoiSubItemsId) > -1){
 
                         //is the right step
                         if(item.parentid == stepId){
-
-
 
                             for(let i = 0; i< this.stepItems.length; i++){
                                 //look to see if this item has a parent
@@ -170,14 +138,11 @@
 
                                     }
                                 }
-
                             }
                             if(!hasParentStep){
                                 result = true;
                             }
-
                         }
-
 
                     }
 
