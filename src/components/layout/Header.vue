@@ -40,7 +40,7 @@
                                         data-gtm-vis-recent-on-screen-42870_124="563"
                                         data-gtm-vis-first-on-screen-42870_124="563"
                                         data-gtm-vis-total-visible-time-42870_124="100"
-                                        data-gtm-vis-has-fired-42870_124="1" style="margin-top: 4px;">Search</button>
+                                        data-gtm-vis-has-fired-42870_124="1" >Search</button>
                                 <input name="areaname" type="hidden" value=""> <input
                                     name="areacontacts" type="hidden" value=""> <input
                                     name="areasearchurl" type="hidden" value=""> <input
