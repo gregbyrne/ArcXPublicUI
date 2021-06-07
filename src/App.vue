@@ -38,7 +38,6 @@ export default {
 
 
 @import './assets/styles/min/base.min.css';
-
 @import './assets/styles/min/typography.min.css';
 @import './assets/styles/min/drupal.min.css';
 @import './assets/styles/min/layout.min.css';
@@ -48,7 +47,6 @@ export default {
 @import './assets/styles/min/mobile-menu.min.css';
 @import './assets/styles/min/drop-down-menu.min.css';
 @import './assets/styles/min/flexslider.min.css';
-
 @import './assets/styles/min/colorbox.min.css';
 
 
