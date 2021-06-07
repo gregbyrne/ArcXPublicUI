@@ -36,16 +36,21 @@ export default {
 @import './assets/styles/oneepa/tables.css';
 @import './assets/styles/oneepa/tabs.css';
 
-@import url("https://www.epa.gov/sites/all/themes/epa/css/base.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/typography.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/drupal.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/layout.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/core/contextual.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/contrib/date.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/design.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/mobile-menu.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/drop-down-menu.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/flexslider.min.css?qir6d1");
-@import url("https://www.epa.gov/sites/all/themes/epa/css/lib/colorbox.min.css?qir6d1");
+
+@import './assets/styles/min/base.min.css';
+
+@import './assets/styles/min/typography.min.css';
+@import './assets/styles/min/drupal.min.css';
+@import './assets/styles/min/layout.min.css';
+@import './assets/styles/min/contextual.min.css';
+@import './assets/styles/min/date.min.css';
+@import './assets/styles/min/design.min.css';
+@import './assets/styles/min/mobile-menu.min.css';
+@import './assets/styles/min/drop-down-menu.min.css';
+@import './assets/styles/min/flexslider.min.css';
+
+@import './assets/styles/min/colorbox.min.css';
+
+
 
 </style>
