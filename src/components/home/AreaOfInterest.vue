@@ -16,7 +16,7 @@
 
              <ul>
                  <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id"  >
-                     <li v-if="index < midpointTwo"   :id="area.id">
+                     <li v-if="index < midpoint"   :id="area.id">
                          <strong>{{ area.name }}</strong>
 
                          <ul v-for="item in aoiitems"  v-bind:key="item.id"  class="aoe-list">
@@ -50,7 +50,7 @@
          <div class ="col">
              <ul>
                  <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id"  >
-                     <li v-if="(index >= midpointTwo) && (index < areaofint.length)"   :id="area.id">
+                     <li v-if="(index >= midpoint) && (index < areaofint.length)"   :id="area.id">
                          <strong>{{ area.name }}</strong>
 
                          <ul v-for="item in aoiitems"  v-bind:key="item.id"  class="aoe-list">
@@ -388,90 +388,6 @@
             },
         },
         computed: {
-          midpointTwo:{
-
-              get: function(){
-                  //get function midpoint
-                  //let midpoint = null
-                  //let count = 0;
-                  //let AOIload = false;
-                  let AOIcount = 0;
-                 // let itemload = false;
-                 // let itemcount = 0;
-                 // let subitemload =false;
-                //  let subitemcount = 0;
-
-
-
-
-                  if(this.areaofint != null){
-                      AOIcount = this.areaofint.length
-                      //count = AOIcount + count
-                      //AOIload = true;
-                  }
-                  /*
-                  if(this.aoiitems != null){
-                      itemcount = this.aoiitems.length
-                      count = itemcount + count
-                      itemload = true;
-
-                  }
-                  if(this.subitems != null){
-                      subitemcount = this.subitems.length
-                      count = subitemcount + count
-                      subitemload = true;
-
-                  }
-
-                  console.log(subitemload)
-                  console.log(itemload)
-
-
-                  let cutoff = count*(.6)
-                  console.log('cutoff' + cutoff)
-                  let AOIcounter = 0
-
-                  let cutoffCounter = 0
-                  if(AOIload){
-                      for(let j = 0; ( j < AOIcount && cutoffCounter < cutoff   ); j++){
-
-
-                          cutoffCounter++
-                          AOIcounter++
-                          for(let p = 0; ( p < itemcount && cutoffCounter < cutoff   ); p++){
-                              if(this.areaofint[j].id == this.aoiitems[p].parentid){
-                                  cutoffCounter++
-                                  for(let k = 0; ( k < subitemcount && cutoffCounter < cutoff   ); k++){
-
-                                      if(this.aoiitems[p].id == this.subitems[k].parentid){
-                                          cutoffCounter++
-                                      }
-
-                                  }
-                              }
-
-                              }
-                      }
-                  }
-
-                 // console.log('cutoffCounter: ' + cutoffCounter)
-                  //console.log('AOIcounter: ' + AOIcounter)
-
-                 // let count2 = this.areaofint.length + this.aoiitems.length + this.subitems.length
-
-                 // console.log('count: ' + count)
-                //  console.log('count2: ' + count2 )
-
-                 // console.log('len' + this.areaofint.length)
-                      //areaofint: null,
-                      //aoiitems: null,
-                      //subitems: null,
-
-                   */
-
-                  return ((AOIcount+1)/2)
-              }
-          }
 
         }
 

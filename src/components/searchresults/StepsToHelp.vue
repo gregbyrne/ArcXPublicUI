@@ -6,15 +6,14 @@
         <ul class="accordion">
             <li v-for="(step) in sthp" v-bind:key="step.id"  >
                 <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
-                    <strong>{{ step.name }} </strong>
+                    <strong>{{ step.name }}</strong>
                     <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }}</span>
                 </a>
 
                 <div class="accordion-pane is-closed" :id="'steppane-' + step.id"  >
 
                     <div class="indented" id-="region_concern">
-
-                        <span v-html="step.description"></span>
+                        <span class="descriptionClass" v-html="step.description"></span>
 
                         <!-- ONLY DO TOP LEVEL ITEM -->
                         <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
@@ -29,14 +28,16 @@
                             <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
                                 <div v-if="isSubItem(item, subItem)">
                                     <strong>{{ subItem.name }}</strong>
-                                    <span v-if="subItem.subtitle != null && subItem.sub_title != '' "> - {{ subItem.subTitle }} </span><br/>
+                                    <span v-if="subItem.subTitle != null && subItem.subTitle != '' "> - {{ subItem.subTitle }} </span><br/>
                                     <span v-html="subItem.content"></span>
                                 </div>
-
                             </div>
 
-
+                          <span v-if="step.id == '11' && regioncode == item.subTitle">
+                              <span v-html="item.content"></span>
+                          </span>
                         </div>
+
 
                     </div>
                 </div>
@@ -68,7 +69,7 @@
 
 
     export default{
-        props: ['itemSelections', 'subitemSelections'],
+        props: ['itemSelections', 'subitemSelections', 'regioncode'],
         data() {
             return {
                 name: 'Area of Interest Test',
@@ -330,5 +331,8 @@
     }
     .accordion-title.is-active{
         background-image: url(https://www.epa.gov/sites/all/themes/epa/img/svg/minus.svg)
+    }
+    ul{
+      margin-bottom: 0px !important;
     }
 </style>
