@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+        image: $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -60,7 +60,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: ${INGRESS_HOST}
+  - host: arcx-development-public-ui.devsecops-eval.epa.gov
     http:
       paths:
       - backend:
