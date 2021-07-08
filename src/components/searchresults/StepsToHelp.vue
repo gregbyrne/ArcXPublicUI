@@ -14,21 +14,24 @@
 
                     <div class="indented" id-="region_concern">
                         <span class="descriptionClass" v-html="step.description"></span>
+                      <span v-if="step.description != '' && step.description != null">
+                              <br/><br/>
+                          </span>
 
                         <!-- ONLY DO TOP LEVEL ITEM -->
                         <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
 
                             <div v-if="isItem(item, step.id)">
                                 <strong>{{ item.name }}</strong>
-                                <span v-if="item.subtitle != null && item.sub_title != '' "> - {{ item.subTitle }} </span> <br/>
+                                <span v-if="item.subTitle != null  && item.subTitle != '' "  > - {{ item.subTitle }} </span> <br/>
                                 <div v-html="item.content"></div>
                                 <br/>
                             </div>
 
                             <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
                                 <div v-if="isSubItem(item, subItem)">
-                                    <strong>{{ subItem.name }}</strong>
-                                    <span v-if="subItem.subTitle != null && subItem.subTitle != '' "> - {{ subItem.subTitle }} </span><br/>
+                                    <strong>{{ subItem.name }}</strong>{{ subItem.subTitle }} subitems
+                                  <span v-if="subItem.subTitle != null  && subItem.subTitle != '' "  > - {{ subItem.subTitle }} </span><br/>
                                     <span v-html="subItem.content"></span>
                                 </div>
                             </div>
@@ -334,5 +337,10 @@
     }
     ul{
       margin-bottom: 0px !important;
+    }
+    .descriptionClass{
+      padding-bottom: 300px !important;
+      margin-bottom: 300px !important;
+
     }
 </style>
