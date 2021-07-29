@@ -8,6 +8,7 @@
                 <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
                     <strong>{{ step.name }}</strong>
                     <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }}</span>
+
                 </a>
 
                 <div class="accordion-pane is-closed" :id="'steppane-' + step.id"  >
@@ -286,25 +287,27 @@
 
 <style>
 
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/base.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/typography.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/drupal.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/layout.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/core/contextual.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/contrib/date.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/design.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/mobile-menu.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/drop-down-menu.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/flexslider.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/themes/epa/css/lib/colorbox.min.css?qmk39n");
+
+@import url("../../assets/styles/min/base.min.css");
+@import url("../../assets/styles/min/typography.min.css");
+@import url("../../assets/styles/min/drupal.min.css");
+@import url("../../assets/styles/min/layout.min.css");
+@import url("../../assets/styles/min/contextual.min.css");
+@import url("../../assets/styles/min/design.min.css");
+@import url("../../assets/styles/min/mobile-menu.min.css");
+@import url("../../assets/styles/min/drop-down-menu.min.css");
+@import url("../../assets/styles/min/flexslider.min.css");
+@import url("../../assets/styles/min/colorbox.min.css");
 
 
-    @import url("https://www.epa.gov/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.core.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.menu.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.autocomplete.min.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/modules/contrib/date/date_api/date.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/modules/contrib/picture/picture_wysiwyg.css?qmk39n");
-    @import url("https://www.epa.gov/sites/all/modules/custom/add_definitions/add_definitions.min.css?qmk39n");
+@import url("../../assets/styles/min/jquery.ui.core.min.css");
+@import url("../../assets/styles/min/jquery.ui.menu.min.css");
+@import url("../../assets/styles/min/jquery.ui.autocomplete.min.css");
+@import url("../../assets/styles/min/date.css");
+@import url("../../assets/styles/min/picture_wysiwyg.css");
+@import url("../../assets/styles/min/add_definitions.min.css");
+
+
 
     .epa-select-button{
         clear: both; padding-top: 1em; padding-bottom: 2em; border: 1px solid rgb(222, 222, 222); border-radius: 1em; margin: 1em auto auto; text-align: center; background-color: rgb(221, 221, 221); display: block;
@@ -330,10 +333,10 @@
         padding-left: 6ch;
     }
     .accordion-title{
-        background-image: url(https://www.epa.gov/sites/all/themes/epa/img/svg/plus.svg)
+        background-image: url(../../assets/styles/img/svg/plus.svg)
     }
     .accordion-title.is-active{
-        background-image: url(https://www.epa.gov/sites/all/themes/epa/img/svg/minus.svg)
+        background-image: url(../../assets/styles/img/svg/minus.svg)
     }
     ul{
       margin-bottom: 0px !important;
