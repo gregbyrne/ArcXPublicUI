@@ -49,3 +49,19 @@ deploy to dev:
     - branches
   except:
     - master
+
+Prisma:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  variables:
+    GIT_STRATEGY: clone
+    PRISMA_URL: https://prismacloud.gitlab-prod.aws.epa.gov
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+
