@@ -1,9 +1,19 @@
 <template>
 
 <div>
-    <div id="requeryform2">
-        <button v-on:click="searchAgain()">Search Again</button>
+
+  <div class="col">
+    <div class="box simple">
+      <div class="pane-content">
+        <div id="requeryform2">
+          <button v-on:click="searchAgain()" class ="blueButtons">Search Again</button>
+          <button v-on:click="printPage()" class ="blueButtons">Print Page</button>
+        </div>
+      </div>
     </div>
+  </div>
+
+
 
     <div class="col">
         <div class="box simple">
@@ -78,6 +88,7 @@ import northeastpage from "../../assets/regions/page/page-northeast.jpg"
 import northwestpage from "../../assets/regions/page/page-northwest.jpg"
 import southeastpage from "../../assets/regions/page/page-southeast.jpg"
 import southwestpage from "../../assets/regions/page/page-southwest.jpg"
+import $ from "jquery";
 
 export default {
   props: ['region', 'itemSelections', 'subitemSelections'],
@@ -101,6 +112,21 @@ export default {
           checkedSubItems: this.subitemIds, region: this.regionProp
         }
       })
+    },
+    printPage(){
+
+      $('.accordion-pane').removeClass('is-closed')
+      $('.accordion-pane').removeClass('is-active')
+      $('.accordion-pane').addClass('is-active')
+
+
+      //button
+      $('.accordion-title').removeClass('is-active')
+      $('.accordion-title').addClass('is-active')
+
+
+      window.print();
+
     },
 
     setRegionValue()
@@ -191,5 +217,18 @@ export default {
 
     .aoe-header{
         padding-left: 6ch;
+    }
+
+    .blueButtons{
+      padding-top: 14px;
+      padding-bottom: 14px;
+      padding-right: 28px;
+      padding-left: 28px;
+
+      margin-top: 3px;
+      margin-bottom: 3px;
+      margin-right: 2px;
+      margin-left: 2px;
+
     }
 </style>
