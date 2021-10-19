@@ -1,10 +1,14 @@
 stages:
   - images
   - deploy
+  - Image Scan
+
+default:
+  tags:
+    - devsecops-instance 
+
 
 public-ui-app:image:build:
-  tags:
-    - docker
   stage: images
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -15,8 +19,6 @@ public-ui-app:image:build:
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-app/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_REF_SLUG
 
 public-ui-web:image:build:
-  tags:
-    - docker
   stage: images
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -29,8 +31,6 @@ public-ui-web:image:build:
 deploy to dev:
   when: manual
   stage: deploy
-  tags:
-    - docker
   image: dtzar/helm-kubectl
   script:
     - apk add gettext
@@ -49,3 +49,19 @@ deploy to dev:
     - branches
   except:
     - master
+
+Prisma:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  variables:
+    GIT_STRATEGY: clone
+    PRISMA_URL: https://prismacloud.gitlab-prod.aws.epa.gov
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+
