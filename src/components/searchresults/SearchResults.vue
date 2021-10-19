@@ -22,7 +22,7 @@
                   <!-- LEFT SIDE -->
                   <h2>Integrated Package of Tailored Information</h2>
                   <div>&nbsp;</div>
-                  <app-steps :itemSelections="itemSelections" :subitemSelections="subitemSelections"></app-steps>
+                  <app-steps :itemSelections="itemSelections" :subitemSelections="subitemSelections"  :regioncode="region"></app-steps>
 
                   <!-- Additional Information    -->
                   <app-addinfo :addinforegion="region"></app-addinfo>
