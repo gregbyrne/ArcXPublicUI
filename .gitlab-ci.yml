@@ -44,7 +44,7 @@ deploy to dev:
     - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply -f -
   environment:
     name: dev
-    url: https://arcx-public-ui.devsecops-dev.epa.gov
+    url: https://arcx-public-ui.devsecops-dev.aws.epa.gov
     kubernetes:
       namespace: arc-x-public-ui-236-dev
   only:

@@ -60,7 +60,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: arcx-public-ui.devsecops-dev.epa.gov
+  - host: arcx-public-ui.devsecops-dev.aws.epa.gov
     http:
       paths:
       - backend:
