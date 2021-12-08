@@ -284,8 +284,13 @@
 
 
 </script>
+<style type="text/css" media="print">
+  @page {size:landscape;}
+</style>
 
 <style>
+
+
 
 
 @import url("../../assets/styles/min/base.min.css");

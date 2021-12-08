@@ -224,6 +224,7 @@ export default {
       padding-bottom: 14px;
       padding-right: 28px;
       padding-left: 28px;
+      width: 145px;
 
       margin-top: 3px;
       margin-bottom: 3px;
