@@ -51,7 +51,9 @@
     "rules": {},
     "overrides": [
       {
-        "files": ["*.vue"],
+        "files": [
+          "*.vue"
+        ],
         "rules": {
           "no-undef": "off",
           "no-prototype-builtins": "off",

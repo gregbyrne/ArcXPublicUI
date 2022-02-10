@@ -224,7 +224,7 @@
           var _this = this;
 
           jQuery.getJSON(STEPS_TO_HELP_PREPARE, function (sthp) {
-            _this.sthp = sthp._embedded.steps_to_help_prepare;
+            _this.sthp = sthp;
 
           });
 
@@ -241,7 +241,7 @@
             var _this = this;
 
             jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (stepItems) {
-                _this.stepItems = stepItems._embedded.steps_to_help_prepare_items;
+                _this.stepItems = stepItems;
 
             });
 
@@ -258,7 +258,7 @@
                 var _this = this;
 
                 jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
-                    _this.aoiitems = aoiitems._embedded.area_of_interest_items;
+                    _this.aoiitems = aoiitems;
                 });
 
             },
