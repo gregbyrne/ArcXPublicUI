@@ -1,0 +1,80 @@
+stages:
+  - test
+  - images
+  - deploy
+  - Image Scan
+
+default:
+  tags:
+    - devsecops-instance 
+
+
+public-ui-app:image:build:
+  stage: images
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-app/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_REF_SLUG
+
+public-ui-web:image:build:
+  stage: images
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_REF_SLUG
+
+deploy to dev:
+  when: manual
+  stage: deploy
+  image: dtzar/helm-kubectl
+  script:
+    - apk add gettext
+    - kubectl config set-cluster dev-cluster --server="$KUBE_URL"
+    - kubectl config set-cluster dev-cluster --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster=dev-cluster --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config use-context default
+    - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply -f -
+    - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply -f -
+    - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply -f -
+  environment:
+    name: development
+    url: https://arcx-development-public-ui.devsecops-eval.epa.gov
+  only:
+    - branches
+  except:
+    - master
+
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+
+dependency_scanning:
+  tags:
+    - docker
+    
+sast:
+  tags:
+    - docker
+
+Prisma:
+  stage: Image Scan
+  tags:
+    - twistcli
+  when: manual
+  variables:
+    GIT_STRATEGY: clone
+    PRISMA_URL: https://prismacloud.gitlab-prod.aws.epa.gov
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+
