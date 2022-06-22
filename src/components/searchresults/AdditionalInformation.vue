@@ -49,8 +49,8 @@ export default {
 
         var _this = this;
 
-        jQuery.getJSON(API_HOME + "additional_information/search/additionalinfo?regioncode=" + this.region, function (addinfo) {
-          _this.addinfo = addinfo._embedded.additional_information;
+        jQuery.getJSON(API_HOME + "additional_information/" + this.region, function (addinfo) {
+          _this.addinfo = addinfo;
 
         });
     }

@@ -210,7 +210,7 @@
           var _this = this;
 
           jQuery.getJSON(AOI_URL, function (areaofint) {
-            _this.areaofint = areaofint._embedded.area_of_interest;
+            _this.areaofint = areaofint;
 
           });
 
@@ -229,7 +229,7 @@
           var _this = this;
 
           jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
-            _this.aoiitems = aoiitems._embedded.area_of_interest_items;
+            _this.aoiitems = aoiitems;
           });
 
         },
@@ -248,7 +248,7 @@
           var _this = this;
 
           jQuery.getJSON(AOI_SUB_ITEMS_URL, function (subitems) {
-            _this.subitems = subitems._embedded.area_of_interest_sub_items;
+            _this.subitems = subitems;
 
 
           });
