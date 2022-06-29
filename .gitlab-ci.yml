@@ -62,9 +62,9 @@ prisma-scan:
     - twistcli
   when: manual
   allow_failure: false
-  parallel:
-    matrix:
-      - prisma_cloud_scan_image: ["$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA","$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA"]
+  parallel:
+   matrix:
+     - prisma_cloud_scan_image: ["$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA","$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA"]
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
@@ -72,4 +72,3 @@ prisma-scan:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
     - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
-
