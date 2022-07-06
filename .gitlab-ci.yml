@@ -57,10 +57,10 @@ deploy to prd:
   image: dtzar/helm-kubectl
   script:
     - apk add gettext
-    - kubectl config set-cluster dev-cluster --server="$KUBE_URL"
-    - kubectl config set-cluster dev-cluster --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-cluster $KUBECTL_PROD_CLUSTER --server="$KUBE_URL"
+    - kubectl config set-cluster $KUBECTL_PROD_CLUSTER --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
     - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
-    - kubectl config set-context default --cluster=dev-cluster --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config set-context default --cluster=$KUBECTL_PROD_CLUSTER --user=gitlab --namespace="$KUBE_NAMESPACE"
     - kubectl config use-context default
     - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply -f -
     - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply -f -
