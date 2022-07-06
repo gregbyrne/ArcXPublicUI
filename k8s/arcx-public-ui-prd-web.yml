@@ -70,7 +70,7 @@ spec:
       paths:
       - path: /
         pathType: Prefix    
-      - backend:
+        backend:
           service: 
             name: arcx-public-ui-web-service
             port : 80
@@ -79,7 +79,7 @@ spec:
       paths:
       - path: /
         pathType: Prefix    
-      - backend:
+        backend:
           service: 
             name: arcx-public-ui-web-service
             port : 80
