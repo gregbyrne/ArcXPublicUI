@@ -51,30 +51,22 @@ deploy to dev:
   except:
     - master
 
-include:
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
-  - template: Security/SAST.gitlab-ci.yml
-
-dependency_scanning:
-  tags:
-    - docker
-    
-sast:
-  tags:
-    - docker
-
-Prisma:
-  stage: Image Scan
-  tags:
-    - twistcli
+deploy to prd:
   when: manual
-  variables:
-    GIT_STRATEGY: clone
-    PRISMA_URL: https://prismacloud.gitlab-prod.aws.epa.gov
+  stage: deploy
+  image: dtzar/helm-kubectl
   script:
-    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
-    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
-
-    - docker pull $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
-    - /public/server/apps/twistcli images scan --details --address $PRISMA_URL $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
-
+    - apk add gettext
+    - kubectl config set-cluster dev-cluster --server="$KUBE_URL"
+    - kubectl config set-cluster dev-cluster --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster=dev-cluster --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config use-context default
+    - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply -f -
+    - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply -f -
+    - envsubst < k8s/arcx-public-ui-prd-web.yml | kubectl apply -f -
+  environment:
+    name: prd
+    url: https://arcx-development-public-ui.devsecops-eval.epa.gov
+  only:
+    - master
