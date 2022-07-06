@@ -67,6 +67,8 @@ deploy to prd:
     - envsubst < k8s/arcx-public-ui-prd-web.yml | kubectl apply -f -
   environment:
     name: prd
-    url: https://arcx-development-public-ui.devsecops-eval.epa.gov
+    url: https://arcx.devsecops-prod.aws.epa.gov
+    kubernetes:
+      namespace: arc-x-public-ui-236-prd
   only:
     - master
