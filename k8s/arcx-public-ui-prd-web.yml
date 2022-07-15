@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_REF_SLUG
+        image: $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_TAG
         imagePullPolicy: Always
         ports:
         - containerPort: 80

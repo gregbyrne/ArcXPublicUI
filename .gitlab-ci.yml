@@ -1,6 +1,7 @@
 stages:
   - test
   - images
+  - release
   - deploy
   - Image Scan
 
@@ -51,6 +52,21 @@ deploy to dev:
   except:
     - master
 
+Release:
+  stage: release
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint: [ "" ]
+  script:
+    # https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md
+    - crane auth login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - crane copy "$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-app:latest"
+    - crane copy "$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_TAG"
+    - crane copy "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-web:latest"
+    - crane copy "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_TAG"
+  only:
+    - tags
+
 deploy to prd:
   when: manual
   stage: deploy
@@ -63,7 +79,7 @@ deploy to prd:
     - kubectl config set-context default --cluster=$KUBECTL_PROD_CLUSTER --user=gitlab --namespace="$KUBE_NAMESPACE"
     - kubectl config use-context default
     - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply -f -
-    - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply -f -
+    - envsubst < k8s/arcx-public-ui-app-prd.yml | kubectl apply -f -
     - envsubst < k8s/arcx-public-ui-prd-web.yml | kubectl apply -f -
   environment:
     name: prd
@@ -71,4 +87,4 @@ deploy to prd:
     kubernetes:
       namespace: arc-x-public-ui-236-prd
   only:
-    - master
+    - tags
