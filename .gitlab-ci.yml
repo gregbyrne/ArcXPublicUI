@@ -18,7 +18,7 @@ public-ui-app:image:build:
   script:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-app/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_REF_SLUG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-app/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
 
 public-ui-web:image:build:
   stage: images
@@ -28,7 +28,7 @@ public-ui-web:image:build:
   script:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_REF_SLUG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
 
 deploy to dev:
   when: manual
