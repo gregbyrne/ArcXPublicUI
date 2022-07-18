@@ -66,7 +66,8 @@ metadata:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
     nginx.ingress.kubernetes.io/auth-tls-secret: ${KUBE_NAMESPACE}/arcx-tls-cert
-
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/preserve-trailing-slash: "true"
 spec:
   rules:
   - host: arcx.devsecops-prod.aws.epa.gov
