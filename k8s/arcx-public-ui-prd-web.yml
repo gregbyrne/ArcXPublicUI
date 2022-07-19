@@ -68,6 +68,11 @@ metadata:
     nginx.ingress.kubernetes.io/auth-tls-secret: ${KUBE_NAMESPACE}/arcx-tls-cert
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/preserve-trailing-slash: "true"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "ECDH+AESGCM:ECDH+CHACHA20:DH+AESGCM"
+    nginx.ingress.kubernetes.io/proxy-ssl-ciphers: "ECDH+AESGCM:ECDH+CHACHA20:DH+AESGCM"
+    nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "false"
+    nginx.ingress.kubernetes.io/proxy-ssl-protocols: "SSLv2 SSLv3 TLSv1.1 TLSv1.2 TLSv1.3"
+
 spec:
   rules:
   - host: arcx.devsecops-prod.aws.epa.gov

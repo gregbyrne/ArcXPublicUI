@@ -88,4 +88,3 @@ deploy to prd:
       namespace: arc-x-public-ui-236-prd
   only:
     - tags
-    - master
