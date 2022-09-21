@@ -2,8 +2,9 @@
 
 
   <div id="main-content" class="main-content clearfix" role="main" tabindex ="-1">
-    <h2 class = "microsite-name">Climate Change Adaptation Resource Center (ARC-X) </h2>
     <app-contact></app-contact>
+    <div class = "web-area-title" style="margin-top:-25px; margin-bottom: 10px"> <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
+
 
 
 

@@ -34,6 +34,9 @@
               <a href="https://www.epa.gov/ocr/whistleblower-protections-epa-and-how-they-relate-non-disclosure-agreements-signed-epa-employees" class="menu__link">No FEAR Act Data</a>
             </li>
             <li class="menu__item">
+              <a href="https://www.epa.gov/web-policies-and-procedures/plain-writing" class="menu__link">Plain Writing</a>
+            </li>
+            <li class="menu__item">
               <a href="https://www.epa.gov/privacy" class="menu__link">Privacy</a>
             </li>
             <li class="menu__item">
@@ -125,7 +128,7 @@
                 </svg> </a>
             </li>
           </ul>
-          <p class="footer__last-updated">Last updated on July 16, 2021</p>
+          <p class="footer__last-updated">September 21, 2022</p>
         </div>
 
 
