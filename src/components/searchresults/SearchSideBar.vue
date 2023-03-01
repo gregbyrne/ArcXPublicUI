@@ -33,9 +33,9 @@
             <div class="pane-content">
                 <div id="region_factsheet">
                     <p>
-                        <a href="/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the {{ fullregionname }} are Adapting</a>
+                        <a href="https://epa.gov/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the {{ fullregionname }} are Adapting</a>
                     </p>
-                    <a href="/arc-x/regional-guides-adapting-climate-change" target="_blank">
+                    <a href="https://epa.gov/arc-x/regional-guides-adapting-climate-change" target="_blank">
                             <span class="figure image file file-image file-image-jpeg center view-mode-media_original" style="width:199px;">
                               <img :alt="'Cover of ' + fullregionname + ' Region Factsheet: Adapting to Climate Change'" :title="'Cover of ' + fullregionname + ' Region Factsheet: Adapting to Climate Change'" height="250" width="199" class="center media-element file-media-original"
                                    :src="page">
