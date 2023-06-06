@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: arcx-public-ui-configmap
+  namespace: arc-x-public-ui-236-dev
   labels:
     name: arcx-public-ui-configmap
   annotations:
