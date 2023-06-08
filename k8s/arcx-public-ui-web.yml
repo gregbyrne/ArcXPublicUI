@@ -50,7 +50,7 @@ spec:
   ports:
   - port: 80
     protocol: TCP
-    target_port: 443
+    targetPort: 443
     name: http
   selector:
     app: arcx-public-ui-web
