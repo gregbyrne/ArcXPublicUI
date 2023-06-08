@@ -46,7 +46,7 @@ deploy to dev:
   script:
     - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply --validate=false -f -
     - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply --validate=false -f -
-    - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false -f -
+    - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false --record=false -f -
   environment:
     name: dev
     url: https://arcx-public-ui.devsecops-dev.aws.epa.gov
