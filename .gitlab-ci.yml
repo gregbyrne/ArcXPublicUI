@@ -46,8 +46,7 @@ deploy to dev:
   script:
     - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply --validate=false -f -
     - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply --validate=false -f -
-    - kubectl delete svc arcx-public-ui-web-service -n arc-x-public-ui-236-dev
-    - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false --overwrite=true -f -
+    - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false -f -
   environment:
     name: dev
     url: https://arcx-public-ui.devsecops-dev.aws.epa.gov
