@@ -48,10 +48,10 @@ metadata:
   namespace: arc-x-public-ui-236-dev
 spec:
   ports:
-  - port: 443
+  - port: 80
     protocol: TCP
-    target_port: 80
-    name: https
+    target_port: 443
+    name: http
   selector:
     app: arcx-public-ui-web
 
