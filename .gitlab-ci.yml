@@ -44,7 +44,6 @@ deploy to dev:
   extends: [.kube-context]
   image: dtzar/helm-kubectl
   script:
-    - envsubst < k8s/arcx-public-ui-configmap.yml | grep '<'
     - envsubst < k8s/arcx-public-ui-configmap.yml | kubectl apply --validate=false -f -
     - envsubst < k8s/arcx-public-ui-app.yml | kubectl apply --validate=false -f -
     - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false --overwrite=true -f -
