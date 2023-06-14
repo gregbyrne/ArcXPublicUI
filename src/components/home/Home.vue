@@ -4,6 +4,10 @@
   <div id="main-content" class="main-content clearfix" role="main" tabindex ="-1">
     <div style = "padding-top:5px"></div>
     <app-contact></app-contact>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-L8ZB"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class = "web-area-title" style="margin-top:-25px; margin-bottom: 10px"> <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
 
 
