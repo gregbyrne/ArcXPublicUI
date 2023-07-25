@@ -1,7 +1,7 @@
 stages:
   - images
+  - prisma scan
   - deploy
-  - Image Scan
 
 default:
   tags:
@@ -13,10 +13,10 @@ variables:
 # Set K8s context of GitLab Agent
 .kube-context:
   before_script:
-  - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
+    - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
 
 include:
-  - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
+  - remote: "https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml"
 
 public-ui-app:image:build:
   stage: images
@@ -38,6 +38,21 @@ public-ui-web:image:build:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
 
+prisma scan:
+  stage: prisma scan
+  tags:
+    - twistcli
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - 'export PRISMA_CI_TOKEN=$(curl -kH "Content-Type: application/json" -d "{\"username\":\"$PRISMA_CI_USERNAME\", \"password\":\"$PRISMA_CI_PASSWORD\"}" https://prismacloud.epa.gov/api/v22.12/authenticate | jq -r .token)'
+    - 'curl --progress-bar -L -k --header "Authorization: Bearer $PRISMA_CI_TOKEN" https://prismacloud.epa.gov/api/v1/util/twistcli > twistcli; chmod a+x twistcli;'
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+    - ./twistcli images scan $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA --address=https://prismacloud.epa.gov --details --token=$PRISMA_CI_TOKEN
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+    - ./twistcli images scan $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA --address=https://prismacloud.epa.gov --details --token=$PRISMA_CI_TOKEN
+
 deploy to dev:
   when: manual
   stage: deploy
@@ -56,22 +71,3 @@ deploy to dev:
     - branches
   except:
     - master
-
-prisma-scan:
-  stage: Image Scan
-  extends:
-    - .pcs_compute_scan
-  tags:
-    - twistcli
-  when: manual
-  allow_failure: false
-  parallel:
-   matrix:
-     - prisma_cloud_scan_image: ["$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA","$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA"]
-  variables:
-    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
-    GIT_STRATEGY: clone
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $prisma_cloud_scan_image
-    - ./image_scan.sh
