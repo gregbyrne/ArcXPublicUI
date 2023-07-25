@@ -3,14 +3,13 @@ stages:
   - images
   - release
   - deploy
-  - Image Scan
 
 default:
   tags:
-    - devsecops-instance 
+    - devsecops-instance
 
 include:
-  - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
+  - remote: "https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml"
 
 public-ui-app:image:build:
   stage: images
@@ -58,7 +57,7 @@ Release:
   stage: release
   image:
     name: gcr.io/go-containerregistry/crane:debug
-    entrypoint: [ "" ]
+    entrypoint: [""]
   script:
     # https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md
     - crane auth login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
@@ -90,22 +89,3 @@ deploy to prd:
       namespace: arc-x-public-ui-236-prd
   only:
     - tags
-
-prisma-scan:
-  stage: Image Scan
-  extends:
-    - .pcs_compute_scan
-  tags:
-    - twistcli
-  when: manual
-  allow_failure: false
-  parallel:
-   matrix:
-     - prisma_cloud_scan_image: ["$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA","$CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA"]
-  variables:
-    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
-    GIT_STRATEGY: clone
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $prisma_cloud_scan_image
-    - ./image_scan.sh
