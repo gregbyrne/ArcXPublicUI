@@ -1,6 +1,7 @@
 stages:
   - test
   - images
+  - prisma scan
   - release
   - deploy
 
@@ -30,6 +31,21 @@ public-ui-web:image:build:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+
+prisma scan:
+  stage: prisma scan
+  tags:
+    - twistcli
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - 'export PRISMA_CI_TOKEN=$(curl -kH "Content-Type: application/json" -d "{\"username\":\"$PRISMA_CI_USERNAME\", \"password\":\"$PRISMA_CI_PASSWORD\"}" https://prismacloud.epa.gov/api/v22.12/authenticate | jq -r .token)'
+    - 'curl --progress-bar -L -k --header "Authorization: Bearer $PRISMA_CI_TOKEN" https://prismacloud.epa.gov/api/v1/util/twistcli > twistcli; chmod a+x twistcli;'
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA
+    - ./twistcli images scan $CI_REGISTRY_IMAGE/public-ui-app:$CI_COMMIT_SHORT_SHA --address=https://prismacloud.epa.gov --details --token=$PRISMA_CI_TOKEN
+    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+    - ./twistcli images scan $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA --address=https://prismacloud.epa.gov --details --token=$PRISMA_CI_TOKEN
 
 deploy to dev:
   when: manual
