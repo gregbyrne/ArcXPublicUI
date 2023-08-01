@@ -71,17 +71,19 @@
 
 <script>
 
-import alaskamap from "../../assets/regions/map/region-alaska.jpg"
-import greatplainsmap from "../../assets/regions/map/region-greatplains.jpg"
-import hawaiimap from "../../assets/regions/map/region-hawaii.jpg"
-import midwestmap from "../../assets/regions/map/region-midwest.jpg"
-import northeastmap from "../../assets/regions/map/region-northeast.jpg"
-import northwestmap from "../../assets/regions/map/region-northwest.jpg"
-import southeastmap from "../../assets/regions/map/region-southeast.jpg"
-import southwestmap from "../../assets/regions/map/region-southwest.jpg"
+import alaskamap from "../../assets/regions/map/alaska-region.jpg"
+import uppergreatplainsmap from "../../assets/regions/map/upper-plains-region.jpg"
+import lowergreatplainsmap from "../../assets/regions/map/lower-plains-region.jpg"
+import hawaiimap from "../../assets/regions/map/hawaii-region.jpg"
+import midwestmap from "../../assets/regions/map/midwest-region.jpg"
+import northeastmap from "../../assets/regions/map/northeast-region.jpg"
+import northwestmap from "../../assets/regions/map/northwest-region.jpg"
+import southeastmap from "../../assets/regions/map/southeast-region.jpg"
+import southwestmap from "../../assets/regions/map/southwest-region.jpg"
 
 import alaskapage from "../../assets/regions/page/page-alaska.jpg"
-import greatplainspage from "../../assets/regions/page/page-greatplains.jpg"
+import uppergreatplainspage from "../../assets/regions/page/page-upperplains.jpg"
+import lowergreatplainspage from "../../assets/regions/page/page-lowerplains.jpg"
 import hawaiipage from "../../assets/regions/page/page-hawaii.jpg"
 import midwestpage from "../../assets/regions/page/page-midwest.jpg"
 import northeastpage from "../../assets/regions/page/page-northeast.jpg"
@@ -138,11 +140,18 @@ export default {
         this.fullregionname = 'Alaska'
 
       }
-      if (this.$props.region == 'GP')
+      if (this.$props.region == 'LGP')
       {
-        this.map = greatplainsmap
-        this.page = greatplainspage
-        this.fullregionname = 'Great Plains'
+        this.map = lowergreatplainsmap
+        this.page = lowergreatplainspage
+        this.fullregionname = 'Lower Great Plains'
+
+      }
+      if (this.$props.region == 'UGP')
+      {
+        this.map = uppergreatplainsmap
+        this.page = uppergreatplainspage
+        this.fullregionname = 'Upper Great Plains'
 
       }
       if (this.$props.region == 'HI')
