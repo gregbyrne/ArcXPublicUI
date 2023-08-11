@@ -15,7 +15,7 @@ RUN npm install
 RUN npm install -g @vue/cli
 RUN npm run build
 
-RUN tree /usr/local/lib/node_modules/
+RUN tree /usr/local/lib/node_modules/@vue/cli/node_modules/@achrinza/node-ipc/
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
