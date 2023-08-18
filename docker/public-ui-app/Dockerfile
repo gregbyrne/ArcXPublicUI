@@ -1,5 +1,5 @@
 # base image
-FROM node:12-alpine
+FROM alpine:3.14
 
 RUN apk add tree
 
