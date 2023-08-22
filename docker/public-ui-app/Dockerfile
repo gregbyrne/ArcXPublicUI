@@ -1,5 +1,5 @@
 # base image
-FROM node:apline
+FROM node:latest-alpine
 
 RUN apk add tree
 
