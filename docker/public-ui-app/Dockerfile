@@ -22,4 +22,4 @@ RUN rm /usr/local/lib/node_modules/@vue/cli/node_modules/@achrinza/node-ipc/loca
 EXPOSE 8080
 
 # start app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "serve"]
