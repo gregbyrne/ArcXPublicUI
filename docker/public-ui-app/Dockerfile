@@ -12,8 +12,7 @@ RUN pwd
 RUN tree .
 
 RUN npm install
-RUN npm install -g @vue/cli
-RUN npm run build
+RUN npm run serve
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
