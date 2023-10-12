@@ -82,8 +82,8 @@
 
         <div class="epa-select-button">
           <p>Select both a region and an area of interest to search.</p>
-          <button v-on:click="submit2( checkedItems, checkedSubItems)">Submit Search</button>
-          <button type="button" v-on:click="clearAll()">Clear All</button>
+          <button v-on:click="submit2( checkedItems, checkedSubItems)" class="blueEPAButton">Submit Search</button>
+          <button type="button" v-on:click="clearAll()" class="blueEPAButton">Clear All</button>
         </div>
 
 
@@ -111,13 +111,14 @@ const allStore = storeToRefs(useAllStore());
 
 
 
+
+
 const selectedRegion = allStore.selectedRegionVal.value;
 
 
 function submit2(checkedItems, checkedSubItems){
 
   console.log('submit2')
-  alert('asdadad')
   //console.log(allStore.regionTest.value)
   //allStore.selectedRegionVal.value = regionChangedVar;
 
@@ -181,64 +182,6 @@ export default {
 
     }
   }, methods: {
-
-    subItemsSelected(parent, subitem){
-
-      let childItems = [];
-      let subitems = this.subitems;
-      let itemToBeChecked = null;
-      let parentChecked = null;
-      let siblingsChecked = false;
-
-      for (var i = 0; i < subitems.length; i++) {
-
-        if (subitems[i].parentid == parent.id) {
-          childItems.push(subitems[i].id)
-        }
-
-      }
-
-      //this is if a subitem is about to be removed(unchecked) or added(checked)
-      if(this.checkedSubItems.indexOf(subitem.id) > -1){
-        itemToBeChecked = false;
-
-      }else{
-        itemToBeChecked = true;
-      }
-
-      //is parent already checked?
-      if(this.checkedItems.indexOf(parent.id) > -1){
-        parentChecked = true;
-
-      }else{
-        parentChecked = false;
-      }
-
-      //check if other children are checked.
-      for (var l = 0; l < childItems.length; l++) {
-        let ind = this.checkedSubItems.indexOf(childItems[l])
-        if (ind > -1 && childItems[l] != subitem.id) {
-          siblingsChecked = true;
-
-        }
-      }
-
-      if(!siblingsChecked && !itemToBeChecked){
-        this.checkedItems.splice(this.checkedItems.indexOf(parent.id), 1)
-
-      }
-
-
-      //if itemtobechecked = true, and parent not checked, add parent to checked.
-      if(!parentChecked && itemToBeChecked) {
-        this.checkedItems.push(parent.id)
-
-      }
-
-
-    },
-
-
     getAreaOfInterest() {
       console.log('getAreaOfInterest - AOI_URL: ' + AOI_URL)
 
@@ -329,8 +272,13 @@ export default {
 
     },
     clickSubItems(item, subitems, checkedItems) {
-
+      console.log ('clickSubItems')
       let childItems = [];
+
+
+      //if item unchecked, check and include all sub items
+
+      //if item checked, uncheck and uncheck all sub items
 
       for (var i = 0; i < subitems.length; i++) {
 
@@ -341,6 +289,8 @@ export default {
       }
 
       if (!(checkedItems.includes(item.id))) {
+
+        this.checkedItems.push(item.id)
         //add child items to sub items
         for (var j = 0; j < childItems.length; j++) {
           var subItemAdd = childItems[j];
@@ -356,6 +306,12 @@ export default {
         //checked
         //remove child items from sub items
 
+
+        const rem = this.checkedItems.indexOf(item.id)
+        if(rem > -1){
+          this.checkedItems.splice(rem, 1)
+        }
+
         for (var l = 0; l < childItems.length; l++) {
           let ind = this.checkedSubItems.indexOf(childItems[l])
           if (ind > -1) {
@@ -368,7 +324,60 @@ export default {
 
 
     },
+    subItemsSelected(parent, subitem){
+
+    console.log('subItemsSelected')
+      console.log(subitem.id)
+
+    let childItems = [];
+    let subitems = this.subitems;
+    let itemToBeChecked = null;
+    let parentChecked = null;
+    let siblingsChecked = false;
+
+    //this is if a subitem is about to be removed(unchecked) or added(checked)
+    if(this.checkedSubItems.indexOf(subitem.id) > -1){
+      itemToBeChecked = false;
+      this.checkedItems.splice(this.checkedItems.indexOf(parent.id), 1)
+
+
+    }else{
+      itemToBeChecked = true;
+      this.checkedSubItems.push(subitem.id)
+
+    }
+
+    //is parent already checked?
+    if(this.checkedItems.indexOf(parent.id) > -1){
+      parentChecked = true;
+
+    }else{
+      parentChecked = false;
+    }
+
+    //check if other children are checked.
+    for (var l = 0; l < childItems.length; l++) {
+      let ind = this.checkedSubItems.indexOf(childItems[l])
+      if (ind > -1 && childItems[l] != subitem.id) {
+        siblingsChecked = true;
+
+      }
+    }
+
+    //remove parent
+    if(!siblingsChecked && !itemToBeChecked){
+      this.checkedItems.splice(this.checkedItems.indexOf(parent.id), 1)
+
+    }
+
+    //if itemtobechecked = true, and parent not checked, add parent to checked.
+    if(!parentChecked && itemToBeChecked) {
+      this.checkedItems.push(parent.id)
+
+    }
   },
+
+},
   created() {
     this.clearAll()
     this.getAreaOfInterestSubItem()
@@ -444,9 +453,19 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .epa-select-button{
-  clear: both; padding-top: 1em; padding-bottom: 2em; border: 1px solid rgb(222, 222, 222); border-radius: 1em; margin: 1em auto auto; text-align: center; background-color: rgb(221, 221, 221); display: block;
+  -webkit-appearance: button;
+  padding-bottom: 1em;
+
+}
+
+.blueEPAButton{
+  background-color: #0071bc;
+  cursor: pointer;
+  display: inline-block;
+  border: 0;
+  color: #fff;
 }
 
 .aoe-list{

@@ -70,7 +70,7 @@
 
 
 <script setup>
-import { useAllStore } from '/src/stores/Allstore'
+import { useAllStore } from '/src/stores/Allstore.js'
 import { storeToRefs } from 'pinia';
 import alaskamap from "../../assets/regions/map/alaska-region.jpg";
 import alaskapage from "../../assets/regions/page/page-alaska.jpg";

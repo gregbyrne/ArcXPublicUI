@@ -37,11 +37,11 @@ import webfooter from './layout/WebFooter.vue'
               <!-- top of container -->
               testasd {{regionProp2}}
 
-              <v-container >
+              <v-container class="ms-10 " >
 
 
                 <v-row>
-                  <v-col cols="4"><appGeo></appGeo></v-col>
+                  <v-col cols="4" class="mr-100"><appGeo></appGeo></v-col>
                   <v-col cols="8"><app-aoi :itemSelections="itemSelectionsProp" :subitemSelections="subitemSelectionsProp" :region="regionProp"></app-aoi></v-col>
                 </v-row>
               </v-container>

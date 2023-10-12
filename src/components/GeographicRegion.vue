@@ -4,7 +4,7 @@
 
         <div id="regiondiv" style="margin-top: 2em;">
             <em>Pick one region:</em>
-            <select v-model="selectedRegion" @change="onChange2(selectedRegion)" >
+            <select v-model="selectedRegion" @change="onChange2(selectedRegion)" id="selectRegionBox" >
                 <option v-for="region in regions" v-bind:key="region.value" v-bind:value = "region.value">
                     {{region.text}}
                 </option>
@@ -56,6 +56,19 @@ function onChange2(regionChangedVar){
 
 
 </script>
+
+<style>
+
+#selectRegionBox {
+  border-radius: 3px;
+  border: 1px solid #333333;
+  padding-left: 3px;
+  -webkit-appearance: menulist !important; /* override vuetify style */
+  -moze-appearance: menulist !important; /* override vuetify style */
+  appearance: menulist !important; /* override vuetify style */
+  margin-bottom: 2rem; /* demo purpose */
+}
+</style>
 
 
 
