@@ -19,7 +19,7 @@ export default defineConfig({
   build:{
     rollupOptions:{
       external:[
-        '/src/stores/Allstore'
+        '/src/stores/Allstore.js'
 
       ]
     }
