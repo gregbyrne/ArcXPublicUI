@@ -15,5 +15,13 @@ export default defineConfig({
   },
   server: {
     port:8080,
+  },
+  build:{
+    rollupOptions:{
+      external:[
+        '/src/stores/Allstore'
+
+      ]
+    }
   }
 })
