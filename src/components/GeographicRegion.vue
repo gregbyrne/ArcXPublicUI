@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { useAllStore } from '/src/stores/Allstore'
+import { useAllStore } from '../stores/Allstore'
 import { storeToRefs } from 'pinia';
 
 const allStore = storeToRefs(useAllStore());

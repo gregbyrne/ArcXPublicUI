@@ -19,7 +19,8 @@ export default defineConfig({
   build:{
     rollupOptions:{
       external:[ 'vue', 'pinia',
-          '../../stores/Allstore'
+          '../../stores/Allstore',
+          '../stores/Allstore'
 
 
       ],
