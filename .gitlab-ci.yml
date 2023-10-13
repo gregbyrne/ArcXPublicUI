@@ -10,7 +10,7 @@ default:
     - devsecops-instance
 
 variables:
-  KUBE_CONTEXT: aop/aop-k8s-agent:aop-dev-k8s-agent
+  KUBE_CONTEXT: arc-x/arc-x-k8s-agent:arcx-dev-k8s-agent
 
 public-ui-app:image:build:
   stage: images
