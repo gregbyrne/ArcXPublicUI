@@ -9,8 +9,8 @@ default:
   tags:
     - devsecops-instance
 
-include:
-  - remote: "https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml"
+variables:
+  KUBE_CONTEXT: aop/aop-k8s-agent:aop-dev-k8s-agent
 
 public-ui-app:image:build:
   stage: images
