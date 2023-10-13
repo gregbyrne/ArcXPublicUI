@@ -18,10 +18,16 @@ export default defineConfig({
   },
   build:{
     rollupOptions:{
-      external:[
-        ['pinia']
+      external:[ 'pinia'
 
-      ]
+
+      ],
+      output:{
+        globabls:{
+          vue: 'Vue',
+          pinia: 'pinia'
+        }
+      }
     }
   }
 })
