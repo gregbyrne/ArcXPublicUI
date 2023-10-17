@@ -12,4 +12,4 @@ FROM nginx:mainline-alpine
 
 COPY --from=build /usr/src/app/dist/ /usr/share/nginx/html
 
-RUN apk del --no-cache curl nginx-module-image-filter
+RUN apk del --no-cache curl nginx-module-image-filter nginx-module-xslt nginx-module-njs nginx-module-geoip
