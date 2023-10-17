@@ -21,7 +21,10 @@ export default defineConfig({
       external:[
           '../../stores/Allstore',
         '../stores/Allstore',
-        './stores/Allstore'
+        './stores/Allstore',
+        '../../stores/Allstore.js',
+        '../stores/Allstore.js',
+        './stores/Allstore.js',
 
 
 

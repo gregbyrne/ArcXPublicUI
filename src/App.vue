@@ -4,7 +4,7 @@ import HelloWorld from './components/HelloWorld.vue'
 import HeaderMenu from './components/layout/Header2.vue'
 import FooterMenu from './components/layout/Footer2.vue'
 import ContactUs from './components/layout/ContactUs.vue'
-import {useAllStore} from "./stores/AllStore";
+import {useAllStore} from "./stores/AllStore.js";
 
 useAllStore();
 const allStoreTest = useAllStore();

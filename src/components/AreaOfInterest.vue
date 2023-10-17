@@ -102,7 +102,7 @@
 </template>
 
 <script setup>
-import { useAllStore } from '../stores/Allstore'
+import { useAllStore } from '../stores/Allstore.js'
 import { storeToRefs } from 'pinia';
 import jQuery from "jquery";
 
