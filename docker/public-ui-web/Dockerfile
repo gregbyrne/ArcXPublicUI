@@ -1,3 +1,13 @@
-FROM nginx:1.17.10-alpine
+FROM node:18-alpine as build
 
-ADD ./docker/public-ui-web/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /usr/src/app
+# /builds/arc-x/arc-x-public-ui/builds/arc-x/arc-x-public-ui
+COPY . /usr/src/app
+
+RUN npm install
+
+RUN npm run build
+
+FROM nginx:mainline-alpine
+
+COPY --from=build /usr/src/app/dist/ /usr/share/nginx/html
