@@ -1,5 +1,4 @@
 import { defineStore} from "pinia"
-import products from "./products.json"
 
 import jQuery from "jquery";
 const STEPS_TO_HELP_PREPARE = import.meta.env.VITE_API_STEPS_TO_HELP_PREPARE;
@@ -12,7 +11,6 @@ export const useAllStore = defineStore( "AllStore", {
     state: () =>{
 
         return {
-            products: products,
             selectedRegionVal: 'MW',
             regionTest: 'Test Rgion',
             checkedItems: [26,27,14,15, 17, 15],
