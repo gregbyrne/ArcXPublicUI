@@ -18,18 +18,12 @@ export default defineConfig({
   },
   build:{
     rollupOptions:{
-      external:[ 'vue', 'pinia',
+      external:[
           '../../stores/Allstore',
           '../stores/Allstore'
 
 
-      ],
-      output:{
-        globabls:{
-          vue: 'Vue',
-          pinia: 'pinia'
-        }
-      }
+      ]
     }
   }
 })
