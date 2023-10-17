@@ -21,4 +21,5 @@ RUN apk del --no-cache curl \
     libintl \
     tzdata \
     alpine-keys \
-    apk-tools
+    apk-tools \
+    libc-utils
