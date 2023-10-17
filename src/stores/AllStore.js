@@ -77,7 +77,6 @@ export const useAllStore = defineStore( "AllStore", {
 
         async fill(){
             console.log('filled')
-            //this.stepsTest = (await import("http://localhost:7101/api/steps_to_help_prepare"))
         }
     }
 

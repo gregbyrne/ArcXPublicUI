@@ -71,7 +71,7 @@
 
 
 <script setup>
-import { useAllStore } from '../../stores/Allstore.js'
+import { useAllStore } from '@/stores/Allstore.js'
 import { storeToRefs } from 'pinia';
 //const { steps } = storeToRefs(useAllStore());
 
