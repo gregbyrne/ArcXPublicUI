@@ -41,9 +41,9 @@ prisma scan:
 deploy to dev:
   when: manual
   stage: deploy
-  extends: [.kube-context]
   image: dtzar/helm-kubectl
   script:
+    - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
     - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false --record=false -f -
   environment:
     name: dev
