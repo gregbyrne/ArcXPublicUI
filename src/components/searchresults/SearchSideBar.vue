@@ -50,7 +50,7 @@
     </div>
 
     <div id="requeryform">
-        <button v-on:click="searchAgain()">Search Again</button>
+        <button v-on:click="searchAgain()" class ="blueButtons">Search Again</button>
     </div>
 
 
@@ -106,10 +106,10 @@ function onChange2(regionChangedVar){
 function setRegionValue()
 {
   const regionSelection = allStore.selectedRegionVal.value;
+  console.log('setRegionValue start')
 
   console.log('regionSelection:' + regionSelection)
 
-  regionSelection
   if (regionSelection == 'AK')
   {
     allStore.map = alaskamap
@@ -286,16 +286,49 @@ export default {
     }
 
     .blueButtons{
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-text-size-adjust: 100%;
+      --scrollbar-width: 0px;
+      word-wrap: break-word;
+      transition: background-color .25s linear,border-color .25s linear,box-shadow .25s linear,color .25s linear,opacity .25s linear,text-shadow .25s linear,transform .25s linear;
+      box-sizing: inherit;
+      transition-duration: 200ms;
+      transition-property: background-color,border-color,box-shadow,color,opacity,text-shadow,transform,-webkit-box-shadow,-webkit-transform;
+      transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+      max-width: 100%;
+      border-radius: 3px;
+      -webkit-font-smoothing: antialiased;
+      border: 0;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 700;
+      text-align: center;
+      vertical-align: baseline;
+      white-space: normal;
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      text-transform: none;
+      -webkit-appearance: button;
+      overflow: visible;
       padding-top: 14px;
       padding-bottom: 14px;
       padding-right: 28px;
       padding-left: 28px;
-      width: 145px;
-
+      width: 180px;
       margin-top: 3px;
       margin-bottom: 3px;
       margin-right: 2px;
       margin-left: 2px;
+      background-color: #0071bc;
+      border-bottom: 0;
+      color: #fff;
+      text-decoration: none;
+      font-family: Source Sans Pro Web, "Noto Sans Arabic", "Noto Sans BN homepage", "Noto Sans GU homepage", "Noto Sans KR homepage", "Noto Sans SC homepage", "Noto Sans BN", "Noto Sans GU", "Noto Sans KR", "Noto Sans SC", "Noto Sans TC", "Helvetica Neue", Helvetica, Arial, sans;
+      font-size: 1.06rem;
+
 
     }
+
+
 </style>

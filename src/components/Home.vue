@@ -3,7 +3,6 @@ import appGeo from './GeographicRegion.vue'
 import appAoi from './AreaOfInterest.vue'
 import jQuery from 'jquery'
 
-import contact from './layout/ContactUs.vue'
 import webfooter from './layout/WebFooter.vue'
 
 </script>
@@ -15,7 +14,6 @@ import webfooter from './layout/WebFooter.vue'
 
   <div id="main-content" class="main-content clearfix" role="main" tabindex ="-1">
     <div style = "padding-top:5px"></div>
-    <app-contact></app-contact>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-L8ZB"
                       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -35,14 +33,12 @@ import webfooter from './layout/WebFooter.vue'
             <form id ="searchform2" style ="margin-left: 0em">
 
               <!-- top of container -->
-              testasd {{regionProp2}}
-
               <v-container class="ms-10 " >
 
 
                 <v-row>
                   <v-col cols="4" class="mr-100"><appGeo></appGeo></v-col>
-                  <v-col cols="8"><app-aoi :itemSelections="itemSelectionsProp" :subitemSelections="subitemSelectionsProp" :region="regionProp"></app-aoi></v-col>
+                  <v-col cols="8"><app-aoi ></app-aoi></v-col>
                 </v-row>
               </v-container>
 
@@ -59,7 +55,7 @@ import webfooter from './layout/WebFooter.vue'
 
 
 
-      <app-webfooter></app-webfooter>
+      <webfooter></webfooter>
     </div>
 
   </div>
@@ -70,7 +66,6 @@ import webfooter from './layout/WebFooter.vue'
 export default{
   data: function () {
     return {
-      regionProp2: 'testing',
       areaofint: 's',
 
     }

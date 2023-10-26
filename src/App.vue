@@ -1,9 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import HeaderMenu from './components/layout/Header2.vue'
+import HeaderMenu from './components/layout/HeaderThree.vue'
 import FooterMenu from './components/layout/Footer2.vue'
-import ContactUs from './components/layout/ContactUs.vue'
 import {useAllStore} from "./stores/AllStore.js";
 
 useAllStore();
@@ -17,9 +16,9 @@ allStoreTest.fill();
 
 
   <div id="app">
+
     <div class="html not-front not-logged-in no-sidebars page-node page-node-156171 node-type-page og-context og-context-node og-context-node-109673 section-arc-x wide-template microsite">
       <HeaderMenu></HeaderMenu>
-      <ContactUs></ContactUs>
 
       <RouterView />
 

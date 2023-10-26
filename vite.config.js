@@ -19,8 +19,7 @@ export default defineConfig({
   build:{
     rollupOptions:{
       external:[
-
-
+          '/themes/epa_theme/images/sprite.artifact.svg'
 
 
       ]

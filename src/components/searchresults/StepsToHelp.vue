@@ -1,4 +1,10 @@
 <template>
+  Items:
+  sub items:
+  <br/>
+  <br/>
+  Region:{{ regionTest }}
+
 
   <div>
     <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
@@ -7,7 +13,7 @@
 
 
     <ul class="accordion">
-      <li v-for="(step) in steps" v-bind:key="step.id"  >
+      <li v-for="(step) in sthp" v-bind:key="step.id"  >
         <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
           <strong>{{ step.name }}</strong>
           <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }} {{step.id}}</span>
@@ -73,17 +79,13 @@
 <script setup>
 import { useAllStore } from '@/stores/AllStore'
 import { storeToRefs } from 'pinia';
-//const { steps } = storeToRefs(useAllStore());
-
-
-
-
 const allStore = storeToRefs(useAllStore());
 
 let itemIds = allStore.checkedItems;
 let subitemIds = allStore.checkedSubItems;
-let steps = allStore.steps;
-let stepItems = allStore.stepItems;
+const steps = allStore.steps;
+const stepItems = allStore.stepItems;
+const regionTest = allStore.selectedRegionVal;
 
 
 
@@ -134,12 +136,36 @@ export default{
   data() {
     return {
       name: 'Area of Interest Test',
+      sthp: null,
 
     }
   },computed: {
 
 
   },methods: {
+
+    getStepsToHelp() {
+      console.log('getStepsToHelp - AOI_URL: ' + STEPS_TO_HELP_PREPARE)
+
+      jQuery.ajaxSetup({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      var _this = this;
+
+      jQuery.getJSON(STEPS_TO_HELP_PREPARE, function (steps) {
+        _this.sthp = steps;
+
+      });
+
+
+    },
+
+
+
+
     isItem(item, stepId){
       console.log('item: ' + item.name + ' stepid: ' + stepId)
 
@@ -203,7 +229,7 @@ export default{
 
   created()
   {
-
+    this.getStepsToHelp();
 
   }
 

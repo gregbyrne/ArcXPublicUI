@@ -133,6 +133,8 @@ function submit2(checkedItems, checkedSubItems){
     allStore.checkedSubItems.value = checkedSubItems;
     router.push({ name: "searchresults" });
 
+    ;
+
 
   }
 
@@ -169,10 +171,6 @@ export default {
       midpoint: 2,
 
       name: 'Area of Interest',
-
-      itemSelectionsProp: this.$props.itemSelections,
-      subitemSelectionsProp: this.$props.subitemSelections,
-      regionProp: 's',
 
       checkedItems: [],
       checkedSubItems: [],
@@ -324,10 +322,9 @@ export default {
 
 
     },
-    subItemsSelected(parent, subitem){
 
-    console.log('subItemsSelected')
-      console.log(subitem.id)
+
+    subItemsSelected(parent, subitem){
 
     let childItems = [];
     let subitems = this.subitems;
@@ -335,46 +332,25 @@ export default {
     let parentChecked = null;
     let siblingsChecked = false;
 
-    //this is if a subitem is about to be removed(unchecked) or added(checked)
-    if(this.checkedSubItems.indexOf(subitem.id) > -1){
-      itemToBeChecked = false;
-      this.checkedItems.splice(this.checkedItems.indexOf(parent.id), 1)
-
-
-    }else{
-      itemToBeChecked = true;
-      this.checkedSubItems.push(subitem.id)
-
-    }
-
-    //is parent already checked?
-    if(this.checkedItems.indexOf(parent.id) > -1){
-      parentChecked = true;
-
-    }else{
-      parentChecked = false;
-    }
-
-    //check if other children are checked.
-    for (var l = 0; l < childItems.length; l++) {
-      let ind = this.checkedSubItems.indexOf(childItems[l])
-      if (ind > -1 && childItems[l] != subitem.id) {
-        siblingsChecked = true;
-
+    // if unchecked, check.
+      if(this.checkedSubItems.indexOf(subitem.id) > -1){
+        itemToBeChecked = false;
+        this.checkedSubItems.splice(this.checkedSubItems.indexOf(parent.id), 1)
+      }else{
+        itemToBeChecked = true;
+        this.checkedSubItems.push(subitem.id)
       }
-    }
 
-    //remove parent
-    if(!siblingsChecked && !itemToBeChecked){
-      this.checkedItems.splice(this.checkedItems.indexOf(parent.id), 1)
+      //is parent already checked?
+      if(this.checkedItems.indexOf(parent.id) > -1){
+        parentChecked = true;
 
-    }
+      }else{
+        this.checkedItems.push(parent.id)
+        parentChecked = false;
+      }
 
-    //if itemtobechecked = true, and parent not checked, add parent to checked.
-    if(!parentChecked && itemToBeChecked) {
-      this.checkedItems.push(parent.id)
 
-    }
   },
 
 },

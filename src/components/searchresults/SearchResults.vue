@@ -1,14 +1,12 @@
 <template>
   <div id="main-content" class="main-content clearfix" role="main" tabindex ="-1">
-    <app-contact></app-contact>
-    <div class = "web-area-title" style="margin-top:-25px; margin-bottom: 10px"> <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
+    <div class = "web-area-title" style=" margin-bottom: 10px"> <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
 
 
 
     <div class="main-column clearfix">
 
       <h1 class="page-title">Your Climate Adaptation Search</h1>
-      region: {{ checkedSubItems}}
 
       <div class ="panel-pane pane-node-content">
         <div class = "pane-content">
@@ -19,7 +17,7 @@
                   <!-- LEFT SIDE -->
                   <h2>Integrated Package of Tailored Information</h2>
                   <div>&nbsp;</div>
-                  <app-steps :checkedSubItems="checkedSubItems" :itemSelections="itemSelections" :subitemSelections="subitemSelections"  :regioncode="region"></app-steps>
+                  <app-steps></app-steps>
 
                   <!-- Additional Information    -->
                   <app-addinfo :addinforegion="region"></app-addinfo>
@@ -61,7 +59,6 @@
 
 
 <script>
-import contact from '../layout/ContactUs.vue'
 import webfooter from '../layout/WebFooter.vue'
 import sidebarsearch from '../searchresults/SearchSideBar.vue'
 import addinfo from '../searchresults/AdditionalInformation.vue'
@@ -80,9 +77,8 @@ export default {
     }
   },
   name: 'search',
-  props: ['checkeditems', 'checkedsubitems', 'regionselection', 'freshload'],
+  props: [ 'freshload'],
   components: {
-    'app-contact' : contact,
     'app-webfooter' : webfooter,
     'app-sidebar' : sidebarsearch,
     'app-addinfo' : addinfo,

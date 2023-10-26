@@ -11,10 +11,10 @@ export const useAllStore = defineStore( "AllStore", {
     state: () =>{
 
         return {
-            selectedRegionVal: 'MW',
+            selectedRegionVal: '',
             regionTest: 'Test Rgion',
-            checkedItems: [26,27,14,15, 17, 15],
-            checkedSubItems: [26,25,27,10, 11, 12, 13, 14, 15, 16],
+            checkedItems: '',
+            checkedSubItems: '',
             map: '',
             page: '',
             fullregionname: '',
@@ -58,25 +58,15 @@ export const useAllStore = defineStore( "AllStore", {
                 state.steps =  steps
             });
         },
-        ParentList:(state)=> {
-                let parentList = []
-                if(state.aoiItems != null) {
-                    for (let i = 0; i < this.aoiItems.length; i++) {
-                        if (state.checkedItems.indexOf(this.aoiItems[i].id) > -1) {
-                            parentList.push(this.aoiItems[i].parentid)
-                        }
-                    }
-                }
 
-                return (parentList)
-
-        }
     },
 
     actions:{
 
         async fill(){
+
             console.log('filled')
+
         }
     }
 
