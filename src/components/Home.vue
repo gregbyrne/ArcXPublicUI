@@ -82,9 +82,6 @@ export default{
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
-
-
-
 @import '../assets/styles/oneepa/style.css';
 @import '../assets/styles/oneepa/accordions.css';
 @import '../assets/styles/oneepa/boxes.css';
@@ -106,6 +103,14 @@ export default{
 @import '../assets/styles/extra/paragraphs.unpublished.css';
 @import '../assets/styles/extra/colorbox.min.css';
 
+h1 {
+
+  font-size: 38px  !important;
+  font-weight: bold !important;
+
+
+
+}
 
 
 

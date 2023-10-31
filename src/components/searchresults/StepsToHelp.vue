@@ -1,9 +1,8 @@
 <template>
-  Items:
-  sub items:
+  Items: {{itemIds }}
+  sub items: {{ subitemIds }}
   <br/>
   <br/>
-  Region:{{ regionTest }}
 
 
   <div>
@@ -16,50 +15,79 @@
       <li v-for="(step) in sthp" v-bind:key="step.id"  >
         <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
           <strong>{{ step.name }}</strong>
-          <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }} {{step.id}}</span>
+          <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }}</span>
 
         </a>
 
         <div class="accordion-pane is-closed" :id="'steppane-' + step.id"  >
 
-          <div class="indented" id-="region_concern">
+          <div class="indented" >
             <span class="descriptionClass" v-html="step.description"></span>
             <span v-if="step.description != '' && step.description != null">
                               <br/><br/>
                           </span>
 
-            <!-- ONLY DO TOP LEVEL ITEM -->
-            <div v-for="item in stepItems" v-bind:key="item.id" v-show="item.parentid == step.id">
-              <div class="test"> item.parentid: {{item.parentid}} and stepid: {{step.id}}</div>
+            <!-- AOI-->
+            <div  v-for="(area, index) in areaofint" v-bind:key="area.id"  >
+              <div v-if="showAreaOfInt(area)" >
 
-              <div v-if="isItem(item, step.id)">
-                <strong>{{ item.name }}</strong>
-                <span v-if="item.subTitle != null  && item.subTitle != '' "  > - {{ item.subTitle }} </span> <br/>
-                <div v-html="item.content"></div>
-                <br/>
+                <!-- top level only -->
+                  <div v-for="topStepItems in topLevelSteps" >
+                    <div v-if="showAOIStep(topStepItems ,step , area)" class = "stepEntry">
+                      <strong>{{ topStepItems.name }}</strong>
+                      <span v-if="topStepItems.subTitle != null  && topStepItems.subTitle != '' "  > - {{ topStepItems.subTitle }} </span><br/>
+                      <span v-html="topStepItems.content"></span>
+                    </div>
+                  </div>
               </div>
 
+              <!-- items -->
+              <div v-for="aoiitem in aoiitems" >
 
-              <!--
-              <div v-for="subItem in stepItems" v-bind:key="subItem.id" v-show="subItem.parentid == step.id">
-                <div v-if="isSubItem(item, subItem)">
-                  <strong>{{ subItem.name }}</strong>{{ subItem.subTitle }} subitems
-                  <span v-if="subItem.subTitle != null  && subItem.subTitle != '' "  > - {{ subItem.subTitle }} </span><br/>
-                  <span v-html="subItem.content"></span>
+                <div v-if="showAOIItem(area, aoiitem)">
+                  <div v-for="midItem in midLevelSteps" >
+                    <div v-if="showStepItem(midItem ,step  , aoiitem)" class = "stepEntry">
+                      <strong>{{ midItem.name }}</strong>
+                      <span v-if="midItem.subTitle != null  && midItem.subTitle != '' "  > - {{ midItem.subTitle }} </span><br/>
+                      <span v-html="midItem.content"></span>
+                    </div>
+                  </div>
                 </div>
-              </div>-->
+                <!--subitems-->
+
+                 <div v-for="aoiSubItem in subitems">
+
+                   <div v-if="showSubItem(area, aoiitem, aoiSubItem)" class = "stepEntry">
+                     <div v-for="lowStepItem in lowLevelSteps" style="padding-bottom: 0px">
+                       <div v-if="showLowStepItem(lowStepItem ,step  , aoiSubItem)">
+
+                         <strong>{{ lowStepItem.name }}</strong>
+                         <span v-if="lowStepItem.subTitle != null  && lowStepItem.subTitle != '' "  > - {{ lowStepItem.subTitle }} </span><br/>
+                         <span v-html="lowStepItem.content"></span>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+
+                </div>
+              <!-- items end -->
+            </div>
 
 
-              <!-- special code for EPA Contacts and State websites. -->
-              <span v-if="step.id == '11' && regioncode == item.subTitle">
-                              <span v-html="item.content"></span>
-                          </span>
+
+          </div>
+          <!-- just for contacts -->
+
+          <div v-for="regioncontact in contactList" >
+
+            <div v-if="(step.id == 11) && (regionCode === regioncontact.subTitle)">
+              <span v-html="regioncontact.content"></span>
             </div>
 
 
           </div>
-        </div>
 
+        </div>
 
       </li>
 
@@ -79,15 +107,95 @@
 <script setup>
 import { useAllStore } from '@/stores/AllStore'
 import { storeToRefs } from 'pinia';
+import {computed, ref} from "vue";
 const allStore = storeToRefs(useAllStore());
 
 let itemIds = allStore.checkedItems;
 let subitemIds = allStore.checkedSubItems;
-const steps = allStore.steps;
+let steps = allStore.steps;
 const stepItems = allStore.stepItems;
-const regionTest = allStore.selectedRegionVal;
+const regionCode = allStore.selectedRegionVal;
+const selectedAOI = allStore.checkedAOI;
+
+function showAOIStep(item, step, area){
 
 
+  let result = false;
+  //corect STEP
+  if(item.parentid === step.id){
+        if(this.selectedAOI.includes(item.aoiId)){
+          result = true;
+        }
+
+  }
+
+  return result
+
+}
+
+function showAreaOfInt(area){
+  let result = false;
+  if(this.selectedAOI.includes(area.id)){
+    result = true;
+  }
+
+  return result;
+};
+
+
+function showAOIItem(area, aoiitem){
+  let result = false;
+  if(aoiitem.parentid === area.id){
+    if(this.itemIds.includes(aoiitem.id)){
+      result = true;
+    }
+  }
+
+
+  return result;
+};
+
+
+
+
+
+function showStepItem(stepItem, step, aoiitem){
+  let result = false;
+
+  //check step
+  if(stepItem.parentid === step.id) {
+    if(stepItem.aoiItemsId == aoiitem.id)
+    result = true;
+  };
+  return result;
+};
+
+function showLowStepItem(stepItem, step, AOISubItem){
+  let result = false;
+
+  //check step
+  if(stepItem.parentid === step.id) {
+    if(stepItem.aoiSubItemsId == AOISubItem.id)
+      result = true;
+  };
+  return result;
+};
+
+
+function showSubItem(area, item, subitem){
+
+
+  let result = false;
+
+  if(item.id === subitem.parentid)
+    if(item.parentid === area.id){
+      if(this.subitemIds.includes(subitem.id))
+        result = true;
+    }
+
+
+  return result;
+};
 
 function isItem2(item, stepId){
       //or subitem with no parent.
@@ -111,13 +219,13 @@ function isItem2(item, stepId){
         result = true;
       }
     }
-
-
-
-
     return result;
 
     }
+
+
+
+
 
 </script>
 
@@ -125,42 +233,129 @@ function isItem2(item, stepId){
 
 import $ from "jquery";
 import jQuery from "jquery";
+import {ref} from "vue";
 
 const STEPS_TO_HELP_PREPARE = import.meta.env.VITE_API_STEPS_TO_HELP_PREPARE;
 const STEPS_TO_HELP_PREPARE_ITEMS = import.meta.env.VITE_API_STEPS_TO_HELP_PREPARE_ITEMS;
 const AOI_ITEMS_URL = import.meta.env.VITE_API_AREA_OF_INTEREST_ITEMS;
+const AOI_URL = import.meta.env.VITE_API_AREA_OF_INTEREST;
+
+const AOI_SUB_ITEMS_URL = import.meta.env.VITE_API_AREA_OF_INTEREST_SUB_ITEMS;
 
 
 export default{
+
   props: ['itemSelections', 'subitemSelections', 'regioncode'],
   data() {
     return {
       name: 'Area of Interest Test',
       sthp: null,
+      items: null,
+      areaofint: null,
+      aoiitems: null,
+      subitems: null,
 
     }
   },computed: {
+    aoiTestlist: function(){
+      return this.aoiitems
+        },
+    topLevelSteps:  function(){
+      let list = [];
+      let itemSel = null;
+
+      if(this.items !== null){
+          for(let j = 0; j < this.items.length; j++ ){
+            itemSel = this.items[j]
+            if(itemSel.aoiSubItemsId == null && itemSel.aoiItemsId == null){
+              list.push(itemSel)
+            }
+          }
+      }
+
+      return list;
+    },
+    midLevelSteps:  function(){
+      let list = [];
+      let itemSel = null;
+
+      if(this.items !== null){
+        for(let j = 0; j < this.items.length; j++ ){
+          itemSel = this.items[j]
+          if(itemSel.aoiSubItemsId == null && itemSel.aoiItemsId != null){
+            list.push(itemSel)
+          }
+        }
+      }
+
+      return list;
+    },
+    lowLevelSteps:  function(){
+      let list = [];
+      let itemSel = null;
+
+      if(this.items !== null){
+        for(let j = 0; j < this.items.length; j++ ){
+          itemSel = this.items[j]
+          if(itemSel.aoiSubItemsId != null && itemSel.aoiItemsId != null){
+            list.push(itemSel)
+          }
+        }
+      }
+
+      return list;
+    },
+    contactList:  function(){
+      let list = [];
+      let itemSel = null;
+      if(this.items !== null){
+        for(let j = 0; j < this.items.length; j++ ){
+          itemSel = this.items[j]
+          if(itemSel.parentid === 11){
+            list.push(itemSel)
+          }
+        }
+      }
+
+
+      return list;
+    },
 
 
   },methods: {
 
-    getStepsToHelp() {
-      console.log('getStepsToHelp - AOI_URL: ' + STEPS_TO_HELP_PREPARE)
-
+    getStepsToHelp(){
       jQuery.ajaxSetup({
         headers: {
           'Content-Type': 'application/json'
         }
       });
-
       var _this = this;
-
       jQuery.getJSON(STEPS_TO_HELP_PREPARE, function (steps) {
         _this.sthp = steps;
-
       });
-
-
+    },
+    getSubItems(){
+      jQuery.ajaxSetup({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      var _this = this;
+      jQuery.getJSON(STEPS_TO_HELP_PREPARE, function (steps) {
+        _this.sthp = steps;
+      });
+    },
+    getItems() {
+      jQuery.ajaxSetup({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      var _this = this;
+      jQuery.getJSON(STEPS_TO_HELP_PREPARE_ITEMS, function (items) {
+        _this.items = items;
+      });
     },
 
 
@@ -222,6 +417,63 @@ export default{
       }
 
     },
+    getAreaOfInterest() {
+      console.log('getAreaOfInterest - AOI_URL: ' + AOI_URL)
+
+
+      jQuery.ajaxSetup({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      var _this = this;
+
+      jQuery.getJSON(AOI_URL, function (areaofint) {
+        _this.areaofint = areaofint;
+
+      });
+
+
+    },
+    getAreaOfInterestItem() {
+
+      console.log('getAreaOfInterestItem - AOI_ITEMS_URL: ' + AOI_ITEMS_URL)
+
+      jQuery.ajaxSetup({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      var _this = this;
+
+      jQuery.getJSON(AOI_ITEMS_URL, function (aoiitems) {
+        _this.aoiitems = aoiitems;
+      });
+
+    },
+
+
+    getAreaOfInterestSubItem() {
+      console.log('getAreaOfInterestSubItem - AOI_SUB_ITEMS_URL: ' + AOI_SUB_ITEMS_URL)
+
+
+      jQuery.ajaxSetup({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      var _this = this;
+
+      jQuery.getJSON(AOI_SUB_ITEMS_URL, function (subitems) {
+        _this.subitems = subitems;
+
+
+      });
+
+    },
 
 
 
@@ -229,9 +481,15 @@ export default{
 
   created()
   {
-    this.getStepsToHelp();
+    this.getStepsToHelp()
+    this.getAreaOfInterestSubItem()
 
-  }
+    this.getAreaOfInterestItem()
+    this.getAreaOfInterest()
+    this.getItems();
+
+
+  },
 
 
 }
@@ -253,7 +511,6 @@ export default{
 
 
 
-
 @import url("../../assets/styles/min/base.min.css");
 @import url("../../assets/styles/min/typography.min.css");
 @import url("../../assets/styles/min/drupal.min.css");
@@ -272,6 +529,7 @@ export default{
 @import url("../../assets/styles/min/date.css");
 @import url("../../assets/styles/min/picture_wysiwyg.css");
 @import url("../../assets/styles/min/add_definitions.min.css");
+
 
 
 
@@ -312,4 +570,9 @@ ul{
   margin-bottom: 300px !important;
 
 }
+
+.stepEntry{
+ padding-bottom: 10px
+}
+
 </style>

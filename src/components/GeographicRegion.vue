@@ -4,7 +4,7 @@
 
     <div id="regiondiv" style="margin-top: 2em;">
       <em>Pick one region:</em>
-      <select :value="selectedRegion" @change="dropDownSelect(selectedRegion)" id="selectRegionBox" >
+      <select v-model="selectedRegion" @change="dropDownSelect(selectedRegion)" id="selectRegionBox" >
         <option v-for="region in regions" v-bind:key="region.value" v-bind:value = "region.value">
           {{region.text}}
         </option>

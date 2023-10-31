@@ -82,7 +82,7 @@
 
         <div class="epa-select-button">
           <p>Select both a region and an area of interest to search.</p>
-          <button v-on:click="submit2( checkedItems, checkedSubItems)" class="blueEPAButton">Submit Search</button>
+          <button v-on:click="submit2( checkedItems, checkedSubItems, areaofint, aoiitems)" class="blueEPAButton">Submit Search</button>
           <button type="button" v-on:click="clearAll()" class="blueEPAButton">Clear All</button>
         </div>
 
@@ -116,7 +116,7 @@ const allStore = storeToRefs(useAllStore());
 const selectedRegion = allStore.selectedRegionVal.value;
 
 
-function submit2(checkedItems, checkedSubItems){
+function submit2(checkedItems, checkedSubItems, areaofint, aoiitems){
 
   console.log('submit2')
   //console.log(allStore.regionTest.value)
@@ -131,6 +131,23 @@ function submit2(checkedItems, checkedSubItems){
     console.log('checkedSubItems ' + checkedSubItems)
     allStore.checkedItems.value = checkedItems;
     allStore.checkedSubItems.value = checkedSubItems;
+
+    let checkedAOI = [];
+
+    for(let i = 0; i < aoiitems.length; i++){
+      if(  checkedItems.includes(aoiitems[i].id)){
+        checkedAOI.push(aoiitems[i].parentid)
+      }
+
+    }
+
+
+    allStore.checkedAOI.value = checkedAOI;
+
+
+
+
+
     router.push({ name: "searchresults" });
 
     ;
@@ -430,6 +447,9 @@ export default {
 </script>
 
 <style scoped>
+
+
+
 .epa-select-button{
   -webkit-appearance: button;
   padding-bottom: 1em;

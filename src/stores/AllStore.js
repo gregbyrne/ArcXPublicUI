@@ -15,6 +15,7 @@ export const useAllStore = defineStore( "AllStore", {
             regionTest: 'Test Rgion',
             checkedItems: '',
             checkedSubItems: '',
+            checkedAOI:'',
             map: '',
             page: '',
             fullregionname: '',
