@@ -14,6 +14,9 @@ COPY --from=build /usr/src/app/dist/ /usr/share/nginx/html
 
 RUN apk update && apk add gettext
 
+COPY ./docker/public-ui-web/start-nginx.sh /usr/bin/start-nginx.sh
+COPY ./config.json /usr/share/nginx/html/
+
 RUN apk del --no-cache curl \
     ca-certificates \
     nginx-module-image-filter \
@@ -25,3 +28,6 @@ RUN apk del --no-cache curl \
     alpine-keys \
     apk-tools \
     libc-utils
+
+RUN chmod +x /usr/bin/start-nginx.sh
+ENTRYPOINT [ "start-nginx.sh" ]
