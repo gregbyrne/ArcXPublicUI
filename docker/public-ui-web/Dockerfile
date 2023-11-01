@@ -12,6 +12,8 @@ FROM nginx:mainline-alpine
 
 COPY --from=build /usr/src/app/dist/ /usr/share/nginx/html
 
+RUN apk update && apk add gettext
+
 RUN apk del --no-cache curl \
     ca-certificates \
     nginx-module-image-filter \
