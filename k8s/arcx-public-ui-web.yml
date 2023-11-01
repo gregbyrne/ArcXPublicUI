@@ -36,6 +36,17 @@ spec:
           value: "false"
         - name: WEB_HTTPS_ONLY
           value: "false"
+
+        - name: VITE_API_AREA_OF_INTEREST
+          value: "$VITE_API_AREA_OF_INTEREST"
+        - name: VITE_API_AREA_OF_INTEREST_ITEMS
+          value: "$VITE_API_AREA_OF_INTEREST_ITEMS"
+        - name: VITE_API_AREA_OF_INTEREST_SUB_ITEMS
+          value: "$VITE_API_AREA_OF_INTEREST_SUB_ITEMS"
+        - name: VITE_API_STEPS_TO_HELP_PREPARE
+          value: "$VITE_API_STEPS_TO_HELP_PREPARE"
+        - name: VITE_API_STEPS_TO_HELP_PREPARE_ITEMS
+          value: "$VITE_API_STEPS_TO_HELP_PREPARE_ITEMS"
       imagePullSecrets:
       - name: glcr-auth
 
