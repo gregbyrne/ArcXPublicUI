@@ -47,6 +47,9 @@
         </ul>
       </div>
 
+
+
+
       <div class ="col">
         <ul>
           <ul class="aoe-list"  v-for="(area, index) in areaofint" v-bind:key="area.id"  >
@@ -54,7 +57,7 @@
               <strong>{{ area.name }}</strong>
 
               <ul v-for="item in aoiitems"  v-bind:key="item.id"  class="aoe-list">
-                <li v-if="item.parentid === area.id">
+                <li v-if="item.parentid === area.id" class="option-list">
                   <input type="checkbox" :id="'item_' + item.id" :value="item.id" v-model="checkedItems" @click="clickSubItems(item, subitems,checkedItems)">
                   <label class="option" :for="'item_' + item.id">{{item.name}}</label>
 
@@ -440,9 +443,11 @@ export default {
 }
 
 
-
-
-
+/*
+aoe-list
+option
+option-list
+*/
 
 </script>
 
@@ -450,9 +455,23 @@ export default {
 
 
 
+.aoe-list{
+  list-style: none;
+  font-size: 20px  !important;
+
+}
+
+.aoe-header{
+  padding-left: 6ch;
+  font-size: 20px  !important;
+}
+
+
 .epa-select-button{
   -webkit-appearance: button;
   padding-bottom: 1em;
+  font-size: 20px  !important;
+
 
 }
 
@@ -464,9 +483,7 @@ export default {
   color: #fff;
 }
 
-.aoe-list{
-  list-style: none;
-}
+
 
 .aoe-menu{
   padding-left: 1em;
@@ -476,7 +493,5 @@ export default {
   padding-left: 0em;
 }
 
-.aoe-header{
-  padding-left: 6ch;
-}
+
 </style>

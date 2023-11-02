@@ -18,7 +18,7 @@ import webfooter from './layout/WebFooter.vue'
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-L8ZB"
                       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div class = "web-area-title" style="margin-top:-25px; margin-bottom: 10px"> <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
+    <div class = "web-area-title" > <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
 
 
 
@@ -33,11 +33,11 @@ import webfooter from './layout/WebFooter.vue'
             <form id ="searchform2" style ="margin-left: 0em">
 
               <!-- top of container -->
-              <v-container class="ms-10 " >
+              <v-container class="ms-0 " >
 
 
                 <v-row>
-                  <v-col cols="4" class="mr-100"><appGeo></appGeo></v-col>
+                  <v-col cols="4"><appGeo></appGeo></v-col>
                   <v-col cols="8"><app-aoi ></app-aoi></v-col>
                 </v-row>
               </v-container>
@@ -105,12 +105,26 @@ export default{
 
 h1 {
 
-  font-size: 38px  !important;
+  font-size: 34px  !important;
   font-weight: bold !important;
+  margin-bottom: 0px !important;
 
 
 
 }
+
+h2{
+  font-size: 30px  !important;
+  font-weight: bold !important;
+
+}
+
+.web-area-title{
+  margin-top:-25px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
 
 
 

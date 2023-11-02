@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Geographic Region</h2>
+    <h2>Geographic Region</h2> {{ VITE_TEST }}
 
     <div id="regiondiv" style="margin-top: 2em;">
       <em>Pick one region:</em>
@@ -77,6 +77,9 @@ function mapSelect ( event) {
 
 <style>
 
+
+
+
 #selectRegionBox {
   border-radius: 3px;
   border: 1px solid #333333;
@@ -95,6 +98,7 @@ function mapSelect ( event) {
 
 import jQuery from 'jquery';
 
+import Config from '../../config.json';
 export default {
   name: 'search',
 
@@ -102,6 +106,9 @@ export default {
 
 
     return{
+      VITE_TEST: Config.VITE_TEST,
+      VITE_API_URL: Config.VITE_API_URL,
+
 
       regions:[
         { text: 'Northeast', value: 'NE'},

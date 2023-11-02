@@ -4,10 +4,27 @@ import HelloWorld from './components/HelloWorld.vue'
 import HeaderMenu from './components/layout/HeaderThree.vue'
 import FooterMenu from './components/layout/Footer2.vue'
 import {useAllStore} from "./stores/AllStore.js";
+import Config from "../config.json";
 
 useAllStore();
 const allStoreTest = useAllStore();
 allStoreTest.fill();
+
+
+
+</script>
+
+<script>
+import Config from "../config.json";
+
+export default {
+  name: 'App',
+  data: () => {
+    return {
+      VITE_TEST: Config.VITE_TEST,
+    }
+  }
+}
 
 
 </script>
@@ -19,6 +36,7 @@ allStoreTest.fill();
 
     <div class="html not-front not-logged-in no-sidebars page-node page-node-156171 node-type-page og-context og-context-node og-context-node-109673 section-arc-x wide-template microsite">
       <HeaderMenu></HeaderMenu>
+
 
       <RouterView />
 
