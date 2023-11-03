@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Geographic Region</h2> {{ VITE_TEST }}
+    <h2>Geographic Region</h2> {{ VITE_TEST }}  {{ VITE_API_URL}}
 
     <div id="regiondiv" style="margin-top: 2em;">
       <em>Pick one region:</em>
