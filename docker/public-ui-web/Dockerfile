@@ -17,6 +17,7 @@ RUN apk update && apk add gettext
 COPY ./docker/public-ui-web/start-nginx.sh /usr/bin/start-nginx.sh
 COPY ./config.json.tpl /usr/share/nginx/html/
 COPY ./config.json /usr/share/nginx/html/
+COPY ./.env.tpl /usr/share/nginx/html/
 
 RUN apk del --no-cache curl \
     ca-certificates \
