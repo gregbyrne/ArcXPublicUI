@@ -56,7 +56,6 @@
 
 
 <script>
-import webfooter from '../layout/WebFooter.vue'
 import sidebarsearch from '../searchresults/SearchSideBar.vue'
 import addinfo from '../searchresults/AdditionalInformation.vue'
 import steps from '../searchresults/StepsToHelp.vue'
