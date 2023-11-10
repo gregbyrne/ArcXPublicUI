@@ -37,35 +37,37 @@
 
 <script setup>
 import { useAllStore } from '@/stores/AllStore'
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 
 
 const allStore = storeToRefs(useAllStore());
-const selectedRegion = ref(0)
+const selectedRegion = ref(0);
 
 
 
 
+const self = this;
 
 
 
 
 // I think this is the issue
 function dropDownSelect(regionChangedVar){
-  console.log('this.selected ' + this.selectedRegion)
-  console.log('regionChangedVar ' + regionChangedVar)
-  console.log('allStore.selectedRegionVal.value ' + allStore.selectedRegionVal.value)
 
-  this.selectedRegion = regionChangedVar;
+  selectedRegion.value = regionChangedVar;
 
   allStore.selectedRegionVal.value = regionChangedVar;
+
 
 };
 
 function mapSelect ( event) {
-  this.selectedRegion = event.target.id;
+
+  selectedRegion.value = event.target.id;
+
   allStore.selectedRegionVal.value = event.target.id;
+
 
 
 
@@ -108,6 +110,7 @@ export default {
     return{
       VITE_TEST: Config.VITE_TEST,
       VITE_API_URL: Config.VITE_API_URL,
+      selectedRegion:null,
 
 
       regions:[

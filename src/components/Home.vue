@@ -3,8 +3,6 @@ import appGeo from './GeographicRegion.vue'
 import appAoi from './AreaOfInterest.vue'
 import jQuery from 'jquery'
 
-import webfooter from './layout/WebFooter.vue'
-
 </script>
 
 
@@ -55,7 +53,6 @@ import webfooter from './layout/WebFooter.vue'
 
 
 
-      <webfooter></webfooter>
     </div>
 
   </div>
@@ -116,6 +113,8 @@ h1 {
 h2{
   font-size: 30px  !important;
   font-weight: bold !important;
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
 
 }
 

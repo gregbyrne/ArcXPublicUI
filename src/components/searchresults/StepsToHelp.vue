@@ -1,16 +1,8 @@
 <template>
-  Items: {{itemIds }}
-  sub items: {{ subitemIds }}
-  <br/>
-  <br/>
-
-
   <div>
+    <div style = "padding-top:5px"></div>
+
     <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
-
-
-
-
     <ul class="accordion">
       <li v-for="(step) in sthp" v-bind:key="step.id"  >
         <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
@@ -119,13 +111,15 @@ const selectedAOI = allStore.checkedAOI;
 
 function showAOIStep(item, step, area){
 
-
   let result = false;
   //corect STEP
   if(item.parentid === step.id){
-        if(this.selectedAOI.includes(item.aoiId)){
-          result = true;
-        }
+
+      if(selectedAOI.value.includes(item.aoiId)){
+        result = true;
+      }
+
+
 
   }
 
@@ -135,9 +129,10 @@ function showAOIStep(item, step, area){
 
 function showAreaOfInt(area){
   let result = false;
-  if(this.selectedAOI.includes(area.id)){
-    result = true;
-  }
+    if(selectedAOI.value.includes(area.id)){
+      result = true;
+    }
+
 
   return result;
 };
@@ -146,7 +141,7 @@ function showAreaOfInt(area){
 function showAOIItem(area, aoiitem){
   let result = false;
   if(aoiitem.parentid === area.id){
-    if(this.itemIds.includes(aoiitem.id)){
+    if(itemIds.value.includes(aoiitem.id)){
       result = true;
     }
   }
@@ -189,7 +184,7 @@ function showSubItem(area, item, subitem){
 
   if(item.id === subitem.parentid)
     if(item.parentid === area.id){
-      if(this.subitemIds.includes(subitem.id))
+      if(subitemIds.value.includes(subitem.id))
         result = true;
     }
 
@@ -213,7 +208,7 @@ function isItem2(item, stepId){
         }
 
 
-    if(this.itemIds.indexOf(item.aoiItemsId) > -1){
+    if(itemIds.value.indexOf(item.aoiItemsId) > -1){
 
       if(item.aoiSubItemsId == null  ){
         result = true;
@@ -254,6 +249,7 @@ export default{
       areaofint: null,
       aoiitems: null,
       subitems: null,
+      selectedRegion: null,
 
     }
   },computed: {
@@ -378,14 +374,14 @@ export default{
       return result;
     },
     itemsContains(itemId){
-      return this.itemIds.indexOf(itemId) > -1
+      return itemIds.value.indexOf(itemId) > -1
     },
     subItemsContains(itemId){
       let result = false
       if(itemId == null){
         result = true
       }else{
-        result = this.subitemIds.indexOf(itemId) > -1
+        result = subitemIds.value.indexOf(itemId) > -1
       }
 
       return result

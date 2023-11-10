@@ -16,9 +16,7 @@
                 <div class="col size-3of4">
                   <!-- LEFT SIDE -->
                   <h2>Integrated Package of Tailored Information</h2>
-                  <div>&nbsp;</div>
                   <app-steps></app-steps>
-
                   <!-- Additional Information    -->
                   <app-addinfo :addinforegion="region"></app-addinfo>
 
@@ -51,7 +49,6 @@
 
 
 
-      <app-webfooter></app-webfooter>
     </div>
 
   </div>

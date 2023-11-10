@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import HeaderMenu from './components/layout/HeaderThree.vue'
 import FooterMenu from './components/layout/Footer2.vue'
+import ContactFooter from './components/layout/ContactFooter.vue'
 import {useAllStore} from "./stores/AllStore.js";
 import Config from "../config.json";
 
@@ -39,6 +40,8 @@ export default {
 
 
       <RouterView />
+
+      <ContactFooter></ContactFooter>
 
       <FooterMenu></FooterMenu>
     </div>
