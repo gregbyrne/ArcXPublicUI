@@ -75,7 +75,6 @@ export default {
   name: 'search',
   props: [ 'freshload'],
   components: {
-    'app-webfooter' : webfooter,
     'app-sidebar' : sidebarsearch,
     'app-addinfo' : addinfo,
     'app-steps' : steps,
