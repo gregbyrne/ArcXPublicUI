@@ -18,6 +18,8 @@ allStoreTest.fill();
 <script>
 import Config from "../config.json";
 
+
+
 export default {
   name: 'App',
   data: () => {
