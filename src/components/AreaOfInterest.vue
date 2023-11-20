@@ -5,6 +5,10 @@
     <div class="row cols-2 aoe-menu">
       <div class= "aoe-header">
         <h2>Area of Interest</h2>
+
+        {{AOI_URL}}
+    <br/>
+        {{AOI_URLTWO}}
         <div>
           <em>Pick one or more interests:</em>
         </div>
@@ -172,6 +176,7 @@ import router from "@/router";
 
 
 const AOI_URL = import.meta.env.VITE_API_AREA_OF_INTEREST;
+const AOI_URLTWO = window.location.origin + import.meta.env.VITE_API_AREA_OF_INTERESTBUILD;
 const AOI_ITEMS_URL = import.meta.env.VITE_API_AREA_OF_INTEREST_ITEMS;
 const AOI_SUB_ITEMS_URL = import.meta.env.VITE_API_AREA_OF_INTEREST_SUB_ITEMS;
 
