@@ -15,7 +15,7 @@
               <div class="row cols-2">
                 <div class="col size-3of4">
                   <!-- LEFT SIDE -->
-                  <h2>Integrated Package of Tailored Information TEST</h2>
+                  <h2>Integrated Package of Tailored Information</h2>
                   <app-steps></app-steps>
                   <!-- Additional Information    -->
                   <app-addinfo :addinforegion="region"></app-addinfo>
