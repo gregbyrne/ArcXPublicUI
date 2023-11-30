@@ -9,5 +9,6 @@ export default function getEnv() {
     }else {
         environment = "https://climateadaptation.epa.gov"
     }
+    console.log("here: " + environment)
     return environment
 }
