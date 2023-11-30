@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Geographic Region</h2> {{ VITE_TEST }}  {{ VITE_API_URL}}
+    <h2>Geographic Region</h2>
 
     <div id="regiondiv" style="margin-top: 2em;">
       <em>Pick one region:</em>
@@ -40,17 +40,10 @@ import { useAllStore } from '@/stores/AllStore'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 
-
 const allStore = storeToRefs(useAllStore());
 const selectedRegion = ref(0);
 
-
-
-
 const self = this;
-
-
-
 
 // I think this is the issue
 function dropDownSelect(regionChangedVar){
@@ -65,11 +58,7 @@ function dropDownSelect(regionChangedVar){
 function mapSelect ( event) {
 
   selectedRegion.value = event.target.id;
-
   allStore.selectedRegionVal.value = event.target.id;
-
-
-
 
 };
 
@@ -100,18 +89,13 @@ function mapSelect ( event) {
 
 import jQuery from 'jquery';
 
-import Config from '../../config.json';
 export default {
   name: 'search',
 
   data(){
 
-
     return{
-      VITE_TEST: Config.VITE_TEST,
-      VITE_API_URL: Config.VITE_API_URL,
       selectedRegion:null,
-
 
       regions:[
         { text: 'Northeast', value: 'NE'},

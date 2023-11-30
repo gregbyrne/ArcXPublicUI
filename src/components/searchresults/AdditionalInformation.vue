@@ -28,8 +28,9 @@
 
 <script>
 import jQuery from "jquery";
+import getEnv from '@/utils/env'
 
-const API_HOME2 = import.meta.env.VITE_API_URL;
+const ADDITIONAL_INFO = getEnv() + import.meta.env.VITE_API_ADDITIONAL_INFORMATION;
 
 export default {
   data: function() {
@@ -53,7 +54,7 @@ export default {
 
         this.region = 'MW';
 
-        jQuery.getJSON(API_HOME2 + "additional_information/" + this.region, function (addinfo) {
+        jQuery.getJSON(ADDITIONAL_INFO + "/" + this.region, function (addinfo) {
           _this.addinfo = addinfo;
 
         });

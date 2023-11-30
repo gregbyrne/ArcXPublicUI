@@ -114,25 +114,15 @@ const allStore = storeToRefs(useAllStore());
 
 
 
-
-
-
 const selectedRegion = allStore.selectedRegionVal.value;
 
 
 function submit2(checkedItems, checkedSubItems, areaofint, aoiitems){
 
-  console.log('submit2')
-  //console.log(allStore.regionTest.value)
-  //allStore.selectedRegionVal.value = regionChangedVar;
-
-
   if (allStore.regionTest.value == null || allStore.regionTest.value == '' || (checkedItems.length == 0 && checkedSubItems.length == 0)) {
     alert('Please select both a geographic region and area of interest before submitting.')
   } else {
 
-    console.log('checkedItems ' + checkedItems)
-    console.log('checkedSubItems ' + checkedSubItems)
     allStore.checkedItems.value = checkedItems;
     allStore.checkedSubItems.value = checkedSubItems;
 
