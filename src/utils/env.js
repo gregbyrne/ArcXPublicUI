@@ -1,5 +1,6 @@
 export default function getEnv() {
     let environment = ''
+    console.log("origin " + window.location.origin)
     if(window.location.origin.includes("localhost") ){
         environment =  "http://localhost:7101"
     }else if(window.location.origin.includes("arcx-public-ui.devsecops-dev") ){
