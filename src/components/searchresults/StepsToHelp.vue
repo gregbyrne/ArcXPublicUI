@@ -1,17 +1,16 @@
 <template>
   <div>
-    <div style = "padding-top:5px"></div>
 
-    <h3 class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
+    <h3 style="font-size:1.34rem" class ="highlighted">Steps to Help You Prepare for the Impacts of Climate Change</h3>
     <ul class="accordion">
       <li v-for="(step) in sthp" v-bind:key="step.id"  >
-        <a class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
+        <a style="font-size:1.1rem" class = "accordion-title" href="#pane-1" title ="Click to expand description" :id="'accordion-link-' + step.id" @click="expandtile(step.id)" >
           <strong>{{ step.name }}</strong>
           <span id="notbold1" style="font-weight:normal;"> - {{ step.sub_title }}</span>
 
         </a>
 
-        <div class="accordion-pane is-closed" :id="'steppane-' + step.id"  >
+        <div style="font-size:1.06rem" class="accordion-pane is-closed" :id="'steppane-' + step.id"  >
 
           <div class="indented" >
             <span class="descriptionClass" v-html="step.description"></span>

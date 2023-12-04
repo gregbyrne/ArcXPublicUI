@@ -2,8 +2,8 @@
   <div>
     <h2>Geographic Region</h2>
 
-    <div id="regiondiv" style="margin-top: 2em;">
-      <em>Pick one region:</em>
+    <div id="regiondiv" style="margin-top: 2em;" class="geoRegion">
+      <em>Pick one region:  </em>
       <select v-model="selectedRegion" @change="dropDownSelect(selectedRegion)" id="selectRegionBox" >
         <option v-for="region in regions" v-bind:key="region.value" v-bind:value = "region.value">
           {{region.text}}
@@ -67,7 +67,9 @@ function mapSelect ( event) {
 </script>
 
 <style>
-
+.geoRegion{
+  font-size: 1.2rem;
+}
 
 
 

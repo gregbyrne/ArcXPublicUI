@@ -3,10 +3,10 @@
 <template>
 
     <div>
-        <h3 class="highlighted">Additional Information about Climate Change in Your Region</h3>
+        <h3 style="font-size:1.34rem" class="highlighted">Additional Information about Climate Change in Your Region</h3>
 
 
-      <div v-for="(info) in addinfo" v-bind:key="info.id" v-html="info.description">
+      <div style="font-size:1.06rem" v-for="(info) in addinfo" v-bind:key="info.id" v-html="info.description">
 
 
 

@@ -18,42 +18,21 @@ import jQuery from 'jquery'
     <!-- End Google Tag Manager (noscript) -->
     <div class = "web-area-title" > <a href="https://www.epa.gov/arc-x" >Climate Change Adaptation Resource Center (ARC-X)</a></div>
 
-
-
-    <div>
-
       <h1 class="page-title">Your Climate Adaptation Search</h1>
 
-
-      <div class ="panel-pane pane-node-content">
-        <div class = "pane-content">
-          <div class="node node-page clearfix view-mode-full">
-            <form id ="searchform2" style ="margin-left: 0em">
-
               <!-- top of container -->
-              <v-container class="ms-0 " >
+              <v-container  class="test mx-0 px-2"  >
 
-
-                <v-row>
-                  <v-col cols="4"><appGeo></appGeo></v-col>
-                  <v-col cols="8"><app-aoi ></app-aoi></v-col>
+                <v-row  no-gutters>
+                  <v-col  cols="5"><appGeo></appGeo>  </v-col>
+                  <v-col cols="7"><app-aoi ></app-aoi>  </v-col>
                 </v-row>
               </v-container>
-
-
 
               <!-- bottom of container -->
 
 
-            </form>
-          </div>
-        </div>
-      </div>
 
-
-
-
-    </div>
 
   </div>
 </template>
@@ -99,6 +78,11 @@ export default{
 @import '../assets/styles/extra/tree-child.module.css';
 @import '../assets/styles/extra/paragraphs.unpublished.css';
 @import '../assets/styles/extra/colorbox.min.css';
+
+.test{
+  max-width: 1600px !important;
+
+}
 
 h1 {
 

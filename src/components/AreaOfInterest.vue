@@ -6,7 +6,7 @@
       <div class= "aoe-header">
         <h2>Area of Interest</h2>
     <br/>
-        <div>
+        <div style="font-size: 1.1rem">
           <em>Pick one or more interests:</em>
         </div>
       </div>
@@ -449,7 +449,8 @@ option-list
 
 .aoe-list{
   list-style: none;
-  font-size: 20px  !important;
+  font-size: 1rem  !important;
+
 
 }
 

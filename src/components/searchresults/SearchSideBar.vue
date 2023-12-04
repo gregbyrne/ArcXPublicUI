@@ -31,7 +31,7 @@
     <div class="col">
         <div class="box simple">
             <div class="pane-content">
-                <div id="region_factsheet">
+                <div id="region_factsheet" style="font-size:1.06rem">
                     <p>
                         <a href="https://epa.gov/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the {{ fullregionname }} are Adapting</a>
                     </p>
