@@ -13,10 +13,11 @@
 
     </div>
 
-    <span class="figure image file file-image file-image-jpeg view-mode-full" style="width:507px;">
+    <div >
+    <span class="figure  " style="width:507px;">
             <img alt="US Map of National Climate Assessment Regions" title="US Map of National Climate Assessment Regions" height="390" width="507" class="media-element file-full" usemap="#region-imagemap" src="../assets/us_regions.jpg"  ></span>
 
-    <map id="region-imagemap" name="region-imagemap">
+    <map class = "mapimage" id="region-imagemap" name="region-imagemap">
       <area alt="Midwest" coords="279,180,317,184,325,184,340,162,357,159,366,148,385,151,395,134,395,103,368,56,254,31,264,109,276,151"  id="MW" shape="poly" title="Midwest" v-on:click="mapSelect($event)" />
       <area alt="Upper Great Plains" coords="128,80,134,82,128,120,203,132,201,138,263,139,108,253,247,39,107,23,105,44,123,81" id="UGP" shape="poly" title="Upper Great Plains" v-on:click="mapSelect($event)" />
       <area alt="Lower Great Plains" coords="202,153,267,158,280,273,246,321,173,274,153,240,189,242,193,189,202,187"  id="LGP" shape="poly" title="Lower Great Plains" v-on:click="mapSelect($event)" />
@@ -27,7 +28,7 @@
       <area alt="Southwest" coords="9,93,117,119,115,129,188,137,188,183,179,182,173,235,95,235,11,198,2,91"  id="SW" shape="poly" title="Southwest" v-on:click="mapSelect($event)" />
       <area alt="Northwest" coords="3,3,3,87,115,112,120,81,105,73,92,10" id="NW" shape="poly" title="Northwest" v-on:click="mapSelect($event)" />
     </map>
-
+    </div>
 
 
 
@@ -70,7 +71,9 @@ function mapSelect ( event) {
 .geoRegion{
   font-size: 1.2rem;
 }
-
+.mapimage:hover{
+  cursor:pointer;
+}
 
 
 #selectRegionBox {
@@ -127,3 +130,5 @@ export default {
   }
 }
 </script>
+
+
