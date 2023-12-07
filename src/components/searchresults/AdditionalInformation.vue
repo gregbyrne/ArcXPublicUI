@@ -6,9 +6,8 @@
         <h3 style="font-size:1.34rem" class="highlighted">Additional Information about Climate Change in Your Region</h3>
 
 
-      <div style="font-size:1.06rem" v-for="(info) in addinfo" v-bind:key="info.id" v-html="info.description">
-
-
+      <div style="font-size:1.06rem" v-for="(info) in addinfo" v-bind:key="info.id" >
+        <div v-if="info.regioncode == selectedRegion" v-html="info.description"></div>
 
       </div>
     </div>
@@ -23,7 +22,16 @@
 
 </template>
 
+<script setup>
+import { useAllStore } from '@/stores/AllStore'
+import { storeToRefs } from 'pinia';
+import {computed, ref} from "vue";
+const allStore = storeToRefs(useAllStore());
 
+let selectedRegion = allStore.selectedRegionVal;
+
+
+</script>
 
 
 <script>
@@ -40,7 +48,6 @@ export default {
 
     }
   },
-  props: ['addinforegion'],
   methods: {
     getadditionalinfo()
     {
@@ -52,9 +59,8 @@ export default {
 
         var _this = this;
 
-        this.region = 'MW';
 
-        jQuery.getJSON(ADDITIONAL_INFO + "/" + this.region, function (addinfo) {
+        jQuery.getJSON(ADDITIONAL_INFO , function (addinfo) {
           _this.addinfo = addinfo;
 
         });
