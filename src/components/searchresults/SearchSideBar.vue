@@ -97,8 +97,6 @@ const allStore = storeToRefs(useAllStore());
 // I think this is the issue
 function onChange2(regionChangedVar){
 
-  console.log(regionChangedVar)
-  console.log(allStore.regionTest.value)
   allStore.selectedRegionVal.value = regionChangedVar;
 
 }
@@ -106,9 +104,6 @@ function onChange2(regionChangedVar){
 function setRegionValue()
 {
   const regionSelection = allStore.selectedRegionVal.value;
-  console.log('setRegionValue start')
-
-  console.log('regionSelection:' + regionSelection)
 
   if (regionSelection == 'AK')
   {

@@ -193,7 +193,6 @@ export default {
     }
   }, methods: {
     getAreaOfInterest() {
-      console.log('getAreaOfInterest - AOI_URL: ' + AOI_URL)
 
 
       jQuery.ajaxSetup({
@@ -213,8 +212,6 @@ export default {
     },
     getAreaOfInterestItem() {
 
-      console.log('getAreaOfInterestItem - AOI_ITEMS_URL: ' + AOI_ITEMS_URL)
-
       jQuery.ajaxSetup({
         headers: {
           'Content-Type': 'application/json'
@@ -231,9 +228,6 @@ export default {
 
 
     getAreaOfInterestSubItem() {
-      console.log('getAreaOfInterestSubItem - AOI_SUB_ITEMS_URL: ' + AOI_SUB_ITEMS_URL)
-
-
       jQuery.ajaxSetup({
         headers: {
           'Content-Type': 'application/json'
@@ -250,13 +244,6 @@ export default {
 
     },
     submit() {
-      console.log('submit region: ' + this.regionProp);
-
-      //var selectedRegion = jQuery("#regionselect option:selected").val()
-      console.log ( 'selectedRegion '  + this.selectedRegion  )
-      console.log('TESTSTASDASDv ' + this.checkedItems)
-
-
       var checkedSubItems = []
 
       jQuery("input[id^='subitem']").each(function () {
@@ -269,7 +256,6 @@ export default {
         alert('Please select both a geographic region and area of interest before submitting.')
       } else {
 
-        console.log('TESTSTASDASDv ' + this.checkedItems)
         router.push({ name: "searchresults" });
 
       }
@@ -282,7 +268,6 @@ export default {
 
     },
     clickSubItems(item, subitems, checkedItems) {
-      console.log ('clickSubItems')
       let childItems = [];
 
 
