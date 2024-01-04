@@ -1,95 +1,72 @@
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+import HeaderMenu from './components/layout/HeaderThree.vue'
+import FooterMenu from './components/layout/Footer2.vue'
+import ContactFooter from './components/layout/ContactFooter.vue'
+import {useAllStore} from "./stores/AllStore.js";
+import Config from "../config.json";
 
-<template>
-  <div id="app">
-      <div class="html not-front not-logged-in no-sidebars page-node page-node-156171 node-type-page og-context og-context-node og-context-node-109673 section-arc-x wide-template microsite">
-            <app-header></app-header>
-
-            <router-view/>
-
-            <app-footer></app-footer>
-      </div>
-
-  </div>
-
-</template>
-<script type="text/javascript">
+useAllStore();
+const allStoreTest = useAllStore();
+allStoreTest.fill();
 
 
-
-!function(e,t,n){function i(e,t){return typeof e===t}function o(){var e,t,n,o,r,a,s;for(var l in w)if(w.hasOwnProperty(l)){if(e=[],t=w[l],t.name&&(e.push(t.name.toLowerCase()),t.options&&t.options.aliases&&t.options.aliases.length))for(n=0;n<t.options.aliases.length;n++)e.push(t.options.aliases[n].toLowerCase());for(o=i(t.fn,"function")?t.fn():t.fn,r=0;r<e.length;r++)a=e[r],s=a.split("."),1===s.length?Modernizr[s[0]]=o:(!Modernizr[s[0]]||Modernizr[s[0]]instanceof Boolean||(Modernizr[s[0]]=new Boolean(Modernizr[s[0]])),Modernizr[s[0]][s[1]]=o),b.push((o?"":"no-")+s.join("-"))}}function r(e){var t=_.className,n=Modernizr._config.classPrefix||"";if(S&&(t=t.baseVal),Modernizr._config.enableJSClass){var i=new RegExp("(^|\\s)"+n+"no-js(\\s|$)");t=t.replace(i,"$1"+n+"js$2")}Modernizr._config.enableClasses&&(t+=" "+n+e.join(" "+n),S?_.className.baseVal=t:_.className=t)}function a(e,t){if("object"==typeof e)for(var n in e)T(e,n)&&a(n,e[n]);else{e=e.toLowerCase();var i=e.split("."),o=Modernizr[i[0]];if(2==i.length&&(o=o[i[1]]),"undefined"!=typeof o)return Modernizr;t="function"==typeof t?t():t,1==i.length?Modernizr[i[0]]=t:(!Modernizr[i[0]]||Modernizr[i[0]]instanceof Boolean||(Modernizr[i[0]]=new Boolean(Modernizr[i[0]])),Modernizr[i[0]][i[1]]=t),r([(t&&0!=t?"":"no-")+i.join("-")]),Modernizr._trigger(e,t)}return Modernizr}function s(){return"function"!=typeof t.createElement?t.createElement(arguments[0]):S?t.createElementNS.call(t,"http://www.w3.org/2000/svg",arguments[0]):t.createElement.apply(t,arguments)}function l(){var e=t.body;return e||(e=s(S?"svg":"body"),e.fake=!0),e}function u(e,n,i,o){var r,a,u,f,d="modernizr",c=s("div"),p=l();if(parseInt(i,10))for(;i--;)u=s("div"),u.id=o?o[i]:d+(i+1),c.appendChild(u);return r=s("style"),r.type="text/css",r.id="s"+d,(p.fake?p:c).appendChild(r),p.appendChild(c),r.styleSheet?r.styleSheet.cssText=e:r.appendChild(t.createTextNode(e)),c.id=d,p.fake&&(p.style.background="",p.style.overflow="hidden",f=_.style.overflow,_.style.overflow="hidden",_.appendChild(p)),a=n(c,e),p.fake?(p.parentNode.removeChild(p),_.style.overflow=f,_.offsetHeight):c.parentNode.removeChild(c),!!a}function f(e,t){return!!~(""+e).indexOf(t)}function d(e){return e.replace(/([a-z])-([a-z])/g,function(e,t,n){return t+n.toUpperCase()}).replace(/^-/,"")}function c(e,t){return function(){return e.apply(t,arguments)}}function p(e,t,n){var o;for(var r in e)if(e[r]in t)return n===!1?e[r]:(o=t[e[r]],i(o,"function")?c(o,n||t):o);return!1}function m(e){return e.replace(/([A-Z])/g,function(e,t){return"-"+t.toLowerCase()}).replace(/^ms-/,"-ms-")}function h(t,i){var o=t.length;if("CSS"in e&&"supports"in e.CSS){for(;o--;)if(e.CSS.supports(m(t[o]),i))return!0;return!1}if("CSSSupportsRule"in e){for(var r=[];o--;)r.push("("+m(t[o])+":"+i+")");return r=r.join(" or "),u("@supports ("+r+") { #modernizr { position: absolute; } }",function(e){return"absolute"==getComputedStyle(e,null).position})}return n}function g(e,t,o,r){function a(){u&&(delete H.style,delete H.modElem)}if(r=i(r,"undefined")?!1:r,!i(o,"undefined")){var l=h(e,o);if(!i(l,"undefined"))return l}for(var u,c,p,m,g,v=["modernizr","tspan","samp"];!H.style&&v.length;)u=!0,H.modElem=s(v.shift()),H.style=H.modElem.style;for(p=e.length,c=0;p>c;c++)if(m=e[c],g=H.style[m],f(m,"-")&&(m=d(m)),H.style[m]!==n){if(r||i(o,"undefined"))return a(),"pfx"==t?m:!0;try{H.style[m]=o}catch(y){}if(H.style[m]!=g)return a(),"pfx"==t?m:!0}return a(),!1}function v(e,t,n,o,r){var a=e.charAt(0).toUpperCase()+e.slice(1),s=(e+" "+A.join(a+" ")+a).split(" ");return i(t,"string")||i(t,"undefined")?g(s,t,o,r):(s=(e+" "+M.join(a+" ")+a).split(" "),p(s,t,n))}function y(e,t,i){return v(e,n,n,t,i)}var b=[],w=[],C={_version:"3.3.1",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,t){var n=this;setTimeout(function(){t(n[e])},0)},addTest:function(e,t,n){w.push({name:e,fn:t,options:n})},addAsyncTest:function(e){w.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=C,Modernizr=new Modernizr,Modernizr.addTest("svg",!!t.createElementNS&&!!t.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect);var x=C._config.usePrefixes?" -webkit- -moz- -o- -ms- ".split(" "):["",""];C._prefixes=x;var T,_=t.documentElement,S="svg"===_.nodeName.toLowerCase();!function(){var e={}.hasOwnProperty;T=i(e,"undefined")||i(e.call,"undefined")?function(e,t){return t in e&&i(e.constructor.prototype[t],"undefined")}:function(t,n){return e.call(t,n)}}(),C._l={},C.on=function(e,t){this._l[e]||(this._l[e]=[]),this._l[e].push(t),Modernizr.hasOwnProperty(e)&&setTimeout(function(){Modernizr._trigger(e,Modernizr[e])},0)},C._trigger=function(e,t){if(this._l[e]){var n=this._l[e];setTimeout(function(){var e,i;for(e=0;e<n.length;e++)(i=n[e])(t)},0),delete this._l[e]}},Modernizr._q.push(function(){C.addTest=a}),Modernizr.addTest("cssgradients",function(){for(var e,t="background-image:",n="gradient(linear,left top,right bottom,from(#9f9),to(white));",i="",o=0,r=x.length-1;r>o;o++)e=0===o?"to ":"",i+=t+x[o]+"linear-gradient("+e+"left top, #9f9, white);";Modernizr._config.usePrefixes&&(i+=t+"-webkit-"+n);var a=s("a"),l=a.style;return l.cssText=i,(""+l.backgroundImage).indexOf("gradient")>-1});var k=s("input"),E="autocomplete autofocus list placeholder max min multiple pattern required step".split(" "),P={};Modernizr.input=function(t){for(var n=0,i=t.length;i>n;n++)P[t[n]]=!!(t[n]in k);return P.list&&(P.list=!(!s("datalist")||!e.HTMLDataListElement)),P}(E);var z="search tel url email datetime date month week time datetime-local number range color".split(" "),N={};Modernizr.inputtypes=function(e){for(var i,o,r,a=e.length,s="1)",l=0;a>l;l++)k.setAttribute("type",i=e[l]),r="text"!==k.type&&"style"in k,r&&(k.value=s,k.style.cssText="position:absolute;visibility:hidden;",/^range$/.test(i)&&k.style.WebkitAppearance!==n?(_.appendChild(k),o=t.defaultView,r=o.getComputedStyle&&"textfield"!==o.getComputedStyle(k,null).WebkitAppearance&&0!==k.offsetHeight,_.removeChild(k)):/^(search|tel)$/.test(i)||(r=/^(url|email)$/.test(i)?k.checkValidity&&k.checkValidity()===!1:k.value!=s)),N[e[l]]=!!r;return N}(z);var L={}.toString;Modernizr.addTest("svgclippaths",function(){return!!t.createElementNS&&/SVGClipPath/.test(L.call(t.createElementNS("http://www.w3.org/2000/svg","clipPath")))});var j=function(){var t=e.matchMedia||e.msMatchMedia;return t?function(e){var n=t(e);return n&&n.matches||!1}:function(t){var n=!1;return u("@media "+t+" { #modernizr { position: absolute; } }",function(t){n="absolute"==(e.getComputedStyle?e.getComputedStyle(t,null):t.currentStyle).position}),n}}();C.mq=j,Modernizr.addTest("mediaqueries",j("only all"));var q=C.testStyles=u;Modernizr.addTest("touchevents",function(){var n;if("ontouchstart"in e||e.DocumentTouch&&t instanceof DocumentTouch)n=!0;else{var i=["@media (",x.join("touch-enabled),("),"heartz",")","{#modernizr{top:9px;position:absolute}}"].join("");q(i,function(e){n=9===e.offsetTop})}return n}),Modernizr.addTest("details",function(){var e,t=s("details");return"open"in t?(q("#modernizr details{display:block}",function(n){n.appendChild(t),t.innerHTML="<summary>a</summary>b",e=t.offsetHeight,t.open=!0,e=e!=t.offsetHeight}),e):!1}),Modernizr.addTest("formvalidation",function(){var t=s("form");if(!("checkValidity"in t&&"addEventListener"in t))return!1;if("reportValidity"in t)return!0;var n,i=!1;return Modernizr.formvalidationapi=!0,t.addEventListener("submit",function(t){(!e.opera||e.operamini)&&t.preventDefault(),t.stopPropagation()},!1),t.innerHTML='<input name="modTest" required="required" /><button></button>',q("#modernizr form{position:absolute;top:-99999em}",function(e){e.appendChild(t),n=t.getElementsByTagName("input")[0],n.addEventListener("invalid",function(e){i=!0,e.preventDefault(),e.stopPropagation()},!1),Modernizr.formvalidationmessage=!!n.validationMessage,t.getElementsByTagName("button")[0].click()}),i});var V="Moz O ms Webkit",A=C._config.usePrefixes?V.split(" "):[];C._cssomPrefixes=A;var M=C._config.usePrefixes?V.toLowerCase().split(" "):[];C._domPrefixes=M;var B={elem:s("modernizr")};Modernizr._q.push(function(){delete B.elem});var H={style:B.elem.style};Modernizr._q.unshift(function(){delete H.style}),C.testAllProps=v,C.testAllProps=y,Modernizr.addTest("flexbox",y("flexBasis","1px",!0)),Modernizr.addTest("cssanimations",y("animationName","a",!0)),Modernizr.addTest("backgroundsize",y("backgroundSize","100%",!0)),Modernizr.addTest("boxshadow",y("boxShadow","1px 1px",!0)),o(),r(b),delete C.addTest,delete C.addAsyncTest;for(var O=0;O<Modernizr._q.length;O++)Modernizr._q[O]();e.Modernizr=Modernizr}(window,document);
-
-(function (Modernizr) {
-  Modernizr.addTest('touchevents', function () {
-    var bool;
-
-    if ('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch) {
-      bool = true;
-    } else {
-      var query = ['@media (', Modernizr._prefixes.join('touch-enabled),('), 'heartz', ')', '{#modernizr{top:9px;position:absolute}}'].join('');
-      Modernizr.testStyles(query, function (node) {
-        bool = node.offsetTop === 9;
-      });
-    }
-
-    return bool;
-  });
-})(Modernizr);
 
 </script>
 
-<script src="www.epa.gov/themes/epa_theme/js/libraries/modernizr.min.js?v=3.8.0"></script>
-<script src="www.epa.gov/core/misc/modernizr-additional-tests.js?v=3.8.0"></script>
-<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"ead36e43ac",applicationID:"529886857"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[u.now()].concat(f(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(8),f=t(9),c=t("ee").get("tracer"),u=t("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){s[e]=i(p+e,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),e.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(l+"tracer",[u.now(),t,n],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){m[e]=i(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,u.now(),!1,e])}},{}],2:[function(t,e,n){function r(t){if(NREUM.init){for(var e=NREUM.init,n=t.split("."),r=0;r<n.length-1;r++)if(e=e[n[r]],"object"!=typeof e)return;return e=e[n[n.length-1]]}}e.exports={getConfiguration:r}},{}],3:[function(t,e,n){function r(){return f.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,f=t(10);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],4:[function(t,e,n){function r(t){return!(!t||!t.protocol||"file:"===t.protocol)}e.exports=r},{}],5:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof m&&!g){var e=Math.round(t.timeStamp),n={type:t.type};e<=p.now()?n.fid=p.now()-e:e>p.offset&&e<=Date.now()?(e-=p.offset,n.fid=p.now()-e):e=p.now(),g=!0,d("timing",["fi",e,n])}}function f(t){"hidden"===t&&d("pageHide",[p.now()])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var c,u,s,d=t("handle"),p=t("loader"),l=t(7),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){c=new PerformanceObserver(r);try{c.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,h=["click","keydown","mousedown","pointerdown","touchstart"];h.forEach(function(t){document.addEventListener(t,a,!1)})}l(f)}},{}],6:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}e.exports={agent:i,version:o,match:r}},{}],7:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],8:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],9:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],10:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?u(t,c,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){t&&a&&t(n,r,i);for(var f=e(i),c=v(n),u=c.length,s=0;s<u;s++)c[s].apply(f,r);var p=d[w[n]];return p&&p.push([b,n,r,f]),f}}function o(t,e){y[t]=v(t).concat(e)}function m(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function v(t){return y[t]||[]}function g(t){return p[t]=p[t]||i(n)}function h(t,e){l.aborted||s(t,function(t,n){e=e||"feature",w[n]=e,e in d||(d[e]=[])})}var y={},w={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:e,buffer:h,abort:f,aborted:!1};return b}function o(t){return u(t,c,a)}function a(){return new r}function f(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var c="nr@context",u=t("gos"),s=t(8),d={},p={},l=e.exports=i();e.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!R++){var t=M.info=NREUM.info,e=v.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();c(E,function(e,n){t[e]||(t[e]=n)});var n=a();f("mark",["onload",n+M.offset],null,"api"),f("timing",["load",n]);var r=v.createElement("script");0===t.agent.indexOf("http://")||0===t.agent.indexOf("https://")?r.src=t.agent:r.src=l+"://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===v.readyState&&o()}function o(){f("mark",["domContent",a()+M.offset],null,"api")}var a=t(3),f=t("handle"),c=t(8),u=t("ee"),s=t(6),d=t(4),p=t(2),l=p.getConfiguration("ssl")===!1?"http":"https",m=window,v=m.document,g="addEventListener",h="attachEvent",y=m.XMLHttpRequest,w=y&&y.prototype,b=!d(m.location);NREUM.o={ST:setTimeout,SI:m.setImmediate,CT:clearTimeout,XHR:y,REQ:m.Request,EV:m.Event,PR:m.Promise,MO:m.MutationObserver};var x=""+location,E={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1210.min.js"},O=y&&w&&w[g]&&!/CriOS/.test(navigator.userAgent),M=e.exports={offset:a.getLastTimestamp(),now:a,origin:x,features:{},xhrWrappable:O,userAgent:s,disabled:b};if(!b){t(1),t(5),v[g]?(v[g]("DOMContentLoaded",o,!1),m[g]("load",r,!1)):(v[h]("onreadystatechange",i),m[h]("onload",r)),f("mark",["firstbyte",a.getLastTimestamp()],null,"api");var R=0}},{}],"wrap-function":[function(t,e,n){function r(t,e){function n(e,n,r,c,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,c],s],t)}f(n+"start",[o,a,c],s,u);try{return p=e.apply(a,o)}catch(m){throw f(n+"err",[o,a,m],s,u),m}finally{f(n+"end",[o,a,p],s,u)}}return a(e)?e:(n||(n=""),nrWrapper[p]=e,o(e,nrWrapper,t),nrWrapper)}function r(t,e,r,i,o){r||(r="");var f,c,u,s="-"===r.charAt(0);for(u=0;u<e.length;u++)c=e[u],f=t[c],a(f)||(t[c]=n(f,s?c+r:r,i,c,o))}function f(n,r,o,a){if(!m||e){var f=m;m=!0;try{t.emit(n,r,o,e,a)}catch(c){i([c,n,r,o],t)}m=f}}return t||(t=s),n.inPlace=r,n.flag=p,n}function i(t,e){e||(e=s);try{e.emit("internal-error",t)}catch(n){}}function o(t,e,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(t);return r.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(o){i([o],n)}for(var a in t)l.call(t,a)&&(e[a]=t[a]);return e}function a(t){return!(t&&t instanceof Function&&t.apply&&!t[p])}function f(t,e){var n=e(t);return n[p]=t,o(t,n,s),n}function c(t,e,n){var r=t[e];t[e]=f(r,n)}function u(){for(var t=arguments.length,e=new Array(t),n=0;n<t;++n)e[n]=arguments[n];return e}var s=t("ee"),d=t(9),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;e.exports=r,e.exports.wrapFunction=f,e.exports.wrapInPlace=c,e.exports.argsToArray=u},{}]},{},["loader"]);</script>
-<script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/19429","currentPathIsAdmin":false,"isFront":true,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"ajaxPageState":{"libraries":"core\/picturefill,epa_alerts\/epaAlerts,epa_theme\/global,epa_theme\/hero_slideshow,epa_theme\/media_link,epa_wysiwyg\/epa-new,media\/filter.caption,paragraphs\/drupal.paragraphs.unpublished,system\/base","theme":"epa_theme","theme_token":null},"ajaxTrustedUrl":[],"ckeditorheight":{"offset":1,"line_height":1.5,"unit":"em","disable_autogrow":false},"epaAlerts":{"context":"public"},"mediaelement":{"attachSitewide":0},"user":{"uid":0,"permissionsHash":"311ea3f006616a03837cc49d8d77fce78a026f631684dc73097b2a112680a6c5"}}</script>
-<script src="www.epa.gov/core/assets/vendor/jquery/jquery.min.js?v=3.5.1"></script>
-<script src="www.epa.gov/core/assets/vendor/jquery-once/jquery.once.min.js?v=2.2.3"></script>
-<script src="www.epa.gov/core/misc/drupalSettingsLoader.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/misc/drupal.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/misc/drupal.init.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/assets/vendor/picturefill/picturefill.min.js?v=3.0.3"></script>
-<script src="www.epa.gov/modules/custom/epa_wysiwyg/js/plugins/epaNew/epaNew.js?qwpvf2"></script>
-<script src="www.epa.gov/themes/epa_theme/js/dist/common.min.js?v=9.1.9"></script>
-<script src="www.epa.gov/themes/epa_theme/js/dist/scripts.min.js?v=9.1.9"></script>
-<script src="www.epa.gov/themes/epa_theme/js/dist/sitewide-alert.min.js?v=9.1.9"></script>
-<script src="www.epa.gov/themes/epa_theme/js/dist/definition.min.js?v=9.1.9"></script>
-<script src="www.epa.gov/themes/epa_theme/js/dist/media-link.min.js?v=9.1.9"></script>
-<script src="www.epa.gov/themes/epa_theme/js/dist/hero-slideshow.min.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/assets/vendor/jquery-form/jquery.form.min.js?v=4.22"></script>
-<script src="www.epa.gov/core/misc/progress.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/modules/responsive_image/js/responsive_image.ajax.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/misc/ajax.js?v=9.1.9"></script>
-<script src="www.epa.gov/core/themes/stable/js/ajax.js?v=9.1.9"></script>
-<script src="www.epa.gov/modules/custom/epa_alerts/js/epaAlerts.js?qwpvf2"></script>
-
-<script src="https://www.epa.gov/sites/all/libraries/cycle/jquery.cycle.all.js"></script>
-
-
-
-
 <script>
+import Config from "../config.json";
 
 
-  import Footer from './components/layout/Footer2.vue'
-  import Header from './components/layout/Header2.vue'
 
 export default {
   name: 'App',
-  components: {
-    'app-footer' : Footer,
-      'app-header' : Header,
+  data: () => {
+    return {
+      VITE_TEST: Config.VITE_TEST,
+    }
   }
-
 }
+
+
 </script>
 
+<template>
+
+
+  <div id="app">
+
+    <div class="html not-front not-logged-in no-sidebars page-node page-node-156171 node-type-page og-context og-context-node og-context-node-109673 section-arc-x wide-template microsite">
+      <HeaderMenu></HeaderMenu>
+
+
+      <RouterView />
+
+      <ContactFooter></ContactFooter>
+
+      <FooterMenu></FooterMenu>
+    </div>
+
+  </div>
+
+
+</template>
+
 <style>
-#app {
 
-}
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/ajax-progress.module.css");
+@import url("https://www.epa.gov/themes/epa_theme/css/styles.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/js.module.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/sticky-header.module.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/system-status-counter.css?qwpvf2");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/system-status-report-counters.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/system-status-report-general-info.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/tabledrag.module.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/tablesort.module.css");
+@import url("https://www.epa.gov/core/themes/stable/css/system/components/tree-child.module.css");
+@import url("https://www.epa.gov/modules/contrib/paragraphs/css/paragraphs.unpublished.css");
 
-@import "/assets/styles/newepa/styles.css";
-
-
-
-
+@import url("https://www.epa.gov/themes/epa_theme/css-lib/colorbox.min.css");
 </style>
+
