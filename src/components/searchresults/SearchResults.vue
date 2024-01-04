@@ -82,7 +82,6 @@ export default {
   },
   created() {
 
-    console.log(this.$props.region);
 
     if (this.freshLoadVar == undefined)
     {

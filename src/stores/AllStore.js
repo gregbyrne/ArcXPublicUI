@@ -68,7 +68,6 @@ export const useAllStore = defineStore( "AllStore", {
 
         async fill(){
 
-            console.log('filled')
 
         }
     }

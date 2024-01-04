@@ -199,7 +199,6 @@ function isItem2(item, stepId){
       if(item.aoiItemsId == null && item.aoiId !=null  ){
           //check to see if aoiId's children have been selected at all.
           //go through the selected items. If any of them have an aoiId of == to item, then true.
-          //console.log('here1')
 
           if(this.ParentList.indexOf(item.aoiId) > -1){
                  result = true;
@@ -360,10 +359,6 @@ export default{
 
 
     isItem(item, stepId){
-      console.log('item: ' + item.name + ' stepid: ' + stepId)
-
-
-
 
 
       return true;
@@ -416,8 +411,6 @@ export default{
 
     },
     getAreaOfInterest() {
-      console.log('getAreaOfInterest - AOI_URL: ' + AOI_URL)
-
 
       jQuery.ajaxSetup({
         headers: {
@@ -436,8 +429,6 @@ export default{
     },
     getAreaOfInterestItem() {
 
-      console.log('getAreaOfInterestItem - AOI_ITEMS_URL: ' + AOI_ITEMS_URL)
-
       jQuery.ajaxSetup({
         headers: {
           'Content-Type': 'application/json'
@@ -454,8 +445,6 @@ export default{
 
 
     getAreaOfInterestSubItem() {
-      console.log('getAreaOfInterestSubItem - AOI_SUB_ITEMS_URL: ' + AOI_SUB_ITEMS_URL)
-
 
       jQuery.ajaxSetup({
         headers: {
