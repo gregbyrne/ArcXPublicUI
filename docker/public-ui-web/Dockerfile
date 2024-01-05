@@ -29,7 +29,8 @@ RUN apk del --no-cache curl \
     tzdata \
     alpine-keys \
     apk-tools \
-    libc-utils
+    libc-utils \
+    openssl
 
 RUN chmod +x /usr/bin/start-nginx.sh
 ENTRYPOINT [ "start-nginx.sh" ]
