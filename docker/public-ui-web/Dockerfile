@@ -30,7 +30,8 @@ RUN apk del --no-cache curl \
     alpine-keys \
     apk-tools \
     libc-utils \
-    openssl
+    libssl3 \
+    libcrypto3
 
 RUN chmod +x /usr/bin/start-nginx.sh
 ENTRYPOINT [ "start-nginx.sh" ]
