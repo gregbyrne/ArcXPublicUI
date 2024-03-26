@@ -28,28 +28,9 @@
         </div>
     </div>
 
-    <div class="col">
-        <div class="box simple">
-            <div class="pane-content">
-                <div id="region_factsheet" style="font-size:1.06rem">
-                    <p>
-                        <a href="https://epa.gov/arc-x/regional-guides-adapting-climate-change" target="_blank">How Communities in the {{ fullregionname }} are Adapting</a>
-                    </p>
-                    <a href="https://epa.gov/arc-x/regional-guides-adapting-climate-change" target="_blank">
-                            <span class="figure image file file-image file-image-jpeg center view-mode-media_original" style="width:199px;">
-                              <img :alt="'Cover of ' + allStore.fullregionname + ' Region Factsheet: Adapting to Climate Change'" :title="'Cover of ' + allStore.fullregionname + ' Region Factsheet: Adapting to Climate Change'" height="250" width="199" class="center media-element file-media-original"
-                                   :src="allStore.page">
-                            </span>
-                    </a>
-                </div>
 
-            </div>
 
-        </div>
-
-    </div>
-
-    <div id="requeryform">
+    <div style="padding-left: 25px" id="requeryform">
         <button v-on:click="searchAgain()" class ="blueButtons">Search Again</button>
     </div>
 
