@@ -24,6 +24,7 @@ export const useAllStore = defineStore( "AllStore", {
             stepItems : [],
             aoiItems: [],
             steps: [],
+            regionNow: '',
 
 
 

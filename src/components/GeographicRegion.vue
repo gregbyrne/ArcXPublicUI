@@ -4,7 +4,7 @@
 
     <div id="regiondiv" style="margin-top: 2em;" class="geoRegion">
       <em>Pick one region:  </em>
-      <select v-model="selectedRegion" @change="dropDownSelect(selectedRegion)" id="selectRegionBox" >
+      <select v-model="regionNow" @change="dropDownSelect(selectedRegion)" id="selectRegionBox" >
         <option v-for="region in regions" v-bind:key="region.value" v-bind:value = "region.value">
           {{region.text}}
         </option>
@@ -44,6 +44,9 @@ import { computed, ref } from 'vue'
 const allStore = storeToRefs(useAllStore());
 const selectedRegion = ref(0);
 
+const { regionNow } = storeToRefs(useAllStore())
+
+
 const self = this;
 
 // I think this is the issue
@@ -53,16 +56,17 @@ function dropDownSelect(regionChangedVar){
 
   allStore.selectedRegionVal.value = regionChangedVar;
 
+  //console.log ("regionNow " + regionNow)
+
 
 };
 
 function mapSelect ( event) {
 
-  selectedRegion.value = event.target.id;
+  regionNow.value =  event.target.id;
   allStore.selectedRegionVal.value = event.target.id;
 
 };
-
 
 
 </script>

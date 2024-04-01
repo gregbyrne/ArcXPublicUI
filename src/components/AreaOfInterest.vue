@@ -87,7 +87,7 @@
         <div class="epa-select-button">
           <p>Select both a region and an area of interest to search.</p>
           <button v-on:click="submit2( checkedItems, checkedSubItems, areaofint, aoiitems)" class="blueEPAButton">Submit Search</button>
-          <button type="button" v-on:click="clearAll()" class="blueEPAButton">Clear All</button>
+          <button type="button" v-on:click="clearRegion();clearAOI()" class="blueEPAButton">Clear All</button>
         </div>
 
 
@@ -111,6 +111,7 @@ import { storeToRefs } from 'pinia';
 import jQuery from "jquery";
 
 const allStore = storeToRefs(useAllStore());
+const { regionNow } = storeToRefs(useAllStore())
 
 
 
@@ -118,7 +119,6 @@ const selectedRegion = allStore.selectedRegionVal.value;
 
 
 function submit2(checkedItems, checkedSubItems, areaofint, aoiitems){
-
 
   if (allStore.regionTest.value == null || allStore.selectedRegionVal.value == '' || (checkedItems.length == 0 && checkedSubItems.length == 0)) {
     alert('Please select both a geographic region and area of interest before submitting.')
@@ -139,17 +139,14 @@ function submit2(checkedItems, checkedSubItems, areaofint, aoiitems){
 
     allStore.checkedAOI.value = checkedAOI;
 
-
-
-
-
     router.push({ name: "searchresults" });
-
-    ;
-
 
   }
 
+}
+
+function clearRegion() {
+  allStore.regionNow.value = ''
 }
 
 
@@ -262,7 +259,8 @@ export default {
       }
 
     },
-    clearAll() {
+    clearAOI() {
+
 
       this.checkedItems = [];
       this.checkedSubItems = [];
@@ -353,7 +351,7 @@ export default {
 
 },
   created() {
-    this.clearAll()
+    //this.clearAll()
     this.getAreaOfInterestSubItem()
 
     this.getAreaOfInterestItem()
