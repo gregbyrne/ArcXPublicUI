@@ -56,8 +56,6 @@ function dropDownSelect(regionChangedVar){
 
   allStore.selectedRegionVal.value = regionChangedVar;
 
-  //console.log ("regionNow " + regionNow)
-
 
 };
 

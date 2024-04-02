@@ -120,7 +120,7 @@ const selectedRegion = allStore.selectedRegionVal.value;
 
 function submit2(checkedItems, checkedSubItems, areaofint, aoiitems){
 
-  if (allStore.regionTest.value == null || allStore.selectedRegionVal.value == '' || (checkedItems.length == 0 && checkedSubItems.length == 0)) {
+  if (allStore.regionNow.value == null || allStore.selectedRegionVal.value == '' || (checkedItems.length == 0 && checkedSubItems.length == 0)) {
     alert('Please select both a geographic region and area of interest before submitting.')
   } else {
 
