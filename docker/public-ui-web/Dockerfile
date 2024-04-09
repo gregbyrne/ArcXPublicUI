@@ -1,4 +1,4 @@
-FROM node:20-alpine as build
+FROM node:21-alpine as build
 
 WORKDIR /usr/src/app
 # /builds/arc-x/arc-x-public-ui/builds/arc-x/arc-x-public-ui
