@@ -3,7 +3,7 @@
     <div class="l-constrain">
 
       <div class="l-page__footer-contact"><a href="/home/forms/send-request-technical-support">Contact Us</a> to ask a question, provide feedback, or report a problem.</div>
-      <div class="l-page__footer-last-updated">Last updated on December 2, 2023</div>
+      <div class="l-page__footer-last-updated">Last updated on March 26, 2024</div>
 
     </div>
   </div>

@@ -13,7 +13,7 @@
           <h2>Discover.</h2>
           <ul class="menu menu--footer">
             <li class="menu__item">
-              <a href="https://www.epa.gov/accessibility" class="menu__link">Accessibility</a>
+              <a href="https://www.epa.gov/accessibility/epa-accessibility-statement" class="menu__link">Accessibility Statement</a>
             </li>
             <!--li class="menu__item">
               <a href="#" class="menu__link">EPA Administrator</a>
@@ -48,19 +48,16 @@
           <h2>Connect.</h2>
           <ul class="menu menu--footer">
             <li class="menu__item">
-              <a href="https://www.data.gov/" class="menu__link">Data.gov</a>
+              <a href="https://www.epa.gov/data" class="menu__link">Data</a>
             </li>
             <li class="menu__item">
-              <a href="https://www.epa.gov/office-inspector-general/about-epas-office-inspector-general" class="menu__link">Inspector General</a>
+              <a href="https://www.epaoig.gov/" class="menu__link">Inspector General</a>
             </li>
             <li class="menu__item">
               <a href="https://www.epa.gov/careers" class="menu__link">Jobs</a>
             </li>
             <li class="menu__item">
               <a href="https://www.epa.gov/newsroom" class="menu__link">Newsroom</a>
-            </li>
-            <li class="menu__item">
-              <a href="https://www.epa.gov/data" class="menu__link">Open Government</a>
             </li>
             <li class="menu__item">
               <a href="https://www.regulations.gov/" class="menu__link">Regulations.gov</a>
