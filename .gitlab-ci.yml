@@ -1,70 +1,81 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-  - images
-  - prisma scan
-  - release
-  - deploy
-
+- images
+- prisma scan
+- release
+- deploy
+- test
 default:
   tags:
-    - devsecops-instance
-
+  - devsecops-instance
 variables:
   KUBE_CONTEXT: arc-x/arc-x-k8s-agent:arcx-dev-k8s-agent
-
 public-ui-web:image:build:
   stage: images
   image:
     name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
+    entrypoint:
+    - ''
   script:
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
-
+  - mkdir -p /kaniko/.docker
+  - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}"
+    > /kaniko/.docker/config.json
+  - "/kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/docker/public-ui-web/Dockerfile
+    --destination $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA"
 prisma scan:
   stage: prisma scan
   tags:
-    - twistcli
+  - twistcli
   variables:
     GIT_STRATEGY: none
   script:
-    - 'export PRISMA_CI_TOKEN=$(curl -kH "Content-Type: application/json" -d "{\"username\":\"$PRISMA_CI_USERNAME\", \"password\":\"$PRISMA_CI_PASSWORD\"}" https://prismacloud.epa.gov/api/v32.01/authenticate | jq -r .token)'
-    - 'curl --progress-bar -L -k --header "Authorization: Bearer $PRISMA_CI_TOKEN" https://prismacloud.epa.gov/api/v1/util/twistcli > twistcli; chmod a+x twistcli;'
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-    - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
-    - ./twistcli images scan $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA --address=https://prismacloud.epa.gov --details --token=$PRISMA_CI_TOKEN
+  - 'export PRISMA_CI_TOKEN=$(curl -kH "Content-Type: application/json" -d "{\"username\":\"$PRISMA_CI_USERNAME\",
+    \"password\":\"$PRISMA_CI_PASSWORD\"}" https://prismacloud.epa.gov/api/v32.01/authenticate
+    | jq -r .token)'
+  - 'curl --progress-bar -L -k --header "Authorization: Bearer $PRISMA_CI_TOKEN" https://prismacloud.epa.gov/api/v1/util/twistcli
+    > twistcli; chmod a+x twistcli;'
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - docker pull $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+  - "./twistcli images scan $CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA
+    --address=https://prismacloud.epa.gov --details --token=$PRISMA_CI_TOKEN"
   after_script:
-    # Cleanup the above space use on Runner.
-    - rm -rf $CI_PROJECT_DIR
-
+  - rm -rf $CI_PROJECT_DIR
 deploy to dev:
   when: manual
   stage: deploy
   image: dtzar/helm-kubectl
   script:
-    - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
-    - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false --record=false -f -
+  - if [ -n "$KUBE_CONTEXT" ]; then kubectl config use-context "$KUBE_CONTEXT"; fi
+  - envsubst < k8s/arcx-public-ui-web.yml | kubectl apply --validate=false --record=false
+    -f -
   environment:
     name: dev
     url: https://arcx-public-ui.devsecops-dev.aws.epa.gov
     kubernetes:
       namespace: arc-x-public-ui-236-dev
   only:
-    - branches
+  - branches
   except:
-    - master
-
-
+  - master
 Release:
   stage: release
   image:
     name: gcr.io/go-containerregistry/crane:debug
-    entrypoint: [""]
+    entrypoint:
+    - ''
   script:
-    # https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md
-    - crane auth login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    - crane copy "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-web:latest"
-    - crane copy "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_TAG"
+  - crane auth login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  - crane copy "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-web:latest"
+  - crane copy "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE/public-ui-web:$CI_COMMIT_TAG"
   only:
-    - tags
+  - tags
+sast:
+  stage: test
+include:
+- template: Security/SAST.gitlab-ci.yml
